@@ -155,8 +155,13 @@ Lichess-MakeChessBetter/
 ```
 
 ## 9. Detailed Module Breakdown
+* **`src/RateLimit429Stopper.py`**: Controls request intervals, intercepts outgoing API packets, and blocks 429 throttling errors.
+* **`src/__init__.py`**: Establishes directory package mapping and exposes inner module namespaces for local imports.
 * **`src/bot.py`**: Boots the foundational framework runtime, sets up thread pools, and listens to event pipes.
 * **`src/game_handler.py`**: Implements state rules, reads board steps, and processes challenge transactions.
+* **`src/history_manager.py`**: Stores raw coordinate logs, indexes game history indices, and tracks user performance timelines.
+* **`src/openings.py`**: Indexes move tree registries to execute hardcoded theoretical opening lines automatically.
+* **`src/scout.py`**: Scrapes profile data streams to map playstyle habits and parse enemy tactic blindspots.
 * **`src/skill_estimator.py`**: Tracks analytical evaluation metrics to map centipawn metrics directly onto target ratings.
 
 ## 10. Deployed Bot
@@ -207,6 +212,7 @@ This codebase is entirely open-source software distributed under the terms of th
 * Developed utilizing foundational structural wrappers provided by the [lichess-bot-devs](https://github.com/lichess-bot-devs/lichess-bot) community team.
 * Core engine operations run via official [Stockfish](https://stockfishchess.org/) and [Fairy-Stockfish](https://github.com/fairy-stockfish/Fairy-Stockfish) projects.
 * Object representations managed inside Python using the open-source [python-chess](https://python-chess.readthedocs.io/) runtime package library.
+* Opening book structures deployed via the [gm2001.bin](https://github.com/michaeldv/donna_opening_books) polyglot compilation authored by Oliver Deville.
 
 ## 18. Future Roadmap
 * [x] Integrate native web dashboard interfaces to keep track of active match histories.
