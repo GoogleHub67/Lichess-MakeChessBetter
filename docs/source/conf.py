@@ -2,8 +2,8 @@
 import os
 import sys
 
-# 1. Path setup: Points Sphinx directly to your /src directory for autodoc
-sys.path.insert(0, os.path.abspath('../../src'))
+# 1. Path setup: Points Sphinx directly to your root directory so it can see the 'src' package
+sys.path.insert(0, os.path.abspath('../../'))
 
 # 2. Project information
 project = 'Lichess-MakeChessBetter'
