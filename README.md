@@ -105,6 +105,7 @@ Lichess-MakeChessBetter/
 │   │   └── bug_report.md                     # Standard form for reporting software bugs
 │   └── workflows/                            # Automated CI/CD pipeline script files
 │       ├── bot-ci.yml                        # Automates continuous integration for the bot
+│       ├── build-binaries.yml                # Compiles source code into cross-platform binaries
 │       ├── lint-and-test.yml                 # Automatically checks code quality and tests
 │       └── publish.yml                       # Automates publishing releases of the bot
 │   └── pull_request_template.md              # Template for submitting new code changes
@@ -116,7 +117,7 @@ Lichess-MakeChessBetter/
 ├── docs/                                     # Project documentation files
 │   └── source/                               # Source documentation files
 │       ├── conf.py                           # Configuration file for Sphinx documentation generator
-│       └── index.rst                         # Documentation root file for Sphinx projects.
+│       └── index.rst                         # Documentation root file for Sphinx projects
 ├── src/                                      # Primary executable Python source code
 │   ├── RateLimit429Stopper.py                # Prevents exceeding Lichess API rate limits
 │   ├── __init__.py                           # Marks directory as a Python package
