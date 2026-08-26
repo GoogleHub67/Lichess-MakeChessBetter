@@ -115,7 +115,8 @@ Lichess-MakeChessBetter/
 │   └── config.yml.default                    # Default template for main application settings
 ├── docs/                                     # Project documentation files
 │   └── source/                               # Source documentation files
-│       └── conf.py                           # Configuration file for Sphinx documentation generator
+│       ├── conf.py                           # Configuration file for Sphinx documentation generator
+│       └── index.rst                         # Documentation root file for Sphinx projects.
 ├── src/                                      # Primary executable Python source code
 │   ├── RateLimit429Stopper.py                # Prevents exceeding Lichess API rate limits
 │   ├── __init__.py                           # Marks directory as a Python package
@@ -164,7 +165,7 @@ The backend server is live on Render: [Live Server Status](https://lichess-inapp
 **How to Play / Interact**
 Since this is a backend Lichess bot, you don't interact with the Render link directly. Instead:
 1. Go to **Lichess.org**.
-2. Search for the bot's username: `Inappropriate-BOT`.
+2. Search for the bot's username: `MakeChessBetter`.
 3. Challenge the bot to a game or send it a message to see it in action!
 
 
