@@ -7,12 +7,11 @@ Welcome to the documentation for Lichess-MakeChessBetter! This is a fully adapti
    :maxdepth: 2
    :caption: Contents:
 
-Quick Start
------------
+   README
 
-To run the project directly from the source code, install the requirements and run the bot module:
+Project Overview
+----------------
+Below is the main project documentation pulled straight from the repository.
 
-.. code-block:: bash
-
-   pip install -r requirements.txt
-   python -m src.bot
+.. include:: ../../README.md
+   :parser: myst_parser.sphinx_
