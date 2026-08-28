@@ -1,6 +1,6 @@
 chess>=1.10.0
 httpx>=0.27.0
-flask
+flask==3.0.3
 gunicorn
 python-dotenv
 berserk
