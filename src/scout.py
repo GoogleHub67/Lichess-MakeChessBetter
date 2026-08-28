@@ -26,7 +26,7 @@ def scout_opponent_with_sql(username):
         
     # 2. Cache Miss: Fetch live data from Lichess for free
     print(f"🌐 SQL Cache Miss. Fetching live profile metrics for {username} via Lichess API...")
-    url = f"https://lichess.org{username}"
+    url = f"https://lichess.org/@/{username}"
     
     try:
         response = requests.get(url, timeout=5)
