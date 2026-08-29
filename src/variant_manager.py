@@ -48,7 +48,7 @@ VARIANT_CONFIGS = {
 ENGINE_PATH = "./fairy-stockfish"
 ENGINE_URL = "https://github.com/GoogleHub67/Lichess-MakeChessBetter/releases/download/V2.1.0/fairy-stockfish-largeboard_x86-64"
 
-# Global state tracker to keep the monkeypatch informed
+# Safe global state tracking variable
 _CURRENT_ACTIVE_VARIANT = "standard"
 
 def download_engine_if_missing():
@@ -77,7 +77,7 @@ def should_decline_variant(variant_key: str) -> bool:
         return True
     normalized_key = str(variant_key).lower().strip()
     
-    # Track the variant globally when Lichess filters incoming challenges
+    # Track the active variant globally the exact moment Lichess broadcasts the format
     global _CURRENT_ACTIVE_VARIANT
     if is_playable_variant(normalized_key):
         _CURRENT_ACTIVE_VARIANT = normalized_key
@@ -111,19 +111,20 @@ def setup_variant_board(engine, variant_key: str):
         log.error(f"❌ Fairy-Stockfish variant initialization crash sequence: {e}")
         return BoardClass()
 
-# --- MONKEYPATCH INJECTION ---
-# This intercepts `chess.Board()` calls made by other files and forces the correct ruleset
-_original_board_init = chess.Board.__init__
+# --- MONKEYPATCH INJECTION VIA __NEW__ ---
+# This safely intercepts object allocation entirely BEFORE __init__ triggers.
+_original_board_new = chess.Board.__new__
 
-def _patched_board_init(self, fen=chess.STARTING_FEN, chess960=False):
+def _patched_board_new(cls, *args, **kwargs):
     global _CURRENT_ACTIVE_VARIANT
     config = VARIANT_CONFIGS.get(_CURRENT_ACTIVE_VARIANT)
     
-    if config and not isinstance(self, config["board_class"]):
-        # Morph this object instance into the variant class dynamically
-        self.__class__ = config["board_class"]
-    
-    _original_board_init(self, fen=fen, chess960=chess960)
+    # If a variant is active and the system is attempting to build a vanilla chess.Board,
+    # swap the instantiating class target right before memory allocation.
+    if config and cls is chess.Board:
+        cls = config["board_class"]
+        
+    return _original_board_new(cls)
 
-# Apply patch to the library global scope
-chess.Board.__init__ = _patched_board_init
+# Override the library core board allocation hook
+chess.Board.__new__ = _patched_board_new
