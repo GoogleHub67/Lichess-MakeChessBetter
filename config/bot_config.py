@@ -39,7 +39,7 @@ class Config:
 
 
     ACCEPT_VARIANTS: list[str] = ["standard", "chess960", "fromPosition"]
-    ACCEPT_TIME_CONTROLS: list[str] = ["blitz", "rapid", "classical", "correspondence", "unlimited"]
+    ACCEPT_TIME_CONTROLS: list[str] = ["rapid", "classical", "correspondence", "unlimited"]
     DECLINE_RATED: bool = False
 
     CHAT_GREET: str = "Hi! I'll adapt to your level. Good luck!"
