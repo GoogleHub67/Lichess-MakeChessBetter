@@ -38,7 +38,7 @@ class Config:
     ]
 
 
-    ACCEPT_VARIANTS: list[str] = ["standard", "chess960", "fromPosition"]
+    ACCEPT_VARIANTS: list[str] = ["standard", "chess960", "fromPosition", "antichess", "horde", "threeCheck", "kingoftheHill", "crazyhouse", "atomic"]
     ACCEPT_TIME_CONTROLS: list[str] = ["rapid", "classical", "correspondence", "unlimited"]
     DECLINE_RATED: bool = False
 
