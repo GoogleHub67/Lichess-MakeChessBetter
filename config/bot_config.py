@@ -20,15 +20,23 @@ class Config:
     CPL_MIN_SAMPLES: int = 3
     DEFAULT_ELO: int = 1320
 
+    # Mapped as: (Max Average Centipawn Loss, Approximate Elo Rating)
+    # Lower ACPL = Higher, elite-level Elo. Higher ACPL = Beginner Elo.
+    
     CPL_ELO_MAP: list[tuple[int, int]] = [
-        (15,  2200),
-        (25,  2000),
-        (40,  1800),
-        (60,  1600),
-        (90,  1400),
-        (130, 1320),
-        (999, 1320),
+        (10, 2900),  # World Champion / Top Engine level
+        (15, 2800),  # Grandmaster / Elite Bot level
+        (20, 2700),  # International Master level
+        (30, 2500),  # Expert / Candidate Master level
+        (40, 2300),  # Class A / Advanced club player
+        (50, 2100),  # Intermediate club player
+        (65, 1900),  # Steady hobbyist player
+        (80, 1700),  # Developing casual player
+        (95, 1500),  # Casual player (frequent +1.00 eval bar drops)
+        (120, 1320),  # Advanced beginner
+        (150, 1320),  # Beginner (frequent +1.50 to +2.00 blunders)
     ]
+
 
     ACCEPT_VARIANTS: list[str] = ["standard", "chess960", "fromPosition"]
     ACCEPT_TIME_CONTROLS: list[str] = ["blitz", "rapid", "classical", "correspondence", "unlimited"]
