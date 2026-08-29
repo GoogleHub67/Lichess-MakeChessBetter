@@ -158,10 +158,10 @@ challenge:                         # Incoming challenges.
 #   - racingKings
 #   - threeCheck
   time_controls:                   # Time controls to accept (bots are not allowed to play ultraBullet).
-    - blitz
     - rapid
     - classical
-#   - correspondence
+    - correspondence
+    - unlimited
   modes:                           # Game modes to accept.
     - casual                       # Unrated games.
     - rated                        # Rated games - must comment if the engine doesn't try to win.
