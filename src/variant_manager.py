@@ -8,27 +8,25 @@ log = logging.getLogger(__name__)
 
 # List of variants the bot is strictly NOT willing to play
 UNWANTED_VARIANTS = {
-    "standard",       # Already covered elsewhere
-    "chess960",       # Already covered elsewhere
-    "fromPosition"    # Already covered elsewhere
+    "standard",       
+    "chess960",       
+    "fromPosition"    
 }
 
-# Mapping of valid non-standard Lichess variant keys to Fairy-Stockfish UCI string tags
-# Includes: King of the Hill, Three-Check, Crazyhouse, Antichess, Atomic, Horde, Racing Kings
+# FIXED: Keys mapped to match exact Lichess API payload strings (lowercase)
 VARIANT_UCI_MAPPINGS = {
-    "kingOfTheHill": "kingofthehill",
-    "threeCheck": "3check",
+    "kingofthehill": "kingoftheHill",
+    "threecheck": "3check",
     "crazyhouse": "crazyhouse",
     "antichess": "antichess",
     "atomic": "atomic",
     "horde": "horde",
-    "racingKings": "racingkings"
+    "racingkings": "racingKings"
 }
 
 # Execution path on Render and source link for the specific required binary asset
 ENGINE_PATH = "./fairy-stockfish"
-ENGINE_URL = "https://github.com/GoogleHub67/Lichess-MakeChessBetter/releases/download/V2.1.0/fairy-stockfish-largeboard_x86-64
-"
+ENGINE_URL = "https://github.com/GoogleHub67/Lichess-MakeChessBetter/releases/download/V2.1.0/fairy-stockfish-largeboard_x86-64"
 
 def download_engine_if_missing():
     """Checks for the binary local footprint and downloads it automatically if missing."""
@@ -37,11 +35,7 @@ def download_engine_if_missing():
 
     try:
         log.info(f"📥 Downloading Fairy-Stockfish binary directly onto Render...")
-        
-        # Download the file stream using Python's core library hook
         urllib.request.urlretrieve(ENGINE_URL, ENGINE_PATH)
-        
-        # Grant executable access permissions (0o755 matches chmod +x behavior)
         os.chmod(ENGINE_PATH, 0o755)
         log.info("✅ Fairy-Stockfish engine downloaded and ready.")
         return True
@@ -52,32 +46,32 @@ def download_engine_if_missing():
 
 def is_playable_variant(variant_key: str) -> bool:
     """Checks if the incoming challenge format belongs to our new variant list."""
-    return variant_key in VARIANT_UCI_MAPPINGS
+    # Convert incoming key to lowercase to ensure safety against format mismatches
+    return str(variant_key).lower() in VARIANT_UCI_MAPPINGS
 
 def should_decline_variant(variant_key: str) -> bool:
     """Returns True if the format is standard or explicitly blocked."""
-    return variant_key in UNWANTED_VARIANTS
+    # Handle both camelCase and lowercase checks cleanly
+    k = str(variant_key)
+    return k in UNWANTED_VARIANTS or k.lower() in UNWANTED_VARIANTS
 
 def setup_variant_board(engine, variant_key: str):
     """
     Configures Fairy-Stockfish with the proper variant setting 
     and returns the matching python-chess rule-enforcing board framework.
     """
-    # Self-contained check to download binary right before configuring the engine pipeline
     download_engine_if_missing()
 
-    uci_variant_name = VARIANT_UCI_MAPPINGS.get(variant_key)
+    # Safety normalization to lowercase
+    uci_variant_name = VARIANT_UCI_MAPPINGS.get(str(variant_key).lower())
     if not uci_variant_name:
         log.warning(f"Unknown variant key '{variant_key}'. Defaulting to standard rules.")
         return chess.Board()
 
     try:
         log.info(f"♞ Configuring Fairy-Stockfish engine for variant: {uci_variant_name}")
-        
-        # Inject the variant setup configuration option token directly into the engine instance binary
         engine.configure({"UCI_Variant": uci_variant_name})
         
-        # Dynamically lookup and initialize the correct rule structure board (e.g. chess.variant.AtomicBoard())
         variant_board_class = chess.variant.find_variant(uci_variant_name)
         return variant_board_class()
         
