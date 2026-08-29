@@ -8,23 +8,23 @@ log = logging.getLogger(__name__)
 
 # List of variants the bot is strictly NOT willing to play
 UNWANTED_VARIANTS = {
-    "standard",       
-    "chess960",       
-    "fromPosition"    
+    "standard",       # Already covered elsewhere
+    "chess960",       # Already covered elsewhere
+    "fromPosition"    # Already covered elsewhere
 }
 
-# FIXED: Keys mapped to match exact Lichess API payload strings (lowercase)
-VARIANT_UCI_MAPPINGS = {
-    "kingofthehill": "kingoftheHill",
-    "threecheck": "3check",
-    "crazyhouse": "crazyhouse",
-    "antichess": "antichess",
-    "atomic": "atomic",
-    "horde": "horde",
-    "racingkings": "racingKings"
+# Unified single source of truth mapping variant keys cleanly to both values
+VARIANT_CONFIGS = {
+    "kingofthehill": {"uci": "kingofthehill", "class_key": "kingOfTheHill"},
+    "threecheck":    {"uci": "3check",        "class_key": "threeCheck"},
+    "crazyhouse":     {"uci": "crazyhouse",    "class_key": "crazyhouse"},
+    "antichess":      {"uci": "antichess",     "class_key": "antichess"},
+    "atomic":         {"uci": "atomic",        "class_key": "atomic"},
+    "horde":          {"uci": "horde",         "class_key": "horde"},
+    "racingkings":    {"uci": "racingkings",   "class_key": "racingKings"}
 }
 
-# Execution path on Render and source link for the specific required binary asset
+# FIXED: Complete URL string with closing quotation mark
 ENGINE_PATH = "./fairy-stockfish"
 ENGINE_URL = "https://github.com/GoogleHub67/Lichess-MakeChessBetter/releases/download/V2.1.0/fairy-stockfish-largeboard_x86-64"
 
@@ -45,15 +45,24 @@ def download_engine_if_missing():
         return False
 
 def is_playable_variant(variant_key: str) -> bool:
-    """Checks if the incoming challenge format belongs to our new variant list."""
-    # Convert incoming key to lowercase to ensure safety against format mismatches
-    return str(variant_key).lower() in VARIANT_UCI_MAPPINGS
+    """Checks if the incoming challenge format belongs to our variant list."""
+    if not variant_key:
+        return False
+    return str(variant_key).lower() in VARIANT_CONFIGS
 
 def should_decline_variant(variant_key: str) -> bool:
-    """Returns True if the format is standard or explicitly blocked."""
-    # Handle both camelCase and lowercase checks cleanly
-    k = str(variant_key)
-    return k in UNWANTED_VARIANTS or k.lower() in UNWANTED_VARIANTS
+    """Returns True if the format is explicitly blocked or standard."""
+    if not variant_key:
+        return True
+    
+    normalized_key = str(variant_key).strip()
+    
+    # 1. Block standard variations immediately
+    if normalized_key in UNWANTED_VARIANTS or normalized_key.lower() in UNWANTED_VARIANTS:
+        return True
+        
+    # 2. Decline if it's an unrecognized variant format completely
+    return not is_playable_variant(normalized_key)
 
 def setup_variant_board(engine, variant_key: str):
     """
@@ -62,17 +71,22 @@ def setup_variant_board(engine, variant_key: str):
     """
     download_engine_if_missing()
 
-    # Safety normalization to lowercase
-    uci_variant_name = VARIANT_UCI_MAPPINGS.get(str(variant_key).lower())
-    if not uci_variant_name:
+    normalized_key = str(variant_key).lower()
+    config = VARIANT_CONFIGS.get(normalized_key)
+    
+    if not config:
         log.warning(f"Unknown variant key '{variant_key}'. Defaulting to standard rules.")
         return chess.Board()
+
+    uci_variant_name = config["uci"]
+    class_lookup_key = config["class_key"]
 
     try:
         log.info(f"♞ Configuring Fairy-Stockfish engine for variant: {uci_variant_name}")
         engine.configure({"UCI_Variant": uci_variant_name})
         
-        variant_board_class = chess.variant.find_variant(uci_variant_name)
+        # Uses correct lookup key for python-chess variant engine mappings
+        variant_board_class = chess.variant.find_variant(class_lookup_key)
         return variant_board_class()
         
     except Exception as e:
