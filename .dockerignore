@@ -1,0 +1,46 @@
+# Version control
+.git
+.gitignore
+.gitattributes
+
+# Secrets and credentials
+.env
+.env.*
+*.pem
+*.key
+id_rsa
+
+# Common local dependencies
+node_modules/
+bower_components/
+venv/
+.venv/
+env/
+
+# Build outputs and artifacts
+dist/
+build/
+out/
+target/
+*.exe
+*.dll
+*.so
+
+# Testing and coverage
+coverage/
+.nyc_output/
+.pytest_cache/
+.tox/
+
+# Debug and system logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDEs and system configuration files
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
