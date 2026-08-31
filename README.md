@@ -124,11 +124,13 @@ Lichess-MakeChessBetter/
 │   ├── bot.py                                # Main script running the chess bot
 │   ├── game_handler.py                       # Manages live chess gameplay and moves
 │   ├── history_manager.py                    # Records and tracks past game logs
+│   ├── memory_manager.py                     # Allocates and tracks memory
 │   ├── openings.py                           # Handles chess opening book move selections
 │   ├── scout.py                              # Analyzes opponents before starting a game
 │   ├── skill_estimator.py                    # Evaluates and predicts opponent playing strength
 ├── tests/                                    # Automated scripts checking code correctness
 │   └── config.xml.default                    # Default template for XML layout configurations
+├── .dockerignore                             # Excludes specific files from Docker builds
 ├── .env.example                              # Example template for environment variable keys
 ├── .gitattributes                            # Defines attributes for Git repository matching
 ├── .gitignore                                # Specifies files Git should always ignore
@@ -161,8 +163,9 @@ Lichess-MakeChessBetter/
 * **`src/bot.py`**: Boots the foundational framework runtime, sets up thread pools, and listens to event pipes.
 * **`src/game_handler.py`**: Implements state rules, reads board steps, and processes challenge transactions.
 * **`src/history_manager.py`**: Stores raw coordinate logs, indexes game history indices, and tracks user performance timelines.
+* **`src/memory_manager.py`**: It allocates, tracks, and frees system memory efficiently to prevent leaks and crashes.
 * **`src/openings.py`**: Indexes move tree registries to execute hardcoded theoretical opening lines automatically.
-* **`src/scout.py`**: Scrapes profile data streams to map playstyle habits and parse enemy tactic blindspots.
+* **`src/scout.py`**: Scrapes profile data streams to map playstyle habits and parse enemy tactic blind spots.
 * **`src/skill_estimator.py`**: Tracks analytical evaluation metrics to map centipawn metrics directly onto target ratings.
 
 ## 10. Deployed Bot
