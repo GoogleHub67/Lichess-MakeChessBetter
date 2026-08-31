@@ -148,16 +148,18 @@ challenge:                         # Incoming challenges.
   min_days: 1                      # Minimum number of days per move to accept a challenge for a correspondence game.
   variants:                        # Chess variants to accept (https://lichess.org/variant).
     - standard
-#   - fromPosition
+    - fromPosition
+    - chess960
 #   - antichess
 #   - atomic
-#   - chess960
 #   - crazyhouse
 #   - horde
 #   - kingOfTheHill
 #   - racingKings
 #   - threeCheck
   time_controls:                   # Time controls to accept (bots are not allowed to play ultraBullet).
+#   - bullet
+#   - blitz
     - rapid
     - classical
     - correspondence
