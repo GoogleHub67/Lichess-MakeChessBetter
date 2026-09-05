@@ -41,7 +41,7 @@ The system reads gameplay states continuously via streaming long-lived TCP conne
    Game Starts
    │
    ├── [1. Default State]
-   │     └── Bot initializes at default ELO 1200
+   │     └── Bot initializes at default ELO 1320
    │
    ├── [2. Live Tracking Loop]
    │     ├── Monitors opponent moves continuously
