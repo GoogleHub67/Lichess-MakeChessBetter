@@ -8,61 +8,86 @@ This blueprint breaks down the exact operational purpose of every module, config
 
 ```text
 Lichess-MakeChessBetter/
-├── .github/                                  # Repository governance and automation engines
-│   ├── ISSUE_TEMPLATE/                       # Structured user submission layouts
-│   │   └── bug_report.md                     # Standardization layout for reporting codebase issues
-│   └── workflows/                            # Automated cloud CI/CD action loops
-│       ├── bot-ci.yml                        # Validates runtime health across multi-environment builds
-│       ├── build-binaries.yml                # Packages Python scripts into cross-platform standalone executables
-│       ├── lint-and-test.yml                 # Evaluates source code design patterns and logic safety checks
-│       └── publish.yml                       # Automatically triggers and deploys asset updates to releases
-│   └── pull_request_template.md              # Quality gate requirements for community code updates
-├── .vscode/                                  # Local development space settings
-│   └── settings.json                         # Enforces standardized interpreter and formatting preferences
-├── config/                                   # Operational parameters and deployment variables
-│   ├── bot_config.py                         # Secondary parser reading active variables into system memory
-│   └── config.yml.default                    # Blank template schema detailing engine token definitions
-├── docs/                                     # Sphynx codebase reference manuals
-│   └── source/                               # Direct asset source formatting layers
-│       ├── conf.py                           # Explicit compilation parameters for Sphinx documentation engines
-│       └── index.rst                         # Main entry table mapping out document indexing layouts
-├── src/                                      # Primary execution core engine scripts
-│   ├── RateLimit429Stopper.py                # Intercepts outgoing API packets to handle server throttling blocks
-│   ├── __init__.py                           # Declares local directory spaces as explicit import objects
-│   ├── bot.py                                # Bootstraps runtime loops, loads files, and opens event handlers
-│   ├── game_handler.py                       # Validates active rule applications and maps square steps live
-│   ├── history_manager.py                    # Indexes active session results and maintains historic profile logs
-│   ├── memory_manager.py                     # Tracks, manages, and cleanses RAM scopes to handle execution leaks
-│   ├── openings.py                           # Parses static binary matrix tables to trigger rapid opening paths
-│   ├── scout.py                              # Scrapes competitor profiles to pinpoint match blindspots
-│   ├── skill_estimator.py                    # Maps calculated error rates onto live difficulty level properties
-├── tests/                                    # Automated script assets measuring internal software sanity
-│   └── config.xml.default                    # Schema mockup parameters handling software isolation testing
-├── .dockerignore                             # Keeps temporary workspace folders outside image building trees
-├── .env.example                              # Blank layout mapping environment key parameters securely
-├── .gitattributes                            # Normalizes text file endings across diverse operating systems
-├── .gitignore                                # Prevents local keys and temporary files from entering history
-├── .readthedocs.yaml                         # Orchestration blueprint pointing ReadTheDocs to internal source files
-├── CITATION.cff                              # Formal attribution layout for researchers referencing this tool
-├── CODE_OF_CONDUCT.md                        # Establishes community interaction and behavior standards
-├── CONTRIBUTING.md                           # Rules detailing branch submission frameworks for developers
-├── Dockerfile                                # Multi-stage packaging schema constructing host images for Render
-├── LICENSE                                   # Full legal MIT open-source user agreement framework
-├── README.md                                 # Punchy, scannable root landing documentation layout
-├── SECURITY.md                               # Dedicated channel protocols for surfacing system vulnerabilities
-├── app.py                                    # Lightweight web gateway initializing Render cloud web tasks
-├── build.sh                                  # Automation script running multi-platform packaging routines
-├── cron-job.py                               # Wakes the server background layer up on scheduled patterns
-├── dashboard.py                              # Renders live engine efficiency charts for frontend tracking
-├── error.py                                  # Monitors application anomalies and writes logging records
-├── launch_unix.sh                            # Immediate environment boot initializer for Linux runtimes
-├── launch_windows.bat                        # Immediate system script setup mapping console variables on Windows
-├── pyproject.toml                            # Unified blueprint organizing tool configuration rules
-├── requirements.txt                          # Comprehensive track list tracking external script libraries
-├── setup_linux.sh                            # Prepares distribution environments natively across Linux shells
-├── setup_mac.sh                              # Handles local dependency paths for Apple Silicon engines
-├── setup_windows.ps1                         # PowerShell executor configuring terminal path arrays for Windows
-└── test_pipeline.py                          # Sweeps the entire application structure verifying patch updates
+├── .ai/                                  # Project AI prompt guidance and settings.
+│   ├── AI.md                             # Documentation for AI system configuration prompts.
+│   ├── README.md                         # Introduction to AI directory setup details.
+│   └── settings.json                     # Configuration parameters for the AI engine.
+├── .github/                              # GitHub specific community and automation files.
+│   ├── ISSUE_TEMPLATE/                   # Predefined formats for reporting project issues.
+│   │   └── bug_report.md                 # Standard template for submitting bug reports.
+│   ├── workflows/                        # Automated CI/CD pipeline automation workflows.
+│   │   ├── bot-ci.yml                    # Automated integration testing for chess bot.
+│   │   ├── build-binaries.yml            # Compiles project files into executable binaries.
+│   │   ├── lint-and-test.yml             # Runs code style checks and testing.
+│   │   └── publish.yml                   # Automatically publishes releases to deployment targets.
+│   ├── CODE_OF_CONDUCT.md                # Community guidelines for participant behavior standards.
+│   ├── CONTRIBUTING.md                   # Instructions for contributing to the repository.
+│   ├── pull_request_template.md          # Layout template for submitting code changes.
+│   ├── SECURITY.md                       # Protocols for reporting system vulnerabilities safely.
+│   └── SUPPORT.md                        # Information on getting help with project.
+├── .vscode/                              # Editor settings for Visual Studio Code.
+│   └── settings.json                     # Specific workspace configuration settings for VSCode.
+├── config/                               # Folder containing application configuration templates.
+│   ├── bot_config.py                     # Python logic for loading bot settings.
+│   └── config.yml.default                # Default base settings configuration file template.
+├── docs/                                 # Comprehensive documentation site text files.
+│   ├── source/                           # Source files for building structured documentation.
+│   │   ├── conf.py                       # Configuration file for Sphinx documentation builder.
+│   │   └── index.rst                     # Main landing page for Sphinx documentation.
+│   ├── _Footer.md                        # Common bottom layout text for documentation.
+│   ├── _Sidebar.md                       # Navigation menu layout for documentation pages.
+│   ├── Advanced‐CI‐CD‐Automation.md      # Detailed guide for deployment pipeline setup.
+│   ├── Advanced‐Directory‐Mapping.md     # Reference manual explaining repository path layouts.
+│   ├── Advanced‐Framework.md             # Breakdown of core architectural design framework.
+│   ├── Changelog‐And‐Version‐History.md  # Detailed log recording historical version changes.
+│   ├── Data‐Flow‐And‐State‐Machine.md    # Diagrams tracing application data movement routes.
+│   ├── FAQs.md                           # Answers to frequently asked user questions.
+│   ├── Home.md                           # Documentation wiki home page introduction text.
+│   ├── Lichess‐API‐Integration.md        # Reference guide for connecting Lichess endpoints.
+│   ├── Opening‐Book‐Configurations.md    # Instructions customizing chess opening book databases.
+│   ├── Render‐Deployment‐Guide.md        # Instructions hosting application on Render cloud.
+│   └── Security‐And‐Fair‐Play.md         # Policies ensuring cheat-free and secure operations.
+├── scripts/                              # Shell and batch setup utility files.
+│   ├── launch/                           # Utility scripts starting application engine seamlessly.
+│   │   ├── launch_unix.sh                # Bash script starting application on Linux.
+│   │   └── launch_windows.bat            # Batch file starting application on Windows.
+│   ├── setup/                            # Environment preparation and installation dependency scripts.
+│   │   ├── setup_linux.sh                # Prepares Linux system for running project.
+│   │   ├── setup_mac.sh                  # Prepares macOS environment for project execution.
+│   │   └── setup_windows.ps1             # PowerShell script installing Windows environment dependencies.
+│   └── README.md                         # Instructions explaining how scripts operate.
+├── src/                                  # Main application source code folder.
+│   ├── RateLimit429Stopper.py            # Prevents exceeding Lichess API rate limits.
+│   ├── __init__.py                       # Marks directory as a python package.
+│   ├── bot.py                            # Contains main chess bot behavioral logic.
+│   ├── game_handler.py                   # Manages live chess game states effectively.
+│   ├── history_manager.py                # Tracks and saves past game results.
+│   ├── memory_manager.py                 # Optimizes system memory and data retention.
+│   ├── openings.py                       # Handles chess opening book move selections.
+│   ├── scout.py                          # Analyzes upcoming opponents for strategic advantages.
+│   └── skill_estimator.py                # Calculates opponent strength for matchmaking adjustments.
+├── tests/                                # Automated test cases for validating code.
+│   └── config.xml.default                # Default settings template for test environment.
+├── .dockerignore                         # Excludes specific files from Docker builds.
+├── .env.example                          # Template for required environment variable settings.
+├── .gitattributes                        # Sets attributes for Git repository files.
+├── .gitignore                            # Specifies files Git should not track.
+├── .readthedocs.yaml                     # Settings for hosting documentation online.
+├── app.py                                # Main entry point running the application.
+├── build.sh                              # Shell script compiling or packaging application.
+├── CITATION.cff                          # Provides citation format for academic referencing.
+├── CODEOWNERS                            # Defines users responsible for reviewing code.
+├── cron-job.py                           # Script running scheduled background automation tasks.
+├── dashboard.py                          # Script launching the visual user interface.
+├── Dockerfile                            # Instructions to build isolated container app.
+├── error.py                              # Module handling application errors and exceptions.
+├── GOVERNANCE.md                         # Details project leadership and decision-making structures.
+├── LICENSE                               # Legal rights and usage terms text.
+├── pyproject.toml                        # Modern Python project packaging configuration file.
+├── README.md                             # Main introductory project overview and guide.
+├── requirements.txt                      # Lists external library dependencies for installation.
+├── ROADMAP.md                            # Outlines future features and development goals.
+└── test_pipeline.py                      # Automation script to run the test suite.
 ```
 
 ---
