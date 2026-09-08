@@ -1,0 +1,14 @@
+{
+  "project": {
+    "name": "Lichess-MakeChessBetter",
+    "systemPromptPath": ".ai/ai.md"
+  },
+  "assistant": {
+    "temperature": 0.2,
+    "maxTokens": 4096
+  },
+  "codeStyle": {
+    "language": "python",
+    "indentation": "4_spaces"
+  }
+}
