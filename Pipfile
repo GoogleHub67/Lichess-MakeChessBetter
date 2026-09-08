@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+python-chess = "*"
+requests = "*"
+websockets = "*"
+python-dotenv = "*"
+pyyaml = "*"
+
+[dev-packages]
+pytest = "*"
+pytest-mock = "*"
+ruff = "*"
+
+[requires]
+python_version = "3.10"
