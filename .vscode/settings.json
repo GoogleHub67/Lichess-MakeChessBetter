@@ -1,5 +1,19 @@
 {
     "python.analysis.extraPaths": [
         "./src"
-    ]
+    ],
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "eslint.validate": [
+        "javascript",
+        "json",
+        "yaml",
+        "markdown"
+    ],
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "always"
+    },
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.black-formatter"
+    }
 }
