@@ -69,9 +69,14 @@ Lichess-MakeChessBetter/
 ├── tests/                                # Automated test cases for validating code.
 │   └── config.xml.default                # Default settings template for test environment.
 ├── .dockerignore                         # Excludes specific files from Docker builds.
+├── .editorconfig                         # Maintains consistent coding styles across different editors.
 ├── .env.example                          # Template for required environment variable settings.
+├── .eslintignore                         # Prevents specific files from being linted by ESLint.
+├── .eslintrc.json                        # Rules and configurations for the JavaScript ESLint tool.
 ├── .gitattributes                        # Sets attributes for Git repository files.
 ├── .gitignore                            # Specifies files Git should not track.
+├── .prettierignore                       # Lists code files that Prettier formatting should skip.
+├── .prettierrc                           # Layout preferences and formatting rules for Prettier.
 ├── .readthedocs.yaml                     # Settings for hosting documentation online.
 ├── app.py                                # Main entry point running the application.
 ├── build.sh                              # Shell script compiling or packaging application.
@@ -83,7 +88,10 @@ Lichess-MakeChessBetter/
 ├── error.py                              # Module handling application errors and exceptions.
 ├── GOVERNANCE.md                         # Details project leadership and decision-making structures.
 ├── LICENSE                               # Legal rights and usage terms text.
+├── Makefile                              # Build automation tool script containing shortcut commands.
+├── Pipfile                               # Manages Python virtual environments and dependency groups.
 ├── pyproject.toml                        # Modern Python project packaging configuration file.
+├── pytest.ini                            # Setup choices and configurations for the Pytest suite.
 ├── README.md                             # Main introductory project overview and guide.
 ├── requirements.txt                      # Lists external library dependencies for installation.
 ├── ROADMAP.md                            # Outlines future features and development goals.
