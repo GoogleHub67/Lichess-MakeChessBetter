@@ -99,7 +99,7 @@ LICHESS_TOKEN=lip_yourtoken
 ## 9. Deployed Bot
 The backend server is live on Render: [Live Server Status](https://lichess-inappropriate-bot.onrender.com/)
 
-**How to Play / Interact**
+**How to Play / Interact:**
 Since this is a backend Lichess bot, you don't interact with the Render link directly. Instead:
 1. Go to **Lichess.org**.
 2. Search for the bot's username: `MakeChessBetter`.
