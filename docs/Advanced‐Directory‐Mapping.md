@@ -87,12 +87,8 @@ Lichess-MakeChessBetter/
 ├── .dockerignore                         # Excludes specific files from Docker builds.
 ├── .editorconfig                         # Maintains consistent coding styles across different editors.
 ├── .env.example                          # Template for required environment variable settings.
-├── .eslintignore                         # Prevents specific files from being linted by ESLint.
-├── .eslintrc.json                        # Rules and configurations for the JavaScript ESLint tool.
 ├── .gitattributes                        # Sets attributes for Git repository files.
 ├── .gitignore                            # Specifies files Git should not track.
-├── .prettierignore                       # Lists code files that Prettier formatting should skip.
-├── .prettierrc                           # Layout preferences and formatting rules for Prettier.
 ├── .readthedocs.yaml                     # Settings for hosting documentation online.
 ├── app.py                                # Main entry point running the application.
 ├── build.sh                              # Shell script compiling or packaging application.
