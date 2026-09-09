@@ -22,6 +22,9 @@ Lichess-MakeChessBetter/
 │   │   └── publish.yml                   # Automatically publishes releases to deployment targets.
 │   ├── CODE_OF_CONDUCT.md                # Community guidelines for participant behavior standards.
 │   ├── CONTRIBUTING.md                   # Instructions for contributing to the repository.
+│   ├── CREDITS.md                        # Acknowledges contributors, libraries, and resources used.
+│   ├── GOVERNANCE.md                     # Defines project leadership, decision-making, and rules.
+│   ├── MAINTENANCE.md                    # Outlines code update procedures and maintainer duties.
 │   ├── pull_request_template.md          # Layout template for submitting code changes.
 │   ├── SECURITY.md                       # Protocols for reporting system vulnerabilities safely.
 │   └── SUPPORT.md                        # Information on getting help with project.
@@ -36,6 +39,7 @@ Lichess-MakeChessBetter/
 │   │   └── index.rst                     # Main landing page for Sphinx documentation.
 │   ├── _Footer.md                        # Common bottom layout text for documentation.
 │   ├── _Sidebar.md                       # Navigation menu layout for documentation pages.
+│   ├── API-Programmatic-Reference.md     # Documents code endpoints, functions, and developer syntax.
 │   ├── Advanced‐CI‐CD‐Automation.md      # Detailed guide for deployment pipeline setup.
 │   ├── Advanced‐Directory‐Mapping.md     # Reference manual explaining repository path layouts.
 │   ├── Advanced‐Framework.md             # Breakdown of core architectural design framework.
@@ -45,6 +49,7 @@ Lichess-MakeChessBetter/
 │   ├── Home.md                           # Documentation wiki home page introduction text.
 │   ├── Lichess‐API‐Integration.md        # Reference guide for connecting Lichess endpoints.
 │   ├── Opening‐Book‐Configurations.md    # Instructions customizing chess opening book databases.
+│   ├── Performance-Fine-Tuning.md        # Guides users on optimizing speed and efficiency.
 │   ├── Render‐Deployment‐Guide.md        # Instructions hosting application on Render cloud.
 │   └── Security‐And‐Fair‐Play.md         # Policies ensuring cheat-free and secure operations.
 ├── scripts/                              # Shell and batch setup utility files.
@@ -84,6 +89,7 @@ Lichess-MakeChessBetter/
 ├── CODEOWNERS                            # Defines users responsible for reviewing code.
 ├── cron-job.py                           # Script running scheduled background automation tasks.
 ├── dashboard.py                          # Script launching the visual user interface.
+├── docker-compose.yml                    # Configures and runs multi-container Docker applications seamlessly.
 ├── Dockerfile                            # Instructions to build isolated container app.
 ├── error.py                              # Module handling application errors and exceptions.
 ├── GOVERNANCE.md                         # Details project leadership and decision-making structures.
