@@ -1,7 +1,9 @@
 # Handle line endings automatically for all text files
 * text=auto
 
-# Force Unix line endings for shell scripts and config files
+# Force Unix line endings for Python, scripts, and config files
+*.py text eol=lf
+*.toml text eol=lf
 *.sh text eol=lf
 *.yml text eol=lf
 *.default text eol=lf
