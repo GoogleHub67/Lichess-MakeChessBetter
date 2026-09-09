@@ -1,0 +1,23 @@
+name: General Discussion
+description: Chat about the bot, share your match links, or say hello!
+title: "[General]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Welcome to the MakeChessBetter community! Use this form to chat or share cool milestones.
+  - type: textarea
+    id: discussion-topic
+    attributes:
+      label: What's on your mind?
+      description: Share your thoughts, match links, or open-ended topics here.
+      placeholder: E.g., Check out this wild game I just played against the bot...
+    validations:
+      required: true
+  - type: checkboxes
+    id: community-guidelines
+    attributes:
+      label: Code of Conduct
+      options:
+        - label: I agree to keep this space friendly, constructive, and respectful.
+          required: true
