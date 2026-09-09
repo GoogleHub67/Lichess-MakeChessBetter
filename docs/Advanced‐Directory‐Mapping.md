@@ -55,7 +55,6 @@ Lichess-MakeChessBetter/
 │   ├── Advanced‐CI‐CD‐Automation.md      # Detailed guide for deployment pipeline setup.
 │   ├── Advanced‐Directory‐Mapping.md     # Reference manual explaining repository path layouts.
 │   ├── Advanced‐Framework.md             # Breakdown of core architectural design framework.
-│   ├── Changelog‐And‐Version‐History.md  # Detailed log recording historical version changes.
 │   ├── Data‐Flow‐And‐State‐Machine.md    # Diagrams tracing application data movement routes.
 │   ├── FAQs.md                           # Answers to frequently asked user questions.
 │   ├── Home.md                           # Documentation wiki home page introduction text.
@@ -105,7 +104,6 @@ Lichess-MakeChessBetter/
 ├── docker-compose.yml                    # Configures and runs multi-container Docker applications seamlessly.
 ├── Dockerfile                            # Instructions to build isolated container app.
 ├── error.py                              # Module handling application errors and exceptions.
-├── GOVERNANCE.md                         # Details project leadership and decision-making structures.
 ├── LICENSE                               # Legal rights and usage terms text.
 ├── Makefile                              # Build automation tool script containing shortcut commands.
 ├── Pipfile                               # Manages Python virtual environments and dependency groups.
