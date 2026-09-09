@@ -13,8 +13,14 @@ Lichess-MakeChessBetter/
 │   ├── README.md                         # Introduction to AI directory setup details.
 │   └── settings.json                     # Configuration parameters for the AI engine.
 ├── .github/                              # GitHub specific community and automation files.
+│   ├── DISCUSSION_TEMPLATE/              # Discussion Templates Directory.
+│   │   ├── general.yml                   # Form for casual chats.
+│   │   ├── ideas.yml                     # Form for bot feature ideas.
+│   │   ├── q-a.yml                       # Form for troubleshooting/setup support.
+│   │   └── show-and-tell.yml             # Form for community forks/showcases.
 │   ├── ISSUE_TEMPLATE/                   # Predefined formats for reporting project issues.
-│   │   └── bug_report.md                 # Standard template for submitting bug reports.
+│   │   ├── bug_report.yml                # Standard template for submitting bug reports.
+│   │   └── feature_request.yml           # Interactive feature request YAML form
 │   ├── workflows/                        # Automated CI/CD pipeline automation workflows.
 │   │   ├── bot-ci.yml                    # Automated integration testing for chess bot.
 │   │   ├── build-binaries.yml            # Compiles project files into executable binaries.
@@ -28,6 +34,12 @@ Lichess-MakeChessBetter/
 │   ├── pull_request_template.md          # Layout template for submitting code changes.
 │   ├── SECURITY.md                       # Protocols for reporting system vulnerabilities safely.
 │   └── SUPPORT.md                        # Information on getting help with project.
+├── .idea/                                # JetBrains PyCharm Settings Directory.
+│   ├── .gitignore                        # Ignores local UI layouts (workspace.xml, etc.)
+│   ├── Lichess-MakeChessBetter.iml       # Project source/test roots mapping.
+│   ├── misc.xml                          # Runtime python SDK registration configuration
+│   ├── modules.xml                       # Module definition linking .iml file.
+│   └── vcs.xml                           # Seamless Git panel mapping integration.
 ├── .vscode/                              # Editor settings for Visual Studio Code.
 │   └── settings.json                     # Specific workspace configuration settings for VSCode.
 ├── config/                               # Folder containing application configuration templates.
@@ -85,6 +97,7 @@ Lichess-MakeChessBetter/
 ├── .readthedocs.yaml                     # Settings for hosting documentation online.
 ├── app.py                                # Main entry point running the application.
 ├── build.sh                              # Shell script compiling or packaging application.
+├── CHANGELOG.md                          # To track project updates and version history.
 ├── CITATION.cff                          # Provides citation format for academic referencing.
 ├── CODEOWNERS                            # Defines users responsible for reviewing code.
 ├── cron-job.py                           # Script running scheduled background automation tasks.
