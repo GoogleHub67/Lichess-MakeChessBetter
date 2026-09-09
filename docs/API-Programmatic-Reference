@@ -154,8 +154,10 @@ Serves programmatic telemetry data endpoints. Hooks directly into the active Ren
 ### `error.py`
 An exhaustive, multi-tier programmatic exception catcher mapped against structural runtime flaws:
 
+```
 | Internal Error Class | Intercepted Event Scenario | Recovery Routing Protocol |
 | :--- | :--- | :--- |
 | `LichessAuthError` | HTTP `401 Unauthorized` token missing `bot:play` scopes. | Terminate process immediately and log administrative warning flags. |
 | `EngineTimeoutError` | Stockfish binary blocking pipe calculation beyond maximum allotment. | Kill frozen thread sub-process, spawn a secondary clean binary fallback engine, choose instant emergency move. |
 | `StreamDisconnectError` | Long-lived TCP connection dropped or packet chunk tracking broken. | Trigger exponential backoff connection loop to re-authenticate stream without resetting ongoing game state data. |
+```
