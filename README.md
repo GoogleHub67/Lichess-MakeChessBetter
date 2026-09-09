@@ -13,18 +13,14 @@
 4. [Core Features](#4-core-features)
 5. [Prerequisites & System Requirements](#5-prerequisites--system-requirements)
 6. [Installation Blueprint](#6-installation-blueprint)
-7. [Environment Configuration](#7-environment-configuration)
-8. [Comprehensive Directory Mapping](#8-comprehensive-directory-mapping)
-9. [Detailed Module Breakdown](#9-detailed-module-breakdown)
-10. [Deployed Bot](#10-deployed-bot)
-11. [Advanced Usage Framework](#11-advanced-usage-framework)
-12. [API & Programmatic Reference](#12-api--programmatic-reference)
-13. [Troubleshooting & Diagnostics](#13-troubleshooting--diagnostics)
-14. [Performance Fine-Tuning](#14-performance-fine-tuning)
-15. [Contributing Lifecycle](#15-contributing-lifecycle)
-16. [License Agreements](#16-license-agreements)
-17. [Credits and Badges](#17-credits-and-badges)
-18. [Future Roadmap](#18-future-roadmap)
+7. [Setup Guide](#7-setup-guide)
+8. [Environement Configuration](#8-environment-configuration)
+9. [Deployed Bot](#9-deployed-bot)
+10. [Advanced Usage Framework](#10-advanced-usage-framework)
+11. [API & Programmatic Reference](#11-api--programmatic-reference)
+12. [Troubleshooting & Diagnostics](#12-troubleshooting--diagnostics)
+13. [Performance Fine-Tuning](#13-performance-fine-tuning)
+14. [Future Roadmap](#14-future-roadmap)
 
 ---
 
@@ -84,7 +80,10 @@ cd MakeChessBetter-2.0.1
 pip install -r requirements.txt
 ```
 
-## 7. Environment Configuration
+## 7. Setup Guide
+To set up your environment and bot, go directly to [./scripts/README.md](./scripts/README.md) for setup guide.
+
+## 8. Environment Configuration
 The application consumes standard credentials through an active `.env` configuration template or a localized configuration layout. Create a `config.yml` block in your workspace path:
 ```yaml
 token: "lip_YOUR_SECURE_LICHESS_API_TOKEN"
@@ -97,111 +96,7 @@ Alternatively, apply configuration rules directly using a root `.env` template p
 LICHESS_TOKEN=lip_yourtoken
 ```
 
-## 8. Comprehensive Directory Mapping and Explanation
-```text
-Lichess-MakeChessBetter/
-├── .ai/                                  # Project AI prompt guidance and settings.
-│   ├── AI.md                             # Documentation for AI system configuration prompts.
-│   ├── README.md                         # Introduction to AI directory setup details.
-│   └── settings.json                     # Configuration parameters for the AI engine.
-├── .github/                              # GitHub specific community and automation files.
-│   ├── ISSUE_TEMPLATE/                   # Predefined formats for reporting project issues.
-│   │   └── bug_report.md                 # Standard template for submitting bug reports.
-│   ├── workflows/                        # Automated CI/CD pipeline automation workflows.
-│   │   ├── bot-ci.yml                    # Automated integration testing for chess bot.
-│   │   ├── build-binaries.yml            # Compiles project files into executable binaries.
-│   │   ├── lint-and-test.yml             # Runs code style checks and testing.
-│   │   └── publish.yml                   # Automatically publishes releases to deployment targets.
-│   ├── CODE_OF_CONDUCT.md                # Community guidelines for participant behavior standards.
-│   ├── CONTRIBUTING.md                   # Instructions for contributing to the repository.
-│   ├── pull_request_template.md          # Layout template for submitting code changes.
-│   ├── SECURITY.md                       # Protocols for reporting system vulnerabilities safely.
-│   └── SUPPORT.md                        # Information on getting help with project.
-├── .vscode/                              # Editor settings for Visual Studio Code.
-│   └── settings.json                     # Specific workspace configuration settings for VSCode.
-├── config/                               # Folder containing application configuration templates.
-│   ├── bot_config.py                     # Python logic for loading bot settings.
-│   └── config.yml.default                # Default base settings configuration file template.
-├── docs/                                 # Comprehensive documentation site text files.
-│   ├── source/                           # Source files for building structured documentation.
-│   │   ├── conf.py                       # Configuration file for Sphinx documentation builder.
-│   │   └── index.rst                     # Main landing page for Sphinx documentation.
-│   ├── _Footer.md                        # Common bottom layout text for documentation.
-│   ├── _Sidebar.md                       # Navigation menu layout for documentation pages.
-│   ├── Advanced‐CI‐CD‐Automation.md      # Detailed guide for deployment pipeline setup.
-│   ├── Advanced‐Directory‐Mapping.md     # Reference manual explaining repository path layouts.
-│   ├── Advanced‐Framework.md             # Breakdown of core architectural design framework.
-│   ├── Changelog‐And‐Version‐History.md  # Detailed log recording historical version changes.
-│   ├── Data‐Flow‐And‐State‐Machine.md    # Diagrams tracing application data movement routes.
-│   ├── FAQs.md                           # Answers to frequently asked user questions.
-│   ├── Home.md                           # Documentation wiki home page introduction text.
-│   ├── Lichess‐API‐Integration.md        # Reference guide for connecting Lichess endpoints.
-│   ├── Opening‐Book‐Configurations.md    # Instructions customizing chess opening book databases.
-│   ├── Render‐Deployment‐Guide.md        # Instructions hosting application on Render cloud.
-│   └── Security‐And‐Fair‐Play.md         # Policies ensuring cheat-free and secure operations.
-├── scripts/                              # Shell and batch setup utility files.
-│   ├── launch/                           # Utility scripts starting application engine seamlessly.
-│   │   ├── launch_unix.sh                # Bash script starting application on Linux.
-│   │   └── launch_windows.bat            # Batch file starting application on Windows.
-│   ├── setup/                            # Environment preparation and installation dependency scripts.
-│   │   ├── setup_linux.sh                # Prepares Linux system for running project.
-│   │   ├── setup_mac.sh                  # Prepares macOS environment for project execution.
-│   │   └── setup_windows.ps1             # PowerShell script installing Windows environment dependencies.
-│   └── README.md                         # Instructions explaining how scripts operate.
-├── src/                                  # Main application source code folder.
-│   ├── RateLimit429Stopper.py            # Prevents exceeding Lichess API rate limits.
-│   ├── __init__.py                       # Marks directory as a python package.
-│   ├── bot.py                            # Contains main chess bot behavioral logic.
-│   ├── game_handler.py                   # Manages live chess game states effectively.
-│   ├── history_manager.py                # Tracks and saves past game results.
-│   ├── memory_manager.py                 # Optimizes system memory and data retention.
-│   ├── openings.py                       # Handles chess opening book move selections.
-│   ├── scout.py                          # Analyzes upcoming opponents for strategic advantages.
-│   └── skill_estimator.py                # Calculates opponent strength for matchmaking adjustments.
-├── tests/                                # Automated test cases for validating code.
-│   └── config.xml.default                # Default settings template for test environment.
-├── .dockerignore                         # Excludes specific files from Docker builds.
-├── .editorconfig                         # Maintains consistent coding styles across different editors.
-├── .env.example                          # Template for required environment variable settings.
-├── .eslintignore                         # Prevents specific files from being linted by ESLint.
-├── .eslintrc.json                        # Rules and configurations for the JavaScript ESLint tool.
-├── .gitattributes                        # Sets attributes for Git repository files.
-├── .gitignore                            # Specifies files Git should not track.
-├── .prettierignore                       # Lists code files that Prettier formatting should skip.
-├── .prettierrc                           # Layout preferences and formatting rules for Prettier.
-├── .readthedocs.yaml                     # Settings for hosting documentation online.
-├── app.py                                # Main entry point running the application.
-├── build.sh                              # Shell script compiling or packaging application.
-├── CITATION.cff                          # Provides citation format for academic referencing.
-├── CODEOWNERS                            # Defines users responsible for reviewing code.
-├── cron-job.py                           # Script running scheduled background automation tasks.
-├── dashboard.py                          # Script launching the visual user interface.
-├── Dockerfile                            # Instructions to build isolated container app.
-├── error.py                              # Module handling application errors and exceptions.
-├── GOVERNANCE.md                         # Details project leadership and decision-making structures.
-├── LICENSE                               # Legal rights and usage terms text.
-├── Makefile                              # Build automation tool script containing shortcut commands.
-├── Pipfile                               # Manages Python virtual environments and dependency groups.
-├── pyproject.toml                        # Modern Python project packaging configuration file.
-├── pytest.ini                            # Setup choices and configurations for the Pytest suite.
-├── README.md                             # Main introductory project overview and guide.
-├── requirements.txt                      # Lists external library dependencies for installation.
-├── ROADMAP.md                            # Outlines future features and development goals.
-└── test_pipeline.py                      # Automation script to run the test suite.
-```
-
-## 9. Detailed Module Breakdown
-* **`src/RateLimit429Stopper.py`**: Controls request intervals, intercepts outgoing API packets, and blocks 429 throttling errors.
-* **`src/__init__.py`**: Establishes directory package mapping and exposes inner module namespaces for local imports.
-* **`src/bot.py`**: Boots the foundational framework runtime, sets up thread pools, and listens to event pipes.
-* **`src/game_handler.py`**: Implements state rules, reads board steps, and processes challenge transactions.
-* **`src/history_manager.py`**: Stores raw coordinate logs, indexes game history indices, and tracks user performance timelines.
-* **`src/memory_manager.py`**: It allocates, tracks, and frees system memory efficiently to prevent leaks and crashes.
-* **`src/openings.py`**: Indexes move tree registries to execute hardcoded theoretical opening lines automatically.
-* **`src/scout.py`**: Scrapes profile data streams to map playstyle habits and parse enemy tactic blind spots.
-* **`src/skill_estimator.py`**: Tracks analytical evaluation metrics to map centipawn metrics directly onto target ratings.
-
-## 10. Deployed Bot
+## 9. Deployed Bot
 The backend server is live on Render: [Live Server Status](https://lichess-inappropriate-bot.onrender.com/)
 
 **How to Play / Interact**
@@ -211,7 +106,7 @@ Since this is a backend Lichess bot, you don't interact with the Render link dir
 3. Challenge the bot to a game or send it a message to see it in action!
 
 
-## 11. Advanced Usage Framework
+## 10. Advanced Usage Framework
 Launch the tool package command interface execution entry point natively via the active console window:
 ```bash
 MakeChessBetter
@@ -223,35 +118,23 @@ python -m src.bot
 * **Silent Mode Execution (Windows):** Suppress the command console pop-up layer by utilizing `pythonw bot.py`.
 * **Detached Runtime (Linux/Mac):** Maintain long-term execution after dropping SSH sessions via `nohup python bot.py &`.
 
-## 12. API & Programmatic Reference
+## 11. API & Programmatic Reference
 The internal handlers parse data properties streaming from Lichess's public development entry channels:
 * `GET /api/stream/event`: Establishes the real-time event pipeline to intercept Incoming game challenges.
 * `POST /api/bot/game/{gameId}/move/{move}`: Ships calculated chess engine calculations back to the board matrix.
 * `POST /api/bot/game/{gameId}/chat`: Emits automated status alerts directly to the in-game log panel.
 
-## 13. Troubleshooting & Diagnostics
+## 12. Troubleshooting & Diagnostics
 * **Flashing Window/Instant Exit:** Avoid clicking raw module paths directly from the explorer window. Launch the module commands manually from an already open terminal window to capture active error flags.
 * **401 Authentication Validation Errors:** Confirm your token features the authorized `bot:play` permission configuration.
 * **Engine Connection Timeout:** Ensure path variables in `config.py` point directly to legitimate engine instances.
 
-## 14. Performance Fine-Tuning
+## 13. Performance Fine-Tuning
 Optimize your engine properties for low-latency calculations:
 * **Core Distribution:** Align the calculation process properties explicitly with actual machine CPU core limitations.
 * **Hash Optimization:** Raise local allocation ceilings (e.g., to 2048MB) within your script configuration values to accelerate high-depth searches.
 
-## 15. Contributing Lifecycle
-We welcome pull requests and enhancements. Review the comprehensive style standards, pipeline conditions, and branch submission structures maintained in our [`CONTRIBUTING.md`](./CONTRIBUTING.md) configuration layout.
-
-## 16. License Agreements
-This codebase is entirely open-source software distributed under the terms of the **MIT License**. For complete copyright parameters, review the root [`LICENSE`](./LICENSE) text asset. This framework acts as a bridge reference derived from the original engine systems managed under the AGPL open-source guidelines.
-
-## 17. Credits and Badges
-* Developed utilizing foundational structural wrappers provided by the [lichess-bot-devs](https://github.com/lichess-bot-devs/lichess-bot) community team.
-* Core engine operations run via official [Stockfish](https://stockfishchess.org/) and [Fairy-Stockfish](https://github.com/fairy-stockfish/Fairy-Stockfish) projects.
-* Object representations managed inside Python using the open-source [python-chess](https://python-chess.readthedocs.io/) runtime package library.
-* Opening book structures deployed via the [gm2001.bin](https://github.com/michaeldv/donna_opening_books) polyglot compilation authored by Oliver Deville.
-
-## 18. Future Roadmap
+## 14. Future Roadmap
 * [x] Integrate native web dashboard interfaces to keep track of active match histories.
 * [x] Support customized cloud hosting integration setups for true 24/7 uptime.
 * [x] Automate opening database selections according to opponent account configurations.
