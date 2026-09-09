@@ -1,0 +1,35 @@
+name: Feature Ideas
+description: Propose a new feature or improvement for the Lichess bot
+title: "[Idea]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest an idea for MakeChessBetter! Please fill out the fields below.
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: What is your idea?
+      description: Provide a clear and concise description of what you want to add or improve.
+      placeholder: E.g., Add an option to change the bot's personality in chat...
+    validations:
+      required: true
+  - type: textarea
+    id: chess-benefit
+    attributes:
+      label: How does this improve the chess experience?
+      description: Explain how this helps the adaptive ELO system, matchmaking, or player engagement.
+      placeholder: E.g., It makes the bot feel more human-like during long matches...
+    validations:
+      required: true
+  - type: dropdown
+    id: priority-level
+    attributes:
+      label: Suggested Priority
+      options:
+        - Critical improvement
+        - Nice-to-have feature
+        - Minor cosmetic tweak
+    validations:
+      required: true
