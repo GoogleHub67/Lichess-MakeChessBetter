@@ -1,0 +1,24 @@
+name: Show and Tell
+description: Show off your modifications, forks, or cool integrations!
+title: "[Showcase]: "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Did you customize the dynamic ELO logic or build a cool UI? Show it off here!
+  - type: textarea
+    id: project-showcase
+    attributes:
+      label: What did you build or modify?
+      description: Provide a summary of your customization or implementation.
+      placeholder: E.g., I tweaked the lock-in phase thresholds to make intermediate levels harder...
+    validations:
+      required: true
+  - type: textarea
+    id: links-or-media
+    attributes:
+      label: Links or Screenshots
+      description: Add links to your fork, live deployment, or screenshots.
+      placeholder: E.g., You can see my updated code block here...
+    validations:
+      required: true
