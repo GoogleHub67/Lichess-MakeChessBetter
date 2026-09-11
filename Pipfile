@@ -4,11 +4,16 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-python-chess = "*"
-requests = "*"
-websockets = "*"
+chess = ">=1.10.0"
+berserk = "*"
 python-dotenv = "*"
 pyyaml = "*"
+httpx = ">=0.27.0"
+flask = "==3.0.3"
+gunicorn = "*"
+gevent = "*"
+sphinx-rtd-theme = "*"
+myst-parser = "*"
 
 [dev-packages]
 pytest = "*"
