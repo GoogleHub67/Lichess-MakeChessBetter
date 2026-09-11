@@ -27,4 +27,4 @@ dependencies = [
 inappropriate-bot = "MakeChessBetter.bot:main"
 
 [tool.setuptools.packages.find]
-where = ["src"]
+where = ["src/Lichess-MakeChessBetter"]
