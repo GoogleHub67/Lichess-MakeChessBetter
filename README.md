@@ -134,9 +134,4 @@ Optimize your engine properties for low-latency calculations:
 * **Core Distribution:** Align the calculation process properties explicitly with actual machine CPU core limitations.
 * **Hash Optimization:** Raise local allocation ceilings (e.g., to 2048MB) within your script configuration values to accelerate high-depth searches.
 
-## 14. Future Roadmap
-* [x] Integrate native web dashboard interfaces to keep track of active match histories.
-* [x] Support customized cloud hosting integration setups for true 24/7 uptime.
-* [x] Automate opening database selections according to opponent account configurations.
-* [ ] Support all Lichess Variants.
 # pipeline refresh
