@@ -7,7 +7,6 @@ This blueprint breaks down the exact operational purpose of every module, config
 ## 📂 Complete File System Tree
 
 ```text
-Lichess-MakeChessBetter/
 ├── .ai/
 │   ├── AI.md
 │   ├── README.md
@@ -79,15 +78,20 @@ Lichess-MakeChessBetter/
 │   │   └── setup_windows.ps1
 │   └── README.md
 ├── src/
-│   ├── __init__.py
+│   ├── Lichess-MakeChessBetter/
+│   │   └── __init__.py
 │   ├── bot.py
+│   ├── cron-job.py
 │   ├── game_handler.py
 │   ├── history_manager.py
 │   ├── memory_manager.py
 │   ├── openings.py
 │   ├── RateLimit429Stopper.py
 │   ├── scout.py
-│   └── skill_estimator.py
+│   ├── skill_estimator.py
+│   └── stockfish_check.py
+├── tests/
+│   └── test_pipeline.py
 ├── .dockerignore
 ├── .editorconfig
 ├── .env.example
@@ -99,11 +103,9 @@ Lichess-MakeChessBetter/
 ├── CHANGELOG.md
 ├── CITATION.cff
 ├── CODEOWNERS
-├── cron-job.py
 ├── dashboard.py
 ├── docker-compose.yml
 ├── Dockerfile
-├── error.py
 ├── LICENSE
 ├── Makefile
 ├── Pipfile
@@ -111,8 +113,7 @@ Lichess-MakeChessBetter/
 ├── pytest.ini
 ├── README.md
 ├── requirements.txt
-├── ROADMAP.md
-└── test_pipeline.py
+└── ROADMAP.md
 ```
 
 ---
