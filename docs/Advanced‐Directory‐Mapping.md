@@ -24,6 +24,7 @@ Lichess-MakeChessBetter/
 │   ├── workflows/                        # Automated CI/CD pipeline automation workflows.
 │   │   ├── bot-ci.yml                    # Automated integration testing for chess bot.
 │   │   ├── build-binaries.yml            # Compiles project files into executable binaries.
+│   │   ├── changelog.yml                 # Automatically generates your changelog by scanning Git history.
 │   │   ├── lint-and-test.yml             # Runs code style checks and testing.
 │   │   └── publish.yml                   # Automatically publishes releases to deployment targets.
 │   ├── CODE_OF_CONDUCT.md                # Community guidelines for participant behavior standards.
@@ -82,8 +83,6 @@ Lichess-MakeChessBetter/
 │   ├── openings.py                       # Handles chess opening book move selections.
 │   ├── scout.py                          # Analyzes upcoming opponents for strategic advantages.
 │   └── skill_estimator.py                # Calculates opponent strength for matchmaking adjustments.
-├── tests/                                # Automated test cases for validating code.
-│   └── config.xml.default                # Default settings template for test environment.
 ├── .dockerignore                         # Excludes specific files from Docker builds.
 ├── .editorconfig                         # Maintains consistent coding styles across different editors.
 ├── .env.example                          # Template for required environment variable settings.
