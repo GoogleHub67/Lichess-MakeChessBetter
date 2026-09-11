@@ -1,0 +1,30 @@
+name: Auto Changelog CI
+
+on:
+  push:
+    branches:
+      - main  # Or master, change this to your default branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate Changelog
+        uses: angular-actions/changelog-generator@v1.4.0
+        id: changelog
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit & Push Changelog
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          echo "${{ steps.changelog.outputs.changelog }}" > CHANGELOG.md
+          git add CHANGELOG.md
+          git commit -m "chore: auto-update CHANGELOG.md [skip ci]" || echo "No changes to commit"
+          git push
