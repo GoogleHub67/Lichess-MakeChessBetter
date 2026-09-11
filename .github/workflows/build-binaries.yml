@@ -1,18 +1,23 @@
-name: Build Cross-Platform Binaries
+name: Build Extensionless Cross-Platform Assets
 on: [push, workflow_dispatch]
 
 jobs:
   build:
-    name: Build on ${{ matrix.os }}
+    name: Build Assets on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [windows-latest, macos-latest]
+        os: [windows-latest, ubuntu-latest, macos-latest]
         include:
           - os: windows-latest
-            artifact_name: windows-binary
+            artifact_name: windows-assets
+            target_os: windows
+          - os: ubuntu-latest
+            artifact_name: linux-assets
+            target_os: linux
           - os: macos-latest
-            artifact_name: macos-binary
+            artifact_name: macos-assets
+            target_os: macos
 
     steps:
       - name: Checkout Code
@@ -23,21 +28,54 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install Compilers and Dependencies
+      # Standard build toolkit installation
+      - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install pyinstaller
+          pip install pyinstaller cython setuptools
 
-      - name: Compile Application (Windows)
-        if: matrix.os == 'windows-latest'
+      # --- STEP 1: CREATE EXTENSIONLESS EXECUTABLES (via PyInstaller) ---
+      - name: Build Executable
         run: pyinstaller --onefile --name=makechessbetter src/bot.py
 
-      - name: Compile Application (macOS)
-        if: matrix.os == 'macos-latest'
-        run: pyinstaller --onefile --name=makechessbetter-mac src/bot.py
+      # --- STEP 2: CREATE EXTENSIONLESS LIBRARIES (via Cython) ---
+      # Automatically generates a setup configuration on the fly to compile src/bot.py into a library module
+      - name: Build Library Module
+        run: |
+          python -c "
+          from setuptools import setup, Extension
+          from Cython.Build import cythonize
+          setup(ext_modules=cythonize(Extension('chess_library', ['src/bot.py'])))
+          " build_ext --inplace
 
-      - name: Upload Finished Binary
+      # --- STEP 3: STRIP ALL FILE EXTENSIONS ---
+      # Renames the generated executables and libraries to eliminate extensions entirely before upload
+      - name: Strip Extensions (Windows)
+        if: matrix.target_os == 'windows'
+        shell: powershell
+        run: |
+          mkdir output
+          Move-Item dist/makechessbetter.exe output/makechessbetter-app
+          Get-ChildItem -Filter *.pyd | ForEach-Object { Move-Item $_.FullName output/makechessbetter-library }
+
+      - name: Strip Extensions (Linux)
+        if: matrix.target_os == 'linux'
+        run: |
+          mkdir output
+          mv dist/makechessbetter output/makechessbetter-app
+          mv *.so output/makechessbetter-library
+
+      - name: Strip Extensions (Mac)
+        if: matrix.target_os == 'macos'
+        run: |
+          mkdir output
+          mv dist/makechessbetter-mac output/makechessbetter-app || mv dist/makechessbetter output/makechessbetter-app
+          mv *.so output/makechessbetter-library || mv *.dylib output/makechessbetter-library || true
+
+      # --- STEP 4: UPLOAD RAW EXTENSIONLESS BINARIES ---
+      - name: Upload Finished Assets
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact_name }}
-          path: dist/
+          path: output/
+          if-no-files-found: ignore
