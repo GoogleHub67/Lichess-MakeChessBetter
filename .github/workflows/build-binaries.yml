@@ -6,6 +6,7 @@ jobs:
     name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false # Prevents one OS failure from instantly killing the other running OS jobs
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
         include:
@@ -33,14 +34,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install pyinstaller cython setuptools
 
-      # --- 1. COMPILE NATIVE LIBRARIES (Cython) ---
+      # --- 1. COMPILE NATIVE LIBRARIES (Cython Setup Fixed) ---
       - name: Compile Library Module
         run: |
           python -c "
           from setuptools import setup, Extension
           from Cython.Build import cythonize
-          setup(ext_modules=cythonize(Extension('makechessbetter', ['src/bot.py'])))
-          " build_ext --inplace
+          import sys
+          setup(
+              ext_modules=cythonize(Extension('makechessbetter', ['src/bot.py']), script_args=['build_ext', '--inplace'])
+          )
+          "
 
       # --- 2. COMPILE APPS (PyInstaller) ---
       - name: Build Standalone Application (Windows)
@@ -55,28 +59,28 @@ jobs:
         if: matrix.target_os == 'macos'
         run: pyinstaller --onefile --name=makechessbetter-mac src/bot.py
 
-      # --- 3. FORMAT AND STAGE ASSETS FOR UPLOAD ---
+      # --- 3. FORMAT AND STAGE ASSETS FOR UPLOAD (Safe Paths) ---
       - name: Stage Assets (Windows)
         if: matrix.target_os == 'windows'
         shell: powershell
         run: |
           mkdir output
-          Move-Item dist/makechessbetter.exe output/makechessbetter.exe
-          Get-ChildItem -Filter *.pyd | ForEach-Object { Move-Item $_.FullName output/makechessbetter.pyd }
+          if (Test-Path "dist/makechessbetter.exe") { Move-Item dist/makechessbetter.exe output/makechessbetter.exe }
+          Get-ChildItem -Path . -Filter *.pyd -Recurse | ForEach-Object { Copy-Item $_.FullName output/makechessbetter.pyd }
 
       - name: Stage Assets (Linux)
         if: matrix.target_os == 'linux'
         run: |
           mkdir output
-          mv dist/makechessbetter-linux output/makechessbetter-linux
-          mv *.so output/makechessbetter.so
+          [ -f dist/makechessbetter-linux ] && mv dist/makechessbetter-linux output/makechessbetter-linux
+          find . -name "*.so" -exec cp {} output/makechessbetter.so \;
 
       - name: Stage Assets (Mac)
         if: matrix.target_os == 'macos'
         run: |
           mkdir output
-          mv dist/makechessbetter-mac output/makechessbetter-mac
-          mv *.so output/makechessbetter.dylib || mv *.dylib output/makechessbetter.dylib
+          [ -f dist/makechessbetter-mac ] && mv dist/makechessbetter-mac output/makechessbetter-mac
+          find . -name "*.so" -exec cp {} output/makechessbetter.so \;
 
       # --- 4. UPLOAD ZIP ARTIFACTS ---
       - name: Upload Finished Assets
