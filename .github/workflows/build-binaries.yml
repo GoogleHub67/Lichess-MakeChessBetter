@@ -1,9 +1,9 @@
-name: Build Extensionless Cross-Platform Assets
+name: Build All 6 Cross-Platform Chess Assets
 on: [push, workflow_dispatch]
 
 jobs:
   build:
-    name: Build Assets on ${{ matrix.os }}
+    name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -28,54 +28,60 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Standard build toolkit installation
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller cython setuptools
 
-      # --- STEP 1: CREATE EXTENSIONLESS EXECUTABLES (via PyInstaller) ---
-      - name: Build Executable
-        run: pyinstaller --onefile --name=makechessbetter src/bot.py
-
-      # --- STEP 2: CREATE EXTENSIONLESS LIBRARIES (via Cython) ---
-      # Automatically generates a setup configuration on the fly to compile src/bot.py into a library module
-      - name: Build Library Module
+      # --- 1. COMPILE NATIVE LIBRARIES (Cython) ---
+      - name: Compile Library Module
         run: |
           python -c "
           from setuptools import setup, Extension
           from Cython.Build import cythonize
-          setup(ext_modules=cythonize(Extension('chess_library', ['src/bot.py'])))
+          setup(ext_modules=cythonize(Extension('makechessbetter', ['src/bot.py'])))
           " build_ext --inplace
 
-      # --- STEP 3: STRIP ALL FILE EXTENSIONS ---
-      # Renames the generated executables and libraries to eliminate extensions entirely before upload
-      - name: Strip Extensions (Windows)
+      # --- 2. COMPILE APPS (PyInstaller) ---
+      - name: Build Standalone Application (Windows)
+        if: matrix.target_os == 'windows'
+        run: pyinstaller --onefile --name=makechessbetter src/bot.py
+
+      - name: Build Standalone Application (Linux)
+        if: matrix.target_os == 'linux'
+        run: pyinstaller --onefile --name=makechessbetter-linux src/bot.py
+
+      - name: Build Standalone Application (Mac)
+        if: matrix.target_os == 'macos'
+        run: pyinstaller --onefile --name=makechessbetter-mac src/bot.py
+
+      # --- 3. FORMAT AND STAGE ASSETS FOR UPLOAD ---
+      - name: Stage Assets (Windows)
         if: matrix.target_os == 'windows'
         shell: powershell
         run: |
           mkdir output
-          Move-Item dist/makechessbetter.exe output/makechessbetter-app
-          Get-ChildItem -Filter *.pyd | ForEach-Object { Move-Item $_.FullName output/makechessbetter-library }
+          Move-Item dist/makechessbetter.exe output/makechessbetter.exe
+          Get-ChildItem -Filter *.pyd | ForEach-Object { Move-Item $_.FullName output/makechessbetter.pyd }
 
-      - name: Strip Extensions (Linux)
+      - name: Stage Assets (Linux)
         if: matrix.target_os == 'linux'
         run: |
           mkdir output
-          mv dist/makechessbetter output/makechessbetter-app
-          mv *.so output/makechessbetter-library
+          mv dist/makechessbetter-linux output/makechessbetter-linux
+          mv *.so output/makechessbetter.so
 
-      - name: Strip Extensions (Mac)
+      - name: Stage Assets (Mac)
         if: matrix.target_os == 'macos'
         run: |
           mkdir output
-          mv dist/makechessbetter-mac output/makechessbetter-app || mv dist/makechessbetter output/makechessbetter-app
-          mv *.so output/makechessbetter-library || mv *.dylib output/makechessbetter-library || true
+          mv dist/makechessbetter-mac output/makechessbetter-mac
+          mv *.so output/makechessbetter.dylib || mv *.dylib output/makechessbetter.dylib
 
-      # --- STEP 4: UPLOAD RAW EXTENSIONLESS BINARIES ---
+      # --- 4. UPLOAD ZIP ARTIFACTS ---
       - name: Upload Finished Assets
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.artifact_name }}
           path: output/
-          if-no-files-found: ignore
+          if-no-files-found: error
