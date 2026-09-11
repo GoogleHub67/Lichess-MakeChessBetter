@@ -68,7 +68,11 @@ jobs:
         run: |
           mkdir output
           if (Test-Path "dist/makechessbetter.exe") { Move-Item dist/makechessbetter.exe output/makechessbetter.exe }
-          Get-ChildItem -Path . -Filter *.pyd -Recurse | ForEach-Object { Copy-Item $_.FullName output/makechessbetter.pyd }
+          Get-ChildItem -Path . -Filter *.pyd -Recurse | ForEach-Object {
+              if ($_.DirectoryName -ne (Get-Item output).FullName) {
+                  Move-Item $_.FullName output/makechessbetter.pyd -Force
+              }
+          }
 
       - name: Stage Assets (Linux)
         if: matrix.target_os == 'linux'
