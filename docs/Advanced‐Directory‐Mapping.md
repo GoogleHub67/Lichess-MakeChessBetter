@@ -7,6 +7,7 @@ This blueprint breaks down the exact operational purpose of every module, config
 ## 📂 Complete File System Tree
 
 ```text
+Lichess-MakeChessBetter/
 ├── .ai/
 │   ├── AI.md
 │   ├── README.md
