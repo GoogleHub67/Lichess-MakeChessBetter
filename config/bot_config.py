@@ -1,8 +1,13 @@
 import os
 from dotenv import load_dotenv
 
-# Automatically load environmental variables from the root .env file if running locally
-load_dotenv()
+# 🟢 FIX: Calculate the absolute path to the root folder so it always finds '.env'
+_current_dir = os.path.dirname(os.path.abspath(__file__))
+_project_root = os.path.dirname(_current_dir)
+_path_to_env = os.path.join(_project_root, ".env")
+
+# Explicitly load the environmental variables from the root .env file
+load_dotenv(dotenv_path=_path_to_env)
 
 class Config:
     # 🟢 ENVIRONMENT DRIVEN CONFIGURATION
@@ -17,8 +22,6 @@ class Config:
     # 🟢 PATH RESOLUTION FOR ASSETS
     # Secure, platform-agnostic absolute path resolution for the opening book.
     # Steps out of the 'config' folder into the root directory to locate 'assets'.
-    _current_dir = os.path.dirname(os.path.abspath(__file__))
-    _project_root = os.path.dirname(_current_dir)
     BOOK_PATH: str = os.path.abspath(os.path.join(_project_root, "assets", "books", "gm2001.bin"))
 
     # 🟢 BOT GAMEPLAY SETTINGS
