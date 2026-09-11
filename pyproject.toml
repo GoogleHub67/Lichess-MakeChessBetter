@@ -23,8 +23,14 @@ dependencies = [
 ]
 
 [project.scripts]
-# Updated to use the clean underscore path
-inappropriate-bot = "Lichess_MakeChessBetter.bot:main"
+inappropriate-bot = "Lichess_MakeChessBetter:LichessBot"
 
-[tool.setuptools.packages.find]
-where = ["src"]
+[tool.setuptools]
+# Map the root directories for your modules and packages
+package-dir = { "" = "src", "bot_config" = "config" }
+packages = ["Lichess_MakeChessBetter"]
+py-modules = ["game_handler"]
+
+# Force setuptools to look inside the config folder for non-Python data files
+[tool.setuptools.package-data]
+bot_config = ["*.yml", "*.yaml"]
