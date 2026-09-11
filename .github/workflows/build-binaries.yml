@@ -6,7 +6,7 @@ jobs:
     name: Build on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
-      fail-fast: false # Prevents one OS failure from instantly killing the other running OS jobs
+      fail-fast: false
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
         include:
@@ -41,8 +41,10 @@ jobs:
           from setuptools import setup, Extension
           from Cython.Build import cythonize
           import sys
+          
           setup(
-              ext_modules=cythonize(Extension('makechessbetter', ['src/bot.py']), script_args=['build_ext', '--inplace'])
+              ext_modules=cythonize(Extension('makechessbetter', ['src/bot.py'])),
+              script_args=['build_ext', '--inplace']
           )
           "
 
@@ -59,7 +61,7 @@ jobs:
         if: matrix.target_os == 'macos'
         run: pyinstaller --onefile --name=makechessbetter-mac src/bot.py
 
-      # --- 3. FORMAT AND STAGE ASSETS FOR UPLOAD (Safe Paths) ---
+      # --- 3. FORMAT AND STAGE ASSETS FOR UPLOAD ---
       - name: Stage Assets (Windows)
         if: matrix.target_os == 'windows'
         shell: powershell
