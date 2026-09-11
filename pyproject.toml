@@ -15,7 +15,6 @@ dependencies = [
     "pyyaml",
     "gunicorn",
     "requests",
-    "python-chess",
     "python-dotenv",
     "berserk>=0.11.0",
     "gevent",
@@ -24,7 +23,8 @@ dependencies = [
 ]
 
 [project.scripts]
-inappropriate-bot = "MakeChessBetter.bot:main"
+# Updated to use the clean underscore path
+inappropriate-bot = "Lichess_MakeChessBetter.bot:main"
 
 [tool.setuptools.packages.find]
-where = ["src/Lichess-MakeChessBetter"]
+where = ["src"]
