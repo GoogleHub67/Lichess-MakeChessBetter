@@ -3,9 +3,10 @@ import sqlite3
 from src.scout import scout_opponent_with_sql
 from src.history_manager import HistoryManager
 
-# Locate the database file path
+# Locate the database file path by stepping up out of the tests folder
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "config", "chess_history.db")
+ROOT_DIR = os.path.dirname(BASE_DIR) # Steps up from /tests to /app
+DB_PATH = os.path.join(ROOT_DIR, "config", "chess_history.db")
 
 def verify_setup():
     print("🧪 --- STARTING BOT PIPELINE VERIFICATION TEST --- 🧪\n")
