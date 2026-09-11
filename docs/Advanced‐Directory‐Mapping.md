@@ -7,31 +7,30 @@ This blueprint breaks down the exact operational purpose of every module, config
 ## 📂 Complete File System Tree
 
 ```text
-Lichess-MakeChessBetter/
-├── .ai/                                  
-│   ├── AI.md                             
-│   ├── README.md                         
-│   └── settings.json                      
-├── .github/                              
+├── .ai/
+│   ├── AI.md
+│   ├── README.md
+│   └── settings.json
+├── .github/
 │   ├── DISCUSSION_TEMPLATE/
-│   │   ├── general.yml                   
-│   │   ├── ideas.yml                     
+│   │   ├── general.yml
+│   │   ├── ideas.yml
 │   │   ├── q-a.yml
-│   │   └── show-and-tell.yml             
-│   ├── ISSUE_TEMPLATE/                   
-│   │   ├── bug_report.yml                
-│   │   └── feature_request.yml           
-│   ├── workflows/                        
-│   │   ├── bot-ci.yml                    
-│   │   ├── build-binaries.yml            
-│   │   ├── changelog.yml                 
-│   │   ├── lint-and-test.yml             
+│   │   └── show-and-tell.yml
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml
+│   │   └── feature_template.yml
+│   ├── workflows/
+│   │   ├── bot-ci.yml
+│   │   ├── build-binaries.yml
+│   │   ├── changelog.yml
+│   │   ├── lint-and-test.yml
 │   │   └── publish.yml
 │   ├── CODE_OF_CONDUCT.md
 │   ├── CONTRIBUTING.md
 │   ├── CREDITS.md
 │   ├── GOVERNANCE.md
-│   ├── MAINTENANCE.md
+│   ├── MAINTAINERS.md
 │   ├── pull_request_template.md
 │   ├── SECURITY.md
 │   └── SUPPORT.md
@@ -44,24 +43,29 @@ Lichess-MakeChessBetter/
 ├── .vscode/
 │   └── settings.json
 ├── config/
+│   ├── env/
+│   │   ├── .linux.env.example
+│   │   ├── .macos.env.example
+│   │   └── .windows.env.example
 │   ├── bot_config.py
-│   └── config.yml.default
+│   ├── config.yml.default
+│   └── README.md
 ├── docs/
 │   ├── source/
 │   │   ├── conf.py
 │   │   └── index.rst
 │   ├── _Footer.md
 │   ├── _Sidebar.md
-│   ├── API-Programmatic-Reference.md
 │   ├── Advanced‐CI‐CD‐Automation.md
 │   ├── Advanced‐Directory‐Mapping.md
 │   ├── Advanced‐Framework.md
+│   ├── API-Programmatic-Reference
 │   ├── Data‐Flow‐And‐State‐Machine.md
 │   ├── FAQs.md
 │   ├── Home.md
 │   ├── Lichess‐API‐Integration.md
 │   ├── Opening‐Book‐Configurations.md
-│   ├── Performance-Fine-Tuning.md
+│   ├── Performance-Fine-Tuning
 │   ├── Render‐Deployment‐Guide.md
 │   └── Security‐And‐Fair‐Play.md
 ├── scripts/
@@ -74,13 +78,13 @@ Lichess-MakeChessBetter/
 │   │   └── setup_windows.ps1
 │   └── README.md
 ├── src/
-│   ├── RateLimit429Stopper.py
 │   ├── __init__.py
 │   ├── bot.py
 │   ├── game_handler.py
 │   ├── history_manager.py
 │   ├── memory_manager.py
 │   ├── openings.py
+│   ├── RateLimit429Stopper.py
 │   ├── scout.py
 │   └── skill_estimator.py
 ├── .dockerignore
