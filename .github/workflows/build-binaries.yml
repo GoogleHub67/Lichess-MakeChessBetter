@@ -29,7 +29,6 @@ jobs:
         with:
           python-version: '3.11'
 
-      # --- UPDATED DEPENDENCY HANDLING: RESTORES REQUIREMENTS BEFORE RUNNING PYINSTALLER ---
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
@@ -51,10 +50,10 @@ jobs:
           )
           "
 
-      # --- 2. COMPILE APPS (PyInstaller) ---
+      # --- 2. COMPILE APPS (PyInstaller - Windows Fixed) ---
       - name: Build Standalone Application (Windows)
         if: matrix.target_os == 'windows'
-        run: pyinstaller --onefile --name=makechessbetter src/bot.py
+        run: pyinstaller --onefile --paths=src --name=makechessbetter src/bot.py
 
       - name: Build Standalone Application (Linux)
         if: matrix.target_os == 'linux'
