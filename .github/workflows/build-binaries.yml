@@ -29,10 +29,13 @@ jobs:
         with:
           python-version: '3.11'
 
+      # --- UPDATED DEPENDENCY HANDLING: RESTORES REQUIREMENTS BEFORE RUNNING PYINSTALLER ---
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller cython setuptools
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        shell: bash
 
       # --- 1. COMPILE NATIVE LIBRARIES (Cython Setup Fixed) ---
       - name: Compile Library Module
