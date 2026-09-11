@@ -5,8 +5,10 @@ name = "pypi"
 
 [packages]
 chess = ">=1.10.0"
-berserk = "*"
+berserk = ">=0.11.0"
+reuests = "*"
 python-dotenv = "*"
+python-chess = "*"
 pyyaml = "*"
 httpx = ">=0.27.0"
 flask = "==3.0.3"
