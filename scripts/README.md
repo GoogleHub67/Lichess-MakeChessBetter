@@ -15,7 +15,7 @@ scripts/
     └── setup_windows.ps1     # PowerShell script for Windows environment configuration
 ```
 
-## ⚠️ Prerequisite: 
+## ⚠️ Prerequisite
 Ensure Python 3 is installed and added to your system's PATH variable before executing the setup scripts.
 
 ## ⚙️ Project Setup
