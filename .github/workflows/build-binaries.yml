@@ -50,10 +50,10 @@ jobs:
           )
           "
 
-      # --- 2. COMPILE APPS (PyInstaller - Windows Fixed) ---
+      # --- 2. COMPILE APPS (PyInstaller - Windows Definitively Fixed) ---
       - name: Build Standalone Application (Windows)
         if: matrix.target_os == 'windows'
-        run: pyinstaller --onefile --paths=src --name=makechessbetter src/bot.py
+        run: pyinstaller --onefile --paths=src --collect-all src --name=makechessbetter src/bot.py
 
       - name: Build Standalone Application (Linux)
         if: matrix.target_os == 'linux'
