@@ -3,7 +3,7 @@
 This project is made possible thanks to the incredible open-source libraries, engines, and platforms built by the global developer community.
 
 ## ♟️ Core Technologies
-* **[python-chess](https://pythonchess.readthedocs.io):** The incredible library handling chess rules, move validation, and PGN parsing.
+* **[python-chess](https://python-chess.readthedocs.io):** The incredible library handling chess rules, move validation, and PGN parsing.
 * **[Stockfish](https://stockfishchess.org):** The world's most powerful open-source chess engine, driving our bot's analytical brain.
 * **[Lichess API](https://lichess.org):** Providing a free, robust ecosystem for developers to host chess bots and connect with players worldwide.
 * **[Fairy-Stockfish](https://github.com/fairy-stockfish/Fairy-Stockfish):** An extension of Stockfish designed to support chess variants like Antichess, Horde, and Racing Kings.
