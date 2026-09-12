@@ -1,5 +1,3 @@
-name: General Discussion
-description: Chat about the bot, share your match links, or say hello!
 title: "[General]: "
 body:
   - type: markdown
