@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-09-13] - AI Generated
+- **Bot Profile Image Update**: Renamed `assets/images/bot_stats.png` to `assets/bot-profile.png` to better match the new image naming convention.
+
+
+## [2026-09-13] - AI Generated
 - Added: A new screenshot file was added to the `assets` directory.
 
 
