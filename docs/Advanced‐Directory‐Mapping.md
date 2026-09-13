@@ -7,7 +7,6 @@ This blueprint breaks down the exact operational purpose of every module, config
 ## 📂 Complete File System Tree
 
 ```text
-Lichess-MakeChessBetter/
 ├── .ai/
 │   ├── AI.md
 │   ├── README.md
@@ -43,6 +42,9 @@ Lichess-MakeChessBetter/
 │   └── vcs.xml
 ├── .vscode/
 │   └── settings.json
+├── assets/
+│   ├── bot-profile.png
+│   └── live-gameplay-analysis.png
 ├── config/
 │   ├── env/
 │   │   ├── .linux.env.example
@@ -95,7 +97,6 @@ Lichess-MakeChessBetter/
 │   └── test_pipeline.py
 ├── .dockerignore
 ├── .editorconfig
-├── .env.example
 ├── .gitattributes
 ├── .gitignore
 ├── .readthedocs.yaml
