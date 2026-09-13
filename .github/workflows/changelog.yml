@@ -3,7 +3,7 @@ name: Auto Changelog CI
 on:
   push:
     branches:
-      - main  # Or master, change this to your default branch name
+      - main  # Change this to your default branch name if it's 'master'
 
 jobs:
   build:
@@ -12,19 +12,77 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 2 # Gets current and previous commit to calculate the actual code diff
 
-      - name: Generate Changelog
-        uses: angular-actions/changelog-generator@v1.4.0
-        id: changelog
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          python-version: '3.10'
+
+      - name: Install Dependencies
+        run: pip install openai
+
+      - name: Generate Changelog with Qwen
+        env:
+          QWEN_API_KEY: ${{ secrets.QWEN_API_KEY }}
+        run: |
+          python -c "
+          import os
+          import subprocess
+          from openai import OpenAI
+
+          # 1. Get the actual code diff of the latest push
+          try:
+              diff = subprocess.check_output(['git', 'diff', 'HEAD~1', 'HEAD']).decode('utf-8')
+          except Exception:
+              print('No previous commit found or diff failed.')
+              exit(0)
+
+          if not diff.strip():
+              print('No code changes detected.')
+              exit(0)
+
+          # 2. Setup the OpenAI client pointed to Qwen/DashScope
+          client = OpenAI(
+              api_key=os.environ['QWEN_API_KEY'],
+              base_url='https://dashscope.aliyuncs.com/compatible-mode/v1' # DashScope OpenAI-compatible endpoint
+          )
+          
+          prompt = f'''
+          You are an expert developer. Analyze the following raw git diff of code changes. 
+          Write a concise, human-friendly changelog entry in Markdown.
+          Group by Added, Changed, or Fixed. Do not use technical jargon or internal variable names.
+
+          Git Diff:
+          {diff[:6000]} # Grab the core diff up to token constraints
+          '''
+
+          response = client.chat.completions.create(
+              model='qwen-plus', # Excellent model choice for code/reasoning
+              messages=[{'role': 'user', 'content': prompt}]
+          )
+          
+          ai_entry = response.choices[0].message.content.strip()
+
+          # 3. Update CHANGELOG.md file
+          changelog_file = 'CHANGELOG.md'
+          existing_content = ''
+          if os.path.exists(changelog_file):
+              with open(changelog_file, 'r') as f:
+                  existing_content = f.read()
+
+          from datetime import datetime
+          today = datetime.now().strftime('%Y-%m-%d')
+          new_entry = f'\n\n## [{today}] - AI Generated\n{ai_entry}\n'
+
+          with open(changelog_file, 'w') as f:
+              f.write(new_entry + existing_content)
+          "
 
       - name: Commit & Push Changelog
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          echo "${{ steps.changelog.outputs.changelog }}" > CHANGELOG.md
           git add CHANGELOG.md
           git commit -m "chore: auto-update CHANGELOG.md [skip ci]" || echo "No changes to commit"
           git push
