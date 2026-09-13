@@ -8,11 +8,10 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-# Shell scripts and configurations often favor 2 spaces or tabs depending on style, 
-# but YAML/JSON absolutely demand 2 spaces to parse correctly.
+# Use 2-space indentation for structured data and markdown
 [*.{json,yaml,yml,md}]
 indent_size = 2
 
-# Ensures your IDE saves PowerShell scripts with Windows endings automatically
-[*.ps1]
+# Force Windows line endings for Windows-specific scripting languages
+[*.{ps1,bat}]
 end_of_line = crlf
