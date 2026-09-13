@@ -1,10 +1,10 @@
-# Handle line endings automatically for all text files
+# 1. Global fallback for text files
 * text=auto
 
-# Force Unix line endings for Python, scripts, web files, and config files
+# 2. Strict Unix line endings (Crucial for Python, Docker, and Linux Shell script execution)
 *.py text eol=lf
-*.toml text eol=lf
 *.sh text eol=lf
+*.toml text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf
 *.json text eol=lf
@@ -12,5 +12,13 @@
 *.default text eol=lf
 requirements.txt text eol=lf
 
-# Force Windows line endings for PowerShell scripts (matches editorconfig)
+# 3. Strict Windows line endings (Crucial for Windows native scripting tools)
 *.ps1 text eol=crlf
+*.bat text eol=crlf
+
+# 4. Binary safety layer (Prevents Git from corrupting compiled Python bytecode)
+*.pyc binary
+*.pyd binary
+*.pyo binary
+.pytest_cache/ binary
+__pycache__/ binary
