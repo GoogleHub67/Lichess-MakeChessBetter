@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-09-13] - AI Generated
+- Removed `.gn` file from `assets/` directory.
+
+
+## [2026-09-13] - AI Generated
 - Fixed a rename issue with `bot_stats.png` to `images/bot_stats.png`.
 
 
