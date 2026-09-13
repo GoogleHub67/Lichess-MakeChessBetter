@@ -12,57 +12,93 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2 # Fetches the current and previous commit to calculate the actual diff
+          fetch-depth: 2 # Fetches current and previous commit for the diff
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
 
       - name: Install Ollama
         run: |
           curl -fsSL https://ollama.com/install.sh | sh
-          ollama serve & 
-          sleep 5 # Give the background service a few seconds to boot up
+          ollama serve &
+          
+          # Wait up to 30 seconds for Ollama to become responsive
+          echo "Waiting for Ollama to start..."
+          for i in {1..30}; do
+            if curl -s http://localhost:11434/api/tags > /dev/null; then
+              echo "Ollama is ready!"
+              break
+            fi
+            sleep 1
+          done
 
       - name: Pull Qwen Coder Model
-        run: ollama pull qwen2.5-coder:1.5b # Using 1.5b as it downloads very quickly in CI, but you can use 7b if needed
+        run: ollama pull qwen2.5-coder:1.5b
 
       - name: Generate Changelog with Local AI
         run: |
-          # 1. Get the actual code diff of the latest push
-          DIFF=$(git diff HEAD~1 HEAD)
+          python -c "
+          import os
+          import subprocess
+          import json
+          import urllib.request
+          from datetime import datetime
 
-          if [ -z "$DIFF" ]; then
-              echo "No code changes detected."
-              exit 0
-          fi
+          # 1. Get code diff
+          try:
+              diff = subprocess.check_output(['git', 'diff', 'HEAD~1', 'HEAD']).decode('utf-8')
+          except Exception as e:
+              print(f'Error getting git diff: {e}')
+              exit(0)
 
-          # 2. Structure the prompt cleanly for Qwen
-          PROMPT="You are an expert developer. Analyze the following raw git diff of code changes. 
-          Write a concise, human-friendly changelog entry in Markdown.
+          if not diff.strip():
+              print('No code changes detected.')
+              exit(0)
+
+          # 2. Prepare Prompt
+          prompt = f'''You are an expert developer. Analyze the following raw git diff of code changes. 
+          Write a concise, human-friendly changelog entry in Markdown format.
           Group items by Added, Changed, or Fixed. Do not use technical jargon or internal variable names.
           Keep it punchy.
 
           Git Diff:
-          $DIFF"
+          {diff}'''
 
-          # Escape formatting safely for JSON
-          JSON_PROMPT=$(echo "$PROMPT" | jq -aR .)
+          # 3. Call Ollama API using Python's native utilities
+          url = 'http://localhost:11434/api/generate'
+          data = json.dumps({
+              'model': 'qwen2.5-coder:1.5b',
+              'prompt': prompt,
+              'stream': False
+          }).encode('utf-8')
 
-          # 3. Call the Ollama API running inside the GitHub worker
-          echo "🤖 Cloud-hosted Qwen is analyzing code changes..."
-          AI_ENTRY=$(curl -s http://localhost:11434/api/generate -d "{
-            \"model\": \"qwen2.5-coder:1.5b\",
-            \"prompt\": $JSON_PROMPT,
-            \"stream\": false
-          }" | jq -r '.response')
+          req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'})
+          
+          try:
+              with urllib.request.urlopen(req) as response:
+                  res_data = json.loads(response.read().decode('utf-8'))
+                  ai_entry = res_data.get('response', '').strip()
+          except Exception as e:
+              ai_entry = f'Error generating entry from Qwen: {str(e)}'
 
-          # 4. Prepend to CHANGELOG.md file
-          CHANGELOG_FILE="CHANGELOG.md"
-          DATE=$(date +%Y-%m-%d)
-          NEW_ENTRY=$'\n\n'"## [$DATE] - AI Generated"$'\n'"$AI_ENTRY"
+          if not ai_entry:
+              ai_entry = 'No changes could be parsed by the model.'
 
-          if [ -f "$CHANGELOG_FILE" ]; then
-              echo "$NEW_ENTRY" | cat - "$CHANGELOG_FILE" > temp && mv temp "$CHANGELOG_FILE"
-          else
-              echo -e "# Changelog\n$NEW_ENTRY" > "$CHANGELOG_FILE"
-          fi
+          # 4. Update CHANGELOG.md
+          changelog_file = 'CHANGELOG.md'
+          existing_content = ''
+          if os.path.exists(changelog_file):
+              with open(changelog_file, 'r') as f:
+                  existing_content = f.read()
+
+          today = datetime.now().strftime('%Y-%m-%d')
+          new_entry = f'\n\n## [{today}] - AI Generated\n{ai_entry}\n'
+
+          with open(changelog_file, 'w') as f:
+              f.write(new_entry + existing_content)
+          "
 
       - name: Commit & Push Changelog
         run: |
