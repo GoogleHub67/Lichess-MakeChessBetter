@@ -1,6 +1,13 @@
 # Changelog
 
 ## [2026-09-13] - AI Generated
+- **Added:**
+  - Added a new directory named `Lichess-MakeChessBetter`.
+  - Created an `.ai/` directory within the `Lichess-MakeChessBetter` directory.
+  - Added an `AI.md` and `README.md` file within the `.ai/` directory.
+
+
+## [2026-09-13] - AI Generated
 - Removed `assets/live-gameplay-analysis.bmp` file.
 
 
