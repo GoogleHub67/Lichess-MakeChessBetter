@@ -1,13 +1,16 @@
 # Handle line endings automatically for all text files
 * text=auto
 
-# Force Unix line endings for Python, scripts, and config files
+# Force Unix line endings for Python, scripts, web files, and config files
 *.py text eol=lf
 *.toml text eol=lf
 *.sh text eol=lf
 *.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.md text eol=lf
 *.default text eol=lf
 requirements.txt text eol=lf
 
-# Force Windows line endings for PowerShell scripts
+# Force Windows line endings for PowerShell scripts (matches editorconfig)
 *.ps1 text eol=crlf
