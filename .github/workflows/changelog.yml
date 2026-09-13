@@ -3,7 +3,7 @@ name: Auto Changelog CI
 on:
   push:
     branches:
-      - main  # Change this to your default branch name if it's 'master'
+      - main  # Change to master if your default branch is different
 
 jobs:
   build:
@@ -12,72 +12,57 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2 # Gets current and previous commit to calculate the actual code diff
+          fetch-depth: 2 # Fetches the current and previous commit to calculate the actual diff
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install Dependencies
-        run: pip install openai
-
-      - name: Generate Changelog with Qwen
-        env:
-          QWEN_API_KEY: ${{ secrets.QWEN_API_KEY }}
+      - name: Install Ollama
         run: |
-          python -c "
-          import os
-          import subprocess
-          from openai import OpenAI
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama serve & 
+          sleep 5 # Give the background service a few seconds to boot up
 
+      - name: Pull Qwen Coder Model
+        run: ollama pull qwen2.5-coder:1.5b # Using 1.5b as it downloads very quickly in CI, but you can use 7b if needed
+
+      - name: Generate Changelog with Local AI
+        run: |
           # 1. Get the actual code diff of the latest push
-          try:
-              diff = subprocess.check_output(['git', 'diff', 'HEAD~1', 'HEAD']).decode('utf-8')
-          except Exception:
-              print('No previous commit found or diff failed.')
-              exit(0)
+          DIFF=$(git diff HEAD~1 HEAD)
 
-          if not diff.strip():
-              print('No code changes detected.')
-              exit(0)
+          if [ -z "$DIFF" ]; then
+              echo "No code changes detected."
+              exit 0
+          fi
 
-          # 2. Setup the OpenAI client pointed to Qwen/DashScope
-          client = OpenAI(
-              api_key=os.environ['QWEN_API_KEY'],
-              base_url='https://dashscope.aliyuncs.com/compatible-mode/v1' # DashScope OpenAI-compatible endpoint
-          )
-          
-          prompt = f'''
-          You are an expert developer. Analyze the following raw git diff of code changes. 
+          # 2. Structure the prompt cleanly for Qwen
+          PROMPT="You are an expert developer. Analyze the following raw git diff of code changes. 
           Write a concise, human-friendly changelog entry in Markdown.
-          Group by Added, Changed, or Fixed. Do not use technical jargon or internal variable names.
+          Group items by Added, Changed, or Fixed. Do not use technical jargon or internal variable names.
+          Keep it punchy.
 
           Git Diff:
-          {diff[:6000]} # Grab the core diff up to token constraints
-          '''
+          $DIFF"
 
-          response = client.chat.completions.create(
-              model='qwen-plus', # Excellent model choice for code/reasoning
-              messages=[{'role': 'user', 'content': prompt}]
-          )
-          
-          ai_entry = response.choices[0].message.content.strip()
+          # Escape formatting safely for JSON
+          JSON_PROMPT=$(echo "$PROMPT" | jq -aR .)
 
-          # 3. Update CHANGELOG.md file
-          changelog_file = 'CHANGELOG.md'
-          existing_content = ''
-          if os.path.exists(changelog_file):
-              with open(changelog_file, 'r') as f:
-                  existing_content = f.read()
+          # 3. Call the Ollama API running inside the GitHub worker
+          echo "🤖 Cloud-hosted Qwen is analyzing code changes..."
+          AI_ENTRY=$(curl -s http://localhost:11434/api/generate -d "{
+            \"model\": \"qwen2.5-coder:1.5b\",
+            \"prompt\": $JSON_PROMPT,
+            \"stream\": false
+          }" | jq -r '.response')
 
-          from datetime import datetime
-          today = datetime.now().strftime('%Y-%m-%d')
-          new_entry = f'\n\n## [{today}] - AI Generated\n{ai_entry}\n'
+          # 4. Prepend to CHANGELOG.md file
+          CHANGELOG_FILE="CHANGELOG.md"
+          DATE=$(date +%Y-%m-%d)
+          NEW_ENTRY=$'\n\n'"## [$DATE] - AI Generated"$'\n'"$AI_ENTRY"
 
-          with open(changelog_file, 'w') as f:
-              f.write(new_entry + existing_content)
-          "
+          if [ -f "$CHANGELOG_FILE" ]; then
+              echo "$NEW_ENTRY" | cat - "$CHANGELOG_FILE" > temp && mv temp "$CHANGELOG_FILE"
+          else
+              echo -e "# Changelog\n$NEW_ENTRY" > "$CHANGELOG_FILE"
+          fi
 
       - name: Commit & Push Changelog
         run: |
