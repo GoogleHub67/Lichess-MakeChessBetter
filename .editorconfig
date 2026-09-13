@@ -8,10 +8,11 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-# Use 2-space indentation for web/data configs
+# Shell scripts and configurations often favor 2 spaces or tabs depending on style, 
+# but YAML/JSON absolutely demand 2 spaces to parse correctly.
 [*.{json,yaml,yml,md}]
 indent_size = 2
 
-# Match the PowerShell exception from your gitattributes
+# Ensures your IDE saves PowerShell scripts with Windows endings automatically
 [*.ps1]
 end_of_line = crlf
