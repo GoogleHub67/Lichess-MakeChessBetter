@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-09-13] - AI Generated
+- Fixed: Rename `Screenshot 2026-09-13 103540.png` to `bot_stats.png`
+
+
+## [2026-09-13] - AI Generated
 - Added `.gn` file in `assets/` directory
 
 
