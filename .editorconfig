@@ -8,5 +8,10 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
+# Use 2-space indentation for web/data configs
 [*.{json,yaml,yml,md}]
 indent_size = 2
+
+# Match the PowerShell exception from your gitattributes
+[*.ps1]
+end_of_line = crlf
