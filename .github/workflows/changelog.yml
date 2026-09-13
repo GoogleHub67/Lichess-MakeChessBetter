@@ -57,11 +57,15 @@ jobs:
               print('No code changes detected.')
               exit(0)
 
-          # 2. Prepare Prompt
+          # 2. Refined Prompt for a cleaner timeline
           prompt = f'''You are an expert developer. Analyze the following raw git diff of code changes. 
           Write a concise, human-friendly changelog entry in Markdown format.
-          Group items by Added, Changed, or Fixed. Do not use technical jargon or internal variable names.
-          Keep it punchy.
+          
+          CRITICAL INSTRUCTIONS:
+          - Do NOT include titles like \"Changelog Entry\", \"Date:\", or \"Generated Changelog\".
+          - Do NOT output the date header itself.
+          - Start directly with your bullet points or categories (Added, Changed, Fixed).
+          - Keep it punchy and simple.
 
           Git Diff:
           {diff}'''
@@ -86,18 +90,22 @@ jobs:
           if not ai_entry:
               ai_entry = 'No changes could be parsed by the model.'
 
-          # 4. Update CHANGELOG.md
+          # 4. Update CHANGELOG.md (Keeps all historical dates intact)
           changelog_file = 'CHANGELOG.md'
           existing_content = ''
           if os.path.exists(changelog_file):
               with open(changelog_file, 'r') as f:
                   existing_content = f.read()
+              
+              # Strip out old main titles if they exist to keep formatting beautiful
+              if existing_content.startswith('# Changelog'):
+                  existing_content = existing_content.replace('# Changelog\n', '', 1)
 
           today = datetime.now().strftime('%Y-%m-%d')
-          new_entry = f'\n\n## [{today}] - AI Generated\n{ai_entry}\n'
+          new_entry = f'## [{today}] - AI Generated\n{ai_entry}\n\n'
 
           with open(changelog_file, 'w') as f:
-              f.write(new_entry + existing_content)
+              f.write('# Changelog\n\n' + new_entry + existing_content)
           "
 
       - name: Commit & Push Changelog
