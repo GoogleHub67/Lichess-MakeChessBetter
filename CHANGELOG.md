@@ -1,6 +1,18 @@
 # Changelog
 
 ## [2026-09-14] - AI Generated
+- Fixed the issue where the `STOCKFISH_PATH` environment variable was not being correctly set. It now uses the absolute path to the root directory, ensuring consistency across different environments. 
+
+- Improved the `LICHESS_TOKEN` loading mechanism by explicitly loading the environmental variables from the root `.env` file. This prevents any potential issues with missing or incorrectly set tokens.
+
+- Enhanced the platform-agnostic `BOOK_PATH` resolution. It now correctly locates the book file within the `assets` folder at the root level of the repository.
+
+- Updated the `CPL_ELO_MAP` to provide a more detailed mapping of average centipawn loss and approximate Elo ratings based on a predefined set of thresholds.
+
+- Implemented the `ensure_opening_book_exists` method to automatically download the heavy binary book file from the permanent V2.1.0 release sandbox storage if it doesn't exist locally, using a direct URL to avoid dependency issues.
+
+
+## [2026-09-14] - AI Generated
 - Added version `2.1.0` to the `CITATION.cff` file.
 - Changed the release date to `2022-03-22`.
 - Updated the URL to point to the GitHub repository.
