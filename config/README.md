@@ -7,9 +7,9 @@ This directory manages the runtime configuration, local environment variables, a
 ```text
 config/
 ├── env/
-│   ├── windows.env.example    # Configuration template for Windows users
-│   ├── macos.env.example      # Configuration template for macOS (Homebrew)
-│   └── linux.env.example      # Configuration template for Linux / Docker runtimes
+│   ├── .windows.env.example   # Configuration template for Windows users
+│   ├── .macos.env.example     # Configuration template for macOS (Homebrew)
+│   └── .linux.env.example     # Configuration template for Linux / Docker runtimes
 ├── config.py                  # Core Python configuration class (environment-driven)
 ├── settings.yml               # Static bot behaviors and parameter tracking
 └── README.md                  # This documentation file
@@ -19,7 +19,7 @@ config/
 
 ## 🛠️ Local Environment Setup
 
-The configuration class (`config.py`) relies entirely on system environment variables to load sensitive credentials and paths. For local development, these are read from a `.env` file placed at the **root of the project**.
+The configuration class (`bot_config.py`) relies entirely on system environment variables to load sensitive credentials and paths. For local development, these are read from a `.env` file placed at the **root of the project**.
 
 Follow these steps to configure your local setup:
 
