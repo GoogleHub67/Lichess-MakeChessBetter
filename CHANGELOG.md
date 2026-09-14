@@ -1,6 +1,12 @@
 # Changelog
 
 ## [2026-09-14] - AI Generated
+- Added version `2.1.0` to the `CITATION.cff` file.
+- Changed the release date to `2022-03-22`.
+- Updated the URL to point to the GitHub repository.
+
+
+## [2026-09-14] - AI Generated
 - **Added**: Test and run the bot in a Raspberry Pi (details are given [here](./docs/Raspberry-Pi.md)).
 - **Fixed**: Optimize real-time centipawn loss calculations to reduce engine latency.
 
