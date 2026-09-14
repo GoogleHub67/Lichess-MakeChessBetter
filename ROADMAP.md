@@ -8,7 +8,7 @@ This roadmap tracks planned features, performance optimizations, and upgrades fo
 * [x] Automate opening database selections according to opponent account configurations.
 
 ## 🚀 Near Term (Active Development)
-- [ ] Test and run the bot in a Raspberry Pi (details are given [here](./docs/Raspberry-Pi.md)
+- [ ] Test and run the bot in a Raspberry Pi (details are given [here](./docs/Raspberry-Pi.md)).
 - [ ] Optimize real-time centipawn loss calculations to reduce engine latency.
 - [ ] Tweak Stockfish CPU thread allocation for lower resource usage on small hardware devices.
 - [ ] Refine the dynamic strength adapter to prevent sudden engine spikes mid-game.
