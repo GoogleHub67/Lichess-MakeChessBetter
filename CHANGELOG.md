@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-09-14] - AI Generated
+- **Added**: `bot_config.py` file, which contains the core Python configuration class for environment-driven settings.
+- **Added**: `config.yml.default`, a default configuration file that includes bot behaviors and parameter tracking.
+
+
+## [2026-09-14] - AI Generated
 - **Changed**: Added a new directory `.windows.env.example` for Windows users.
 - **Changed**: Added a new directory `.macos.env.example` for macOS (Homebrew).
 - **Changed**: Added a new directory `.linux.env.example` for Linux / Docker runtimes.
