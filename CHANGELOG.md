@@ -1,6 +1,13 @@
 # Changelog
 
 ## [2026-09-14] - AI Generated
+- **Changed**: Added a new directory `.windows.env.example` for Windows users.
+- **Changed**: Added a new directory `.macos.env.example` for macOS (Homebrew).
+- **Changed**: Added a new directory `.linux.env.example` for Linux / Docker runtimes.
+- **Changed**: Updated the configuration class `bot_config.py` to read credentials from `.env` files at the root of the project.
+
+
+## [2026-09-14] - AI Generated
 - Fixed the issue where the `STOCKFISH_PATH` environment variable was not being correctly set. It now uses the absolute path to the root directory, ensuring consistency across different environments. 
 
 - Improved the `LICHESS_TOKEN` loading mechanism by explicitly loading the environmental variables from the root `.env` file. This prevents any potential issues with missing or incorrectly set tokens.
