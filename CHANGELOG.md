@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-09-14] - AI Generated
+- **✅ Added Dependency Install Command:** Add `pip install python-chess` to the instructions.
+- **✅ Added Execution Script Commands:** Add `python bot.py` and `python primary_runner_script` to the instructions.
+
+
+## [2026-09-14] - AI Generated
 - **Added**: `bot_config.py` file, which contains the core Python configuration class for environment-driven settings.
 - **Added**: `config.yml.default`, a default configuration file that includes bot behaviors and parameter tracking.
 
