@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026-09-14] - AI Generated
+- **Fixed**: Updated `requires-python` to `>=3.10` in `pyproject.toml` to match your Pipfile's requirement.
+- **Added**: Moved `uv` dependencies from `Pipfile` to `tool.uv` in `pyproject.toml`.
+- **Updated**: Added `pytest` and `pytest-mock` for unit testing, `ruff` for code quality checks, and moved test configurations from `pytest.ini` to `tool.pytest.ini_options`.
+
+
 ## [2026-09-13] - AI Generated
 - **Added:**
   - Added a new directory named `Lichess-MakeChessBetter`.
