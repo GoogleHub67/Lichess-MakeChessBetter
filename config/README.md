@@ -10,8 +10,8 @@ config/
 │   ├── .windows.env.example   # Configuration template for Windows users
 │   ├── .macos.env.example     # Configuration template for macOS (Homebrew)
 │   └── .linux.env.example     # Configuration template for Linux / Docker runtimes
-├── config.py                  # Core Python configuration class (environment-driven)
-├── settings.yml               # Static bot behaviors and parameter tracking
+├── bot_config.py              # Core Python configuration class (environment-driven)
+├── config.yml.default         # Static bot behaviors and parameter tracking
 └── README.md                  # This documentation file
 ```
 
