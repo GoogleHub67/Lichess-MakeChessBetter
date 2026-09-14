@@ -1,6 +1,17 @@
 # Changelog
 
 ## [2026-09-14] - AI Generated
+**Added:**
+- **Hardware Components:** Added the Raspberry Pi 5, Arduino Nano V3.0/Uno R3, WS2812B LED Strip, 5V 5A Power Adapter, Solderless Breadboard, Jumper Wires Set, Circuit Protection Kit, 20 AWG Hook-Up Wire, Adafruit NeoPixel Library.
+
+**Changed:**
+- **Core Operating System Setup:** Changed the default operating system from Raspberry Pi OS Lite to Raspberry Pi OS (64-bit, Bookworm) for a dedicated chess server device.
+
+**Fixed:**
+- **Prototyping Basics:** Modified the wiring diagram for breadboards and jumper wires to ensure proper mechanical routing and electrical connections.
+
+
+## [2026-09-14] - AI Generated
 - **✅ Added Dependency Install Command:** Add `pip install python-chess` to the instructions.
 - **✅ Added Execution Script Commands:** Add `python bot.py` and `python primary_runner_script` to the instructions.
 
