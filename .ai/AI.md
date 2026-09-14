@@ -18,8 +18,8 @@ You are acting as an expert Python developer assisting with the maintenance and 
 
 ## 🛠️ Testing & Execution Commands
 Assume the standard execution flow when proposing changes:
-- **Dependency Installation:** pip install python-chess
-- **Execution Script:** python bot.py or the primary runner script.
+- **Dependency Installation:** ```pip install python-chess```
+- **Execution Script:** ```python bot.py``` or the primary runner script.
 
 ## 🚫 Project Context & File Exclusions
 To conserve your token context window, maximize processing speed, and avoid analyzing redundant or irrelevant data, you must completely ignore, skip, and avoid reading or referencing files inside the following paths:
