@@ -1,6 +1,24 @@
 # Changelog
 
 ## [2026-09-18] - AI Generated
+### Added
+
+- 📍 Dynamic Path Correction: Changed script to run relative to the project root folder.
+- 🐟 Install Stockfish Engine globally via APT for non-Debian/Ubuntu systems.
+
+### Changed
+
+- 🐇 Updated Python Virtual Environment creation to use a `venv` directory.
+- 🐞 Updated `requirements.txt` installation within the virtual environment.
+- 🌟 Added instructions for manual installation of Stockfish Engine on non-Debian/Ubuntu systems.
+
+### Fixed
+
+- 🔍 Ensured `stockfish` is installed globally via APT for non-Debian/Ubuntu systems.
+- 📝 Added note about the `BOOK_PATH` configuration file in `config.py` or `.env`.
+
+
+## [2026-09-18] - AI Generated
 - **Added Dependencies:** Added `pandas` and `streamlit` to the `dependencies` list in `pyproject.toml`.
 - **Fixed Dependency Order:** Reordered the `dependencies` to ensure `pandas` comes before `streamlit`, which is the order in which they are defined in the project scripts.
 
