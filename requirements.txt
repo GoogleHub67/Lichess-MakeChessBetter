@@ -10,3 +10,5 @@ python-chess
 sphinx-rtd-theme
 myst-parser
 pyyaml
+pandas
+streamlit
