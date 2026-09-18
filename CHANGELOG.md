@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-09-18] - AI Generated
+- **Added**: Corrected the script path to ensure it points to the main project directory.
+- **Changed**: Updated the `source venv/bin/activate` command to activate the virtual environment in the correct path.
+
+
+## [2026-09-18] - AI Generated
 ### Added
 
 - 📍 Dynamic Path Correction: Changed script to run relative to the project root folder.
