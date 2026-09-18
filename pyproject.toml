@@ -19,7 +19,9 @@ dependencies = [
     "berserk>=0.11.0",
     "gevent",
     "sphinx-rtd-theme",
-    "myst-parser"
+    "myst-parser",
+    "pandas",
+    "streamlit"
 ]
 
 [project.scripts]
