@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-09-18] - AI Generated
+- **Added Dependencies:** Added `pandas` and `streamlit` to the `dependencies` list in `pyproject.toml`.
+- **Fixed Dependency Order:** Reordered the `dependencies` to ensure `pandas` comes before `streamlit`, which is the order in which they are defined in the project scripts.
+
+
 ## [2026-09-14] - AI Generated
 **Added:**
 - **Hardware Components:** Added the Raspberry Pi 5, Arduino Nano V3.0/Uno R3, WS2812B LED Strip, 5V 5A Power Adapter, Solderless Breadboard, Jumper Wires Set, Circuit Protection Kit, 20 AWG Hook-Up Wire, Adafruit NeoPixel Library.
