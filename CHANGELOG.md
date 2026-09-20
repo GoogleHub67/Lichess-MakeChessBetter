@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-09-20] - AI Generated
+- Added: Updated the operating system setup section in the documentation for Raspberry Pi.
+
+
+## [2026-09-20] - AI Generated
 ### Added
 
 - **Physical Chess Board & Enclosure**: Contains the Raspberry Pi 5, Arduino, power supply, and LED grid underneath the board.
