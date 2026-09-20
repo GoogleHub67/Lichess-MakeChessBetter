@@ -1,6 +1,22 @@
 # Changelog
 
 ## [2026-09-20] - AI Generated
+### Added
+
+- **Safety Glasses / Goggles**: Added clear ANSI Z87.1 rated polycarbonate safety glasses to prevent flying solder splatters, trimmed wire ends, or snapping component leads from injuring your eyes during assembly.
+
+### Changed
+
+- **Isopropyl Alcohol (IPA) & Brush**: Updated the instructions for cleaning the PCB and pads, specifying the percentage of Isopropyl Alcohol and the type of brush or cotton swabs to use.
+
+- **Cable Zip Ties & Sticky Clips**: Revised the cable management instructions, detailing the small 4-inch nylon cable ties and self-adhesive wire routing clips.
+
+### Fixed
+
+- **Logic Level Shifter (74AHCT125)**: Added a note about the need for 32 6mm x 2mm N35 or N42 Neodymium Disc Magnets for piece detection.
+
+
+## [2026-09-20] - AI Generated
 - Added: Updated the operating system setup section in the documentation for Raspberry Pi.
 
 
