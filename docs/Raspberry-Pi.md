@@ -37,16 +37,8 @@ This document outlines the hardware components, electrical protections, and syst
 | **Isopropyl Alcohol (IPA) & Brush** | **PCB & Pad Cleaning.** Cleans off flux residue left after soldering LED strips or wire connections to prevent long-term corrosion. | 90%+ Isopropyl Alcohol with an ESD-safe soft bristle brush or cotton swabs. |
 | **Cable Zip Ties & Sticky Clips** | **Cable Management.** Bundles long power and USB cables neatly inside the board housing so they don't block airflow or pinch under panels. | Small 4-inch nylon cable ties and self-adhesive wire routing clips. |
 | **Electrical Tape / Kapton Tape** | **Thermal & Electrical Shielding.** Provides heat-resistant insulation over exposed board contacts or under custom-mounted microcontrollers. | High-temperature Kapton tape (polyimide) or standard PVC electrical tape. |
-| **Electrical Tape / Kapton Tape** | **Thermal & Electrical Shielding.** Provides heat-resistant insulation over exposed board contacts or under custom-mounted microcontrollers. | High-temperature Kapton tape (polyimide) or standard PVC electrical tape. |
-| **Logic Level Shifter (74AHCT125)** | **Signal Voltage Boosting.** Steps up the 3.3V GPIO logic signal to a clean 5V signal to prevent LED data corruption and flickering. | 74AHCT125 Quad Bus Buffer IC or 4-channel bi-directional logic converter. |
-| **Chess Piece Magnets** | **Piece Detection.** Embedded in piece bases to trigger under-board magnetic sensors. | 6mm x 2mm N35 or N42 Neodymium Disc Magnets (32 required). |
 | **Reed Switches OR Hall Sensors** | **Automatic Move Sensing.** Detects piece placement under each of the 64 squares without requiring manual input. | 64x Dry Reed Switches or Hall Effect Sensors with 1N4148 diodes. |
-| **Shift Registers (74HC165 / MCP23017)** | **Sensor Multiplexing.** Allows reading all 64 square sensors using minimal digital GPIO pins. | 8x 74HC165 8-bit shift registers or 1x MCP23017 I2C port expander. |
 | **0.96-inch OLED Display (SSD1306)** | **On-Board HUD.** Displays real-time evaluation scores, game clocks, and Lichess connection status directly on the frame. | 128x64 I2C OLED Display module (Blue or White). |
-| **Tactile Push Buttons** | **Manual Control Inputs.** Physical buttons for board actions like resetting the match, requesting a hint, or undoing a move. | 12mm x 12mm Momentary Tactile Push Buttons with caps. |
-| **Physical Power Toggle Switch** | **Hardware Power Control.** Safely cuts high-amperage 5V DC power to the LED matrix without pulling cables. | Heavy-duty SPST/SPDT toggle switch rated for at least 5A. |
-| **Flush Wire Cutters & Strippers** | **Precision Cable Prep.** Snips jumper leads, trims excess component legs flush, and strips wire insulation cleanly. | Precision diagonal wire cutters and 20–30 AWG wire strippers. |
-| **Multimeter** | **Circuit Diagnostics.** Measures line voltages, tests ground continuity, and checks for short circuits before powering components on. | Digital multimeter with continuity beep and DC voltage testing modes. |
 ---
 
 ## 💾 Core Operating System Setup
