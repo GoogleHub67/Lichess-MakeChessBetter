@@ -1,6 +1,25 @@
 # Changelog
 
 ## [2026-09-20] - AI Generated
+### Added
+
+- **Physical Chess Board & Enclosure**: Contains the Raspberry Pi 5, Arduino, power supply, and LED grid underneath the board.
+- **Light Diffusers**: Spreads out raw LED point lights into evenly lit square highlights for clearer move visibility.
+- **Brass Standoffs & Screws**: Elevates the Pi 5 and Arduino off board surfaces to prevent circuit shorts and ensure airflow.
+- **Soldering Iron & Solder**: Secures permanent power and data wires onto raw LED strip copper pads after breadboard testing.
+- **Heat-Shrink Tubing**: Covers bare solder joints on power and data lines to prevent short circuits inside the frame.
+- **Hot Glue Gun / Mounting Tape**: Secures cut LED strips in straight rows directly beneath the chess board squares.
+
+### Changed
+
+None.
+
+### Fixed
+
+None.
+
+
+## [2026-09-20] - AI Generated
 - **Added:** Documenting the hardware components, electrical protections, and system setup for the Raspberry Pi.
 - **Changed:** Updated the circuit protection kit to include a 470Ω resistor and a 1000µF electrolytic capacitor.
 - **Added:** Adding 64GB microSD card or USB 3.0 flash drive for primary boot media and storage.
