@@ -20,7 +20,7 @@ body:
     attributes:
       label: To Reproduce
       description: Steps to reproduce the behavior.
-      value: |
+      placeholder: |
         1. Start the bot with `python bot.py`
         2. Challenge the bot on Lichess with variant...
         3. Observe crash message / incorrect behaviour in engine response
@@ -38,7 +38,7 @@ body:
     attributes:
       label: Lichess Game URL
       description: If applicable, provide the link to the game where this happened.
-      placeholder: E.g., https://lichess.org
+      placeholder: E.g., https://lichess.org/game/xxxxxxx
     validations:
       required: false
   - type: textarea
