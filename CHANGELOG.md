@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-09-20] - AI Generated
+- **Added:** The `Raspberry-Pi.md` file now includes detailed instructions on setting up the Raspberry Pi operating system.
+
+
+## [2026-09-20] - AI Generated
 ### Added
 
 - **Safety Glasses / Goggles**: Added clear ANSI Z87.1 rated polycarbonate safety glasses to prevent flying solder splatters, trimmed wire ends, or snapping component leads from injuring your eyes during assembly.
