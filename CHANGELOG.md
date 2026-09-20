@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-09-20] - AI Generated
+- Added a new field `placeholder` to the `body` section of the issue template for `lichess game URL` to provide a default value if one is not specified.
+
+
+## [2026-09-20] - AI Generated
 - Added `.github/dependabot.yml` file with weekly package updates.
 
 
