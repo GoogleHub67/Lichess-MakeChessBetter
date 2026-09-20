@@ -1,5 +1,12 @@
 # Changelog
 
+## [2026-09-20] - AI Generated
+- **Added:** Documenting the hardware components, electrical protections, and system setup for the Raspberry Pi.
+- **Changed:** Updated the circuit protection kit to include a 470Ω resistor and a 1000µF electrolytic capacitor.
+- **Added:** Adding 64GB microSD card or USB 3.0 flash drive for primary boot media and storage.
+- **Added:** Installing Adafruit NeoPixel Library for Arduino firmware engine.
+
+
 ## [2026-09-18] - AI Generated
 - **Added**: Corrected the script path to ensure it points to the main project directory.
 - **Changed**: Updated the `source venv/bin/activate` command to activate the virtual environment in the correct path.
