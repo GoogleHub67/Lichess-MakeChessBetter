@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-09-20] - AI Generated
+- Added `.github/dependabot.yml` file with weekly package updates.
+
+
+## [2026-09-20] - AI Generated
 - **Added:** The `Raspberry-Pi.md` file now includes detailed instructions on setting up the Raspberry Pi operating system.
 
 
