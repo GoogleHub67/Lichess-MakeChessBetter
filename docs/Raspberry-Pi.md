@@ -15,6 +15,7 @@ This document outlines the hardware components, electrical protections, and syst
 | **Jumper Wires Set** | Physical bus system. Male-to-Male (M-M) pins jump signals across the breadboard. Male-to-Female (M-F) pins connect the raw copper pads of the LED strip or external components directly back to the boards. | 40-pin Male-to-Male (M-M) + 40-pin Male-to-Female (M-F) flexible wire set. |
 | **Circuit Protection Kit** | Safety layer. Prevents transient voltage spikes from blowing out your microcontroller logic pins or frying the first pixel of your addressable LED strip. | • **1x 470Ω Resistor** (placed inline on the data wire)<br>• **1x 1000µF Electrolytic Capacitor** (rated 6.3V or higher, placed across the main 5V/GND power rails). |
 | **20 AWG Hook-Up Wire** | Power distribution bus. Thick copper cabling handles the 5-Amp external current load without dangerous overheating or signal voltage drop. | Solid-core 20 AWG gauge spool (Red for 5V, Black for GND). |
+| **64GB MicroSD Card OR USB 3.0 Flash Drive** | Primary Boot Media & Storage. Holds Raspberry Pi OS Lite, Stockfish engine binaries, Python scripts, and persistent SQLite match databases. | 64GB capacity (Class 10 / A1 or A2 MicroSD, or USB 3.0 Flash Drive). Provides fast I/O speeds and plenty of storage overhead. |
 | **Adafruit NeoPixel Library** | Arduino firmware engine. Simplifies C++ addressable array calls down to clean `strip.setPixelColor(index, R, G, B)` functions. | Standard library downloadable directly from the official **Arduino IDE Library Manager**. |
 
 ---
