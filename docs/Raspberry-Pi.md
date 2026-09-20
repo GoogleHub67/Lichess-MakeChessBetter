@@ -17,6 +17,13 @@ This document outlines the hardware components, electrical protections, and syst
 | **20 AWG Hook-Up Wire** | Power distribution bus. Thick copper cabling handles the 5-Amp external current load without dangerous overheating or signal voltage drop. | Solid-core 20 AWG gauge spool (Red for 5V, Black for GND). |
 | **64GB MicroSD Card OR USB 3.0 Flash Drive** | Primary Boot Media & Storage. Holds Raspberry Pi OS Lite, Stockfish engine binaries, Python scripts, and persistent SQLite match databases. | 64GB capacity (Class 10 / A1 or A2 MicroSD, or USB 3.0 Flash Drive). Provides fast I/O speeds and plenty of storage overhead. |
 | **Adafruit NeoPixel Library** | Arduino firmware engine. Simplifies C++ addressable array calls down to clean `strip.setPixelColor(index, R, G, B)` functions. | Standard library downloadable directly from the official **Arduino IDE Library Manager**. |
+| **Physical Chess Board & Enclosure** | **Housing & Frame.** Contains the Raspberry Pi 5, Arduino, power supply, and LED grid underneath the board. | Wood, 3D-printed plastic, or acrylic frame with translucent or frosted square cuts so LED light passes through. |
+| **Light Diffusers** | **Visual Softening.** Spreads out raw LED point lights into evenly lit square highlights for clearer move visibility. | White translucent acrylic sheets or silicone channel diffusers cut to square dimensions. |
+| **Brass Standoffs & Screws** | **Component Mounting.** Elevates the Pi 5 and Arduino off board surfaces to prevent circuit shorts and ensure airflow. | M2.5 / M3 motherboards brass standoffs set with matching nuts/screws. |
+| **Soldering Iron & Solder** | **Permanent Wiring.** Secures permanent power and data wires onto raw LED strip copper pads after breadboard testing. | 60W temperature-controlled soldering iron with rosin-core solder. |
+| **Heat-Shrink Tubing** | **Insulation Safety.** Covers bare solder joints on power and data lines to prevent short circuits inside the frame. | Assorted diameter heat-shrink tubing set (or electrical tape as an alternative). |
+| **Hot Glue Gun / Mounting Tape** | **Strip Alignment.** Secures cut LED strips in straight rows directly beneath the chess board squares. | High-temp hot glue gun with sticks, or heavy-duty double-sided foam mounting tape. |
+| **MicroSD USB Card Reader** | **OS Flashing.** Plugs the MicroSD card into your primary PC or laptop to burn Raspberry Pi OS Lite via Raspberry Pi Imager. | Standard USB-A or USB-C SD/MicroSD flash memory card reader adapter. |
 
 ---
 
