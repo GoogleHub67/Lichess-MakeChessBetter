@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-09-21] - AI Generated
+- Updated `flask` dependency to `3.1.3` for compatibility with Pipfile's requirement.
+
+
+## [2026-09-21] - AI Generated
 - **Fixed**: Corrected the date in the `CITATION.cff` file from `2022-03-22` to `2026-03-22`.
 
 
