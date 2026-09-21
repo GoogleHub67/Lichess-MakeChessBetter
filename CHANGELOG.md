@@ -1,5 +1,9 @@
 # Changelog
 
+## [2026-09-21] - AI Generated
+- **Fixed**: Corrected the date in the `CITATION.cff` file from `2022-03-22` to `2026-03-22`.
+
+
 ## [2026-09-20] - AI Generated
 - Added a new field `placeholder` to the `body` section of the issue template for `lichess game URL` to provide a default value if one is not specified.
 
