@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-01] - AI Generated
+- **Fixed:** Corrected URL construction in `.github/workflows/update-dir.yml` to avoid syntax-breaking backslashes.
+- **Changed:** Added a check to ensure the `wiki-repo` directory exists before attempting to clone it and perform further operations.
+
+
+## [2026-10-01] - AI Generated
 - Fixed the generation of the file system tree. Now the generated output is correctly formatted.
 
 
