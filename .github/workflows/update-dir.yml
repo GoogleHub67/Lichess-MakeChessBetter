@@ -18,7 +18,7 @@ jobs:
       # Corrected URL construction without syntax-breaking backslashes
       - name: Checkout Wiki Repository
         run: |
-          git clone "https://x-access-token:\({{ secrets.GITHUB_TOKEN }}@github.com/\){{ github.repository }}.wiki.git" wiki-repo
+          git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git" wiki-repo
         continue-on-error: true
 
       - name: Generate File System Tree
