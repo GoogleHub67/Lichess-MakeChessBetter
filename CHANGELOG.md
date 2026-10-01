@@ -1,5 +1,9 @@
 # Changelog
 
+## [2026-10-01] - AI Generated
+- Fixed the generation of the file system tree. Now the generated output is correctly formatted.
+
+
 ## [2026-09-21] - AI Generated
 - Updated `flask` dependency to `3.1.3` for compatibility with Pipfile's requirement.
 
