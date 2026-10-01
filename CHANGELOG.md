@@ -1,6 +1,18 @@
 # Changelog
 
 ## [2026-10-01] - AI Generated
+- **Updated Directory Map Refresh Workflow**:
+  - Automates the refresh of the directory map every 6 hours.
+  - Removes any existing uncommitted changes and untracked files globally.
+  - Fetches the latest data from the remote repository and rebase your map update smoothly on top.
+
+- **Automated Directory Map Refresh**:
+  - Ensures the directory map is always up-to-date.
+  - Removes any lingering uncommitted changes and untracked files.
+  - Fetches the latest data and rebase your map update.
+
+
+## [2026-10-01] - AI Generated
 - Fixed CRLF line endings globally inside the runner
 - Stashed any remaining configuration modifications to leave the branch perfectly clean
 - Fetch latest data and rebase your map update smoothly on top
