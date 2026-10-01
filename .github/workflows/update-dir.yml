@@ -89,8 +89,9 @@ jobs:
           else
             git commit -m "chore: automated 6-hour directory map refresh [skip ci]"
             
-            # Wipes out all other unstaged CRLF line-ending noise across the directory
-            git checkout .
+            # Force-remove all other unstaged changes and untracked file noise globally
+            git reset --hard HEAD
+            git clean -fd
             
             # Fetch latest data and rebase your map update smoothly on top
             git pull origin main --rebase
