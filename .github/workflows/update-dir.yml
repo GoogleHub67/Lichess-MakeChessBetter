@@ -78,17 +78,28 @@ jobs:
       - name: Commit and Push Main Repo Changes
         run: |
           cd main-repo
+          
+          # Fix the CRLF line ending warnings globally inside the runner
+          git config --global core.autocrlf false
+          
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global user.email "41898282+github-actions[bot]@://github.com"
           
           git add docs/Advanced‐Directory‐Mapping.md
+          
           if git diff --staged --quiet; then
             echo "No changes found inside main codebase workspace."
           else
             git commit -m "chore: automated 6-hour directory map refresh [skip ci]"
             
-            # Fetch the latest changes and rebase your automated commit on top
+            # Stash any remaining configuration modifications to leave the branch perfectly clean
+            git stash --include-untracked
+            
+            # Fetch latest data and rebase your map update smoothly on top
             git pull origin main --rebase
+            
+            # Pop the stash back safely if needed, ignoring errors if it is empty
+            git stash pop || true
             
             git push origin HEAD:main
           fi
