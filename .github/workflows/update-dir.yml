@@ -13,19 +13,19 @@ jobs:
       - name: Checkout Source Repository
         uses: actions/checkout@v4
         with:
-          path: main-repo # Checkout source code to 'main-repo' directory
+          path: main-repo
 
+      # Directly clones the target wiki workspace using native runner tokens without string escaping conflicts
       - name: Checkout Wiki Repository
-        uses: actions/checkout@v4
-        with:
-          repository: '\${{ github.repository }}.wiki'
-          path: wiki-repo # Checkout wiki data to 'wiki-repo' directory
+        run: |
+          git clone "https://x-access-token:\({{ secrets.GITHUB_TOKEN }}@github.com/\){{ github.repository }}.wiki.git" wiki-repo
+        continue-on-error: true # Safely moves forward even if your repository wiki feature isn't initialized yet
 
       - name: Generate File System Tree
         run: |
           echo "GENERATED_TREE<<EOF" >> \$GITHUB_ENV
-          # Scans the active repository project structure
           cd main-repo
+          # Scans structural content folders without polluting lists with hidden configuration directories
           find . -not -path '*/.*' | sort | sed 's/[^\/]*\//|-- /g;s/|-- |-- /|   |-- /g' >> \$GITHUB_ENV
           echo "EOF" >> \$GITHUB_ENV
 
@@ -39,7 +39,7 @@ jobs:
         run: |
           import os
 
-          # Maps file targets using exact Unicode dashes based on where they are checked out
+          # Target array pointing directly to main code and isolated flat wiki targets
           files = [
               "./main-repo/docs/Advanced‐Directory‐Mapping.md",
               "./wiki-repo/Advanced‐Directory‐Mapping.md"
@@ -50,7 +50,7 @@ jobs:
 
           for file_path in files:
               if not os.path.exists(file_path):
-                  print(f"Skipping missing file: {file_path}")
+                  print(f"Skipping missing file path: {file_path}")
                   continue
                   
               with open(file_path, "r", encoding="utf-8") as f:
@@ -71,9 +71,9 @@ jobs:
                   
                   with open(file_path, "w", encoding="utf-8") as f:
                       f.write(new_content)
-                  print(f"Successfully updated: {file_path}")
+                  print(f"Successfully injected map into: {file_path}")
               else:
-                  print(f"Target header not found in: {file_path}")
+                  print(f"Target header block anchor missing in: {file_path}")
 
       - name: Commit and Push Main Repo Changes
         run: |
@@ -83,13 +83,14 @@ jobs:
           
           git add docs/Advanced‐Directory‐Mapping.md
           if git diff --staged --quiet; then
-            echo "No main repository updates detected. Skipping commit."
+            echo "No changes found inside main codebase workspace."
           else
             git commit -m "chore: automated 6-hour directory map refresh [skip ci]"
             git push origin HEAD
           fi
 
       - name: Commit and Push Wiki Changes
+        if: os.path.exists('wiki-repo')
         run: |
           cd wiki-repo
           git config --global user.name "github-actions[bot]"
@@ -97,7 +98,7 @@ jobs:
           
           git add Advanced‐Directory‐Mapping.md
           if git diff --staged --quiet; then
-            echo "No wiki updates detected. Skipping commit."
+            echo "No structural adjustments detected inside the wiki scope."
           else
             git commit -m "chore: automated 6-hour directory map refresh"
             git push origin HEAD
