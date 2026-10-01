@@ -79,31 +79,46 @@ jobs:
         run: |
           cd main-repo
           git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@://github.com"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           
           # 1. Fetch remote changes and reset your workspace to match origin perfectly
           git fetch origin main
           git reset --hard origin/main
           git clean -fd
           
-          # 2. Re-inject the tree into the completely clean file
-          python -c "
+          # 2. Write out a clean, temporary Python execution asset script file
+          cat << 'EOF' > update_tree.py
           import os
-          file_path = 'docs/Advanced‐Directory‐Mapping.md'
-          tree_content = os.environ.get('GENERATED_TREE', '')
-          formatted_tree = f'### Complete File System Tree\n\n```text\n{tree_content}\n```\n'
+          file_path = "docs/Advanced‐Directory‐Mapping.md"
+          tree_content = os.environ.get("GENERATED_TREE", "")
+          formatted_tree = f"### Complete File System Tree\n\n```text\n{tree_content}\n```\n"
+
           if os.path.exists(file_path):
-              with open(file_path, 'r', encoding='utf-8') as f: content = f.read()
-              if '### Complete File System Tree' in content:
-                  parts = content.split('### Complete File System Tree')
+              with open(file_path, "r", encoding="utf-8") as f:
+                  content = f.read()
+              
+              target_header = "### Complete File System Tree"
+              if target_header in content:
+                  parts = content.split(target_header)
+                  before = parts[0]
                   after = parts[1]
-                  if '```text' in after:
-                      after_parts = after.split('```', 2)
-                      if len(after_parts) >= 3: after = after_parts[2]
-                  with open(file_path, 'w', encoding='utf-8') as f: f.write(parts[0] + formatted_tree + after)
-          "
+                  
+                  if "```text" in after:
+                      after_parts = after.split("```", 2)
+                      if len(after_parts) >= 3:
+                          after = after_parts[2]
+                          
+                  new_content = before + formatted_tree + after
+                  with open(file_path, "w", encoding="utf-8") as f:
+                      f.write(new_content)
+                  print("Markdown file tracking layout tree updated successfully.")
+          EOF
           
-          # 3. Add, commit, and push directly without needing a rebase step
+          # 3. Execute the dedicated Python routine safely and wipe the temp file
+          python update_tree.py
+          rm update_tree.py
+          
+          # 4. Add, commit, and push directly without needing a rebase step
           git add docs/Advanced‐Directory‐Mapping.md
           if git diff --staged --quiet; then
             echo "No changes found inside main codebase workspace."
