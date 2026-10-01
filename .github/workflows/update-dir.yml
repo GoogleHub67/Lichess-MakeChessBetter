@@ -10,17 +10,24 @@ jobs:
   update-tree:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout Source Repository
         uses: actions/checkout@v4
+        with:
+          path: main-repo # Checkout source code to 'main-repo' directory
+
+      - name: Checkout Wiki Repository
+        uses: actions/checkout@v4
+        with:
+          repository: '\${{ github.repository }}.wiki'
+          path: wiki-repo # Checkout wiki data to 'wiki-repo' directory
 
       - name: Generate File System Tree
         run: |
-          echo "GENERATED_TREE<<EOF" >> $GITHUB_ENV
-          
-          # Lists files recursively, skipping hidden .git directories
-          find . -not -path '*/.*' | sort | sed 's/[^\/]*\//|-- /g;s/|-- |-- /|   |-- /g' >> $GITHUB_ENV
-          
-          echo "EOF" >> $GITHUB_ENV
+          echo "GENERATED_TREE<<EOF" >> \$GITHUB_ENV
+          # Scans the active repository project structure
+          cd main-repo
+          find . -not -path '*/.*' | sort | sed 's/[^\/]*\//|-- /g;s/|-- |-- /|   |-- /g' >> \$GITHUB_ENV
+          echo "EOF" >> \$GITHUB_ENV
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -32,13 +39,12 @@ jobs:
         run: |
           import os
 
-          # The target files to update
+          # Maps file targets using exact Unicode dashes based on where they are checked out
           files = [
-              "./docs/Advanced-Directory-Mapping.md",
-              "./wiki/Advanced‐Directory‐Mapping.md"
+              "./main-repo/docs/Advanced‐Directory‐Mapping.md",
+              "./wiki-repo/Advanced‐Directory‐Mapping.md"
           ]
           
-          # Retrieve the generated tree from environment
           tree_content = os.environ.get('GENERATED_TREE', '')
           formatted_tree = f"### Complete File System Tree\n\n```text\n{tree_content}\n```\n"
 
@@ -50,23 +56,17 @@ jobs:
               with open(file_path, "r", encoding="utf-8") as f:
                   content = f.read()
 
-              # Find your specific header target anchor
               target_header = "### Complete File System Tree"
               if target_header in content:
-                  # Split at the header to preserve preceding text
                   parts = content.split(target_header)
                   before = parts[0]
                   after = parts[1]
                   
-                  # If there was a previous code block directly following it, strip it out
                   if "```text" in after:
-                      # Find where the old code block ends
                       after_parts = after.split("```", 2)
                       if len(after_parts) >= 3:
-                          # retain everything after the closed code block
                           after = after_parts[2]
 
-                  # Assemble the clean file with the fresh layout
                   new_content = before + formatted_tree + after
                   
                   with open(file_path, "w", encoding="utf-8") as f:
@@ -75,16 +75,30 @@ jobs:
               else:
                   print(f"Target header not found in: {file_path}")
 
-      - name: Commit and Push Changes
+      - name: Commit and Push Main Repo Changes
         run: |
+          cd main-repo
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/Advanced-Directory-Mapping.md wiki/Advanced‐Directory‐Mapping.md
           
-          # Check if there are any changes before committing to avoid workflow errors
+          git add docs/Advanced‐Directory‐Mapping.md
           if git diff --staged --quiet; then
-            echo "No directory updates detected. Skipping commit."
+            echo "No main repository updates detected. Skipping commit."
           else
             git commit -m "chore: automated 6-hour directory map refresh [skip ci]"
-            git push
+            git push origin HEAD
+          fi
+
+      - name: Commit and Push Wiki Changes
+        run: |
+          cd wiki-repo
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          
+          git add Advanced‐Directory‐Mapping.md
+          if git diff --staged --quiet; then
+            echo "No wiki updates detected. Skipping commit."
+          else
+            git commit -m "chore: automated 6-hour directory map refresh"
+            git push origin HEAD
           fi
