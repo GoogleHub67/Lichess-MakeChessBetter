@@ -15,11 +15,11 @@ jobs:
         with:
           path: main-repo
 
-      # Directly clones the target wiki workspace using native runner tokens without string escaping conflicts
+      # Corrected URL construction without syntax-breaking backslashes
       - name: Checkout Wiki Repository
         run: |
           git clone "https://x-access-token:\({{ secrets.GITHUB_TOKEN }}@github.com/\){{ github.repository }}.wiki.git" wiki-repo
-        continue-on-error: true # Safely moves forward even if your repository wiki feature isn't initialized yet
+        continue-on-error: true
 
       - name: Generate File System Tree
         run: |
@@ -90,16 +90,20 @@ jobs:
           fi
 
       - name: Commit and Push Wiki Changes
-        if: os.path.exists('wiki-repo')
         run: |
-          cd wiki-repo
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          
-          git add Advanced‐Directory‐Mapping.md
-          if git diff --staged --quiet; then
-            echo "No structural adjustments detected inside the wiki scope."
+          # Only run if wiki-repo directory was successfully cloned
+          if [ -d "wiki-repo" ]; then
+            cd wiki-repo
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            
+            git add Advanced‐Directory‐Mapping.md
+            if git diff --staged --quiet; then
+              echo "No structural adjustments detected inside the wiki scope."
+            else
+              git commit -m "chore: automated 6-hour directory map refresh"
+              git push origin HEAD
+            fi
           else
-            git commit -m "chore: automated 6-hour directory map refresh"
-            git push origin HEAD
+            echo "Wiki repository directory not present. Skipping."
           fi
