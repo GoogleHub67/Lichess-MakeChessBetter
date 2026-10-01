@@ -86,7 +86,11 @@ jobs:
             echo "No changes found inside main codebase workspace."
           else
             git commit -m "chore: automated 6-hour directory map refresh [skip ci]"
-            git push origin HEAD
+            
+            # Fetch the latest changes and rebase your automated commit on top
+            git pull origin main --rebase
+            
+            git push origin HEAD:main
           fi
 
       - name: Commit and Push Wiki Changes
