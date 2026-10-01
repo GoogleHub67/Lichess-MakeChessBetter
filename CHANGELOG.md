@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-01] - AI Generated
+- **Added:** Updated the `.github/workflows/update-dir.yml` file to automate the refreshing of the directory map for the `Advanced-Directory-Mapping.md` file.
+- **Changed:** Modified the `Generate File System Tree` step to directly inject the generated tree into the `docs/Advanced-Directory-Mapping.md` file using Python, avoiding the need for a rebase step.
+
+
+## [2026-10-01] - AI Generated
 - **Updated Directory Map Refresh Workflow**:
   - Automates the refresh of the directory map every 6 hours.
   - Removes any existing uncommitted changes and untracked files globally.
