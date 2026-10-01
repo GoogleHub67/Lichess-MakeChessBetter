@@ -15,14 +15,12 @@ jobs:
 
       - name: Generate File System Tree
         run: |
-          # Create a secure multiline runner block
-          EOF=\$(dd if=/dev/urandom bs=15 count=1 2>/dev/null | base64)
-          echo "GENERATED_TREE<<EOF" >> GITHUB_ENV
+          echo "GENERATED_TREE<<EOF" >> $GITHUB_ENV
           
-          # Cleaned up sed pattern to generate a proper tree layout
-          find . -not -path '*/.*' | sort | sed 's/[^\/]*\//|-- /g;s/|-- |-- /|   |-- /g' >> \$GITHUB_ENV
+          # Lists files recursively, skipping hidden .git directories
+          find . -not -path '*/.*' | sort | sed 's/[^\/]*\//|-- /g;s/|-- |-- /|   |-- /g' >> $GITHUB_ENV
           
-          echo "EOF" >> GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Setup Python
         uses: actions/setup-python@v5
