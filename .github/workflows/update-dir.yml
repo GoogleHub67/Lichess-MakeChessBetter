@@ -78,13 +78,10 @@ jobs:
       - name: Commit and Push Main Repo Changes
         run: |
           cd main-repo
-          
-          # Fix the CRLF line ending warnings globally inside the runner
-          git config --global core.autocrlf false
-          
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@://github.com"
           
+          # Stage the target updated file
           git add docs/Advanced‐Directory‐Mapping.md
           
           if git diff --staged --quiet; then
@@ -92,16 +89,36 @@ jobs:
           else
             git commit -m "chore: automated 6-hour directory map refresh [skip ci]"
             
-            # Stash any remaining configuration modifications to leave the branch perfectly clean
-            git stash --include-untracked
+            # Wipes out all other unstaged CRLF line-ending noise across the directory
+            git checkout .
             
             # Fetch latest data and rebase your map update smoothly on top
             git pull origin main --rebase
-            
-            # Pop the stash back safely if needed, ignoring errors if it is empty
-            git stash pop || true
-            
             git push origin HEAD:main
+          fi
+
+      - name: Commit and Push Wiki Changes
+        run: |
+          if [ -d "wiki-repo" ]; then
+            cd wiki-repo
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "41898282+github-actions[bot]@://github.com"
+            
+            git add Advanced‐Directory‐Mapping.md
+            
+            if git diff --staged --quiet; then
+              echo "No structural adjustments detected inside the wiki scope."
+            else
+              git commit -m "chore: automated 6-hour directory map refresh"
+              
+              # Wipes out all other unstaged CRLF line-ending noise across the wiki directory
+              git checkout .
+              
+              git pull origin HEAD --rebase
+              git push origin HEAD
+            fi
+          else
+            echo "Wiki repository directory not present. Skipping."
           fi
 
       - name: Commit and Push Wiki Changes
