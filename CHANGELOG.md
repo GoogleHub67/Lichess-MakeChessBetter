@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-01] - AI Generated
+- **Fixed**: Updated `.github/workflows/update-dir.yml` to include a step to fetch the latest changes from the `main` branch and rebase the automated commit on top before pushing. This ensures that your changes are the latest ones before merging into the main branch.
+
+
+## [2026-10-01] - AI Generated
 - Corrected URL construction without syntax-breaking backslashes
 
 
