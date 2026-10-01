@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-01] - AI Generated
+- Corrected URL construction without syntax-breaking backslashes
+
+
+## [2026-10-01] - AI Generated
 - **Fixed:** Corrected URL construction in `.github/workflows/update-dir.yml` to avoid syntax-breaking backslashes.
 - **Changed:** Added a check to ensure the `wiki-repo` directory exists before attempting to clone it and perform further operations.
 
