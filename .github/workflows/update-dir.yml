@@ -1,0 +1,92 @@
+name: Update Directory Trees
+
+on:
+  schedule:
+    # Runs every 6 hours (00:00, 06:00, 12:00, 18:00 UTC)
+    - cron: '0 */6 * * *'
+  workflow_dispatch: # Allows you to trigger it manually from GitHub
+
+jobs:
+  update-tree:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Generate File System Tree
+        run: |
+          # Create a secure multiline runner block
+          EOF=\$(dd if=/dev/urandom bs=15 count=1 2>/dev/null | base64)
+          echo "GENERATED_TREE<<EOF" >> GITHUB_ENV
+          
+          # Cleaned up sed pattern to generate a proper tree layout
+          find . -not -path '*/.*' | sort | sed 's/[^\/]*\//|-- /g;s/|-- |-- /|   |-- /g' >> \$GITHUB_ENV
+          
+          echo "EOF" >> GITHUB_ENV
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Inject Tree Into Markdown
+        shell: python
+        run: |
+          import os
+
+          # The target files to update
+          files = [
+              "./docs/Advanced-Directory-Mapping.md",
+              "./wiki/Advanced‐Directory‐Mapping.md"
+          ]
+          
+          # Retrieve the generated tree from environment
+          tree_content = os.environ.get('GENERATED_TREE', '')
+          formatted_tree = f"### Complete File System Tree\n\n```text\n{tree_content}\n```\n"
+
+          for file_path in files:
+              if not os.path.exists(file_path):
+                  print(f"Skipping missing file: {file_path}")
+                  continue
+                  
+              with open(file_path, "r", encoding="utf-8") as f:
+                  content = f.read()
+
+              # Find your specific header target anchor
+              target_header = "### Complete File System Tree"
+              if target_header in content:
+                  # Split at the header to preserve preceding text
+                  parts = content.split(target_header)
+                  before = parts[0]
+                  after = parts[1]
+                  
+                  # If there was a previous code block directly following it, strip it out
+                  if "```text" in after:
+                      # Find where the old code block ends
+                      after_parts = after.split("```", 2)
+                      if len(after_parts) >= 3:
+                          # retain everything after the closed code block
+                          after = after_parts[2]
+
+                  # Assemble the clean file with the fresh layout
+                  new_content = before + formatted_tree + after
+                  
+                  with open(file_path, "w", encoding="utf-8") as f:
+                      f.write(new_content)
+                  print(f"Successfully updated: {file_path}")
+              else:
+                  print(f"Target header not found in: {file_path}")
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/Advanced-Directory-Mapping.md wiki/Advanced‐Directory‐Mapping.md
+          
+          # Check if there are any changes before committing to avoid workflow errors
+          if git diff --staged --quiet; then
+            echo "No directory updates detected. Skipping commit."
+          else
+            git commit -m "chore: automated 6-hour directory map refresh [skip ci]"
+            git push
+          fi
