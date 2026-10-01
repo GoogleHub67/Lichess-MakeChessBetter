@@ -23,11 +23,11 @@ jobs:
 
       - name: Generate File System Tree
         run: |
-          echo "GENERATED_TREE<<EOF" >> \$GITHUB_ENV
+          echo "GENERATED_TREE<<EOF" >> $GITHUB_ENV
           cd main-repo
           # Scans structural content folders without polluting lists with hidden configuration directories
-          find . -not -path '*/.*' | sort | sed 's/[^\/]*\//|-- /g;s/|-- |-- /|   |-- /g' >> \$GITHUB_ENV
-          echo "EOF" >> \$GITHUB_ENV
+          find . -not -path '*/.*' | sort | sed 's/[^\/]*\//|-- /g;s/|-- |-- /|   |-- /g' >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -81,20 +81,34 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@://github.com"
           
-          # Stage the target updated file
-          git add docs/Advanced‐Directory‐Mapping.md
+          # 1. Fetch remote changes and reset your workspace to match origin perfectly
+          git fetch origin main
+          git reset --hard origin/main
+          git clean -fd
           
+          # 2. Re-inject the tree into the completely clean file
+          python -c "
+          import os
+          file_path = 'docs/Advanced‐Directory‐Mapping.md'
+          tree_content = os.environ.get('GENERATED_TREE', '')
+          formatted_tree = f'### Complete File System Tree\n\n```text\n{tree_content}\n```\n'
+          if os.path.exists(file_path):
+              with open(file_path, 'r', encoding='utf-8') as f: content = f.read()
+              if '### Complete File System Tree' in content:
+                  parts = content.split('### Complete File System Tree')
+                  after = parts[1]
+                  if '```text' in after:
+                      after_parts = after.split('```', 2)
+                      if len(after_parts) >= 3: after = after_parts[2]
+                  with open(file_path, 'w', encoding='utf-8') as f: f.write(parts[0] + formatted_tree + after)
+          "
+          
+          # 3. Add, commit, and push directly without needing a rebase step
+          git add docs/Advanced‐Directory‐Mapping.md
           if git diff --staged --quiet; then
             echo "No changes found inside main codebase workspace."
           else
             git commit -m "chore: automated 6-hour directory map refresh [skip ci]"
-            
-            # Force-remove all other unstaged changes and untracked file noise globally
-            git reset --hard HEAD
-            git clean -fd
-            
-            # Fetch latest data and rebase your map update smoothly on top
-            git pull origin main --rebase
             git push origin HEAD:main
           fi
 
