@@ -45,7 +45,7 @@ Write-Host "1. Open the folder: config/env/" -ForegroundColor Cyan
 Write-Host "2. Right-click 'windows.env.example' and open with Notepad." -ForegroundColor Cyan
 Write-Host "3. Replace 'lip_YOUR_TOKEN_HERE' with your real Lichess token." -ForegroundColor Cyan
 Write-Host "4. Save and close the file." -ForegroundColor Cyan
-Write-Host "5. Double-click your launch-windows.bat file to play!" -ForegroundColor Cyan
+Write-Host "5. Double-click your launch_windows.bat file to play!" -ForegroundColor Cyan
 Write-Host "============================================================" -ForegroundColor Green
 Write-Host ""
 
