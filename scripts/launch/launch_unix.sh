@@ -6,7 +6,7 @@ cd "$SCRIPT_DIR"
 
 CONFIG_DIR="config/env"
 ENV_FILE="$CONFIG_DIR/.env"
-EXAMPLE_FILE="$CONFIG_DIR/windows.env.example"
+EXAMPLE_FILE="$CONFIG_DIR/your_operating_system.env.example"
 
 # Auto-generate .env from the template file if it is missing
 if [ ! -f "$ENV_FILE" ] && [ -f "$EXAMPLE_FILE" ]; then
