@@ -63,14 +63,14 @@ jobs:
           "
 
       # --- 2. COMPILE STANDALONE APPS ---
-      # Uses the matrix variable ${{ matrix.sep }} to guarantee multi-platform compatibility
+      # Updated --add-data to grab everything under config/ recursively
       - name: Build Standalone Application
         run: |
           pyinstaller --onefile \
             --name=${{ matrix.pyi_name }} \
             --paths=src \
             --paths=config \
-            --add-data="config/config.yml.default${{ matrix.sep }}config" \
+            --add-data="config/*${{ matrix.sep }}config" \
             src/bot.py
         shell: bash
 
@@ -90,9 +90,9 @@ jobs:
             echo "Error: Executable asset ($PRODUCED_BIN) not found!" && exit 1
           fi
           
-          # Stage an external editable template copy of config.yml.default for user setup ease
-          if [ -f "config/config.yml.default" ]; then
-            cp "config/config.yml.default" "output/config.yml.default"
+          # Stage an external copy of the config directory for explicit user convenience
+          if [ -d "config" ]; then
+            cp -r config output/config
           fi
           
           # Stage the Native Extension preserving the crucial python platform tags
