@@ -1,19 +1,41 @@
 #!/bin/bash
-set -e
+chmod +x "$0"
 
-# 📍 Dynamic Path Correction: Walk out to the main project directory
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
-PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
-cd "$PROJECT_ROOT"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
 
-echo "Firing up Lichess Adaptive Bot Core..."
-echo "📍 Project Root: $PROJECT_ROOT"
+CONFIG_DIR="config/env"
+ENV_FILE="$CONFIG_DIR/.env"
+EXAMPLE_FILE="$CONFIG_DIR/windows.env.example"
 
-# Activate the virtual environment so python3 uses the installed dependencies
-source venv/bin/activate
+# Auto-generate .env from the template file if it is missing
+if [ ! -f "$ENV_FILE" ] && [ -f "$EXAMPLE_FILE" ]; then
+    cp "$EXAMPLE_FILE" "$ENV_FILE"
+fi
 
-# Grant execution rights to the bot file if needed
-chmod +x src/bot.py
+# Check if the token inside the file is still the default placeholder text
+if [ -f "$ENV_FILE" ] && grep -q "lip_YOUR_TOKEN_HERE" "$ENV_FILE"; then
+    echo "============================================================"
+    echo " ⚠️ CONFIGURATION ERROR: MISSING LICHESS API TOKEN"
+    echo "============================================================"
+    echo "Your chess bot cannot connect to Lichess without credentials."
+    echo ""
+    echo "👉 FIX STEPS FOR NON-DEVELOPERS:"
+    echo "1. Go into the folder: config/env/"
+    echo "2. Open the file '.env' with TextEdit or Notepad."
+    echo "3. Delete 'lip_YOUR_TOKEN_HERE' and paste your real token."
+    echo "4. Save the file and run this launcher script again!"
+    echo "============================================================"
+    echo ""
+    read -p "Press [ENTER] to close this window..."
+    exit 0
+fi
 
-# Run the bot file
-python3 src/bot.py
+# If everything looks valid, launch the core chess engine application loop
+if [ -d "venv" ]; then
+    source venv/bin/activate
+    python3 src/bot.py || python3 app.py
+else
+    echo "❌ Error: Virtual environment (venv) not found. Run setup first!"
+    read -p "Press [ENTER] to exit..."
+fi
