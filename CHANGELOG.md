@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- **Added**: Updated the workflow to use the project root as the destination directory for the generated artifacts.
+- **Changed**: Adjusted the file extensions in the PyInstaller configuration to match the project structure and preserve the crucial python platform tags.
+
+
+## [2026-10-02] - AI Generated
 - **Fixed**: Removed unused `.github/workflows/update-dir.yml` file.
 
 
