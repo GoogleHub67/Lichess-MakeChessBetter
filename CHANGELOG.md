@@ -1,6 +1,13 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- Added new GitHub Actions workflows for updating the main-repo's directory tree and wiki.
+- Corrected URL construction to avoid syntax-breaking backslashes.
+- Added a step to stage and push modified files to the main branch.
+- Added new steps for building and updating the wiki, ensuring it reflects the current directory structure.
+
+
+## [2026-10-02] - AI Generated
 - **Added**: Automated directory mapping refresh workflows added.
 - **Changed**: Code refactored for better readability and efficiency.
 - **Fixed**: Ensured correct handling of line endings and file content for updates.
