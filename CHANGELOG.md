@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- **Fixed**: Removed unused `.github/workflows/update-dir.yml` file.
+
+
+## [2026-10-02] - AI Generated
 - Added new GitHub Actions workflows for updating the main-repo's directory tree and wiki.
 - Corrected URL construction to avoid syntax-breaking backslashes.
 - Added a step to stage and push modified files to the main branch.
