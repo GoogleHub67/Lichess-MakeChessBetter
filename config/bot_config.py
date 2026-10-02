@@ -21,14 +21,14 @@ def _bootstrap_environment():
     
     # Map running kernel to your explicit repository configuration assets
     if "linux" in system_os:
-        template_name = ".linux.env.example"
+        template_name = "linux.env.example"
     elif "darwin" in system_os:  # macOS kernel engine
-        template_name = ".macos.env.example"
+        template_name = "macos.env.example"
     elif "windows" in system_os:
-        template_name = ".windows.env.example"
+        template_name = "windows.env.example"
     else:
         # Resilient fallback default to prevent system faults on unusual kernels
-        template_name = ".linux.env.example"
+        template_name = "linux.env.example"
 
     source_template_path = os.path.join(_project_root, "config", "env", template_name)
 
