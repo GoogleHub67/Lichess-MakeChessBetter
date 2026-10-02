@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- **Added**: Updated the `.github/workflows/build-binaries.yml` to include an additional `--add-data` argument to load `config.yml.default` instead of the default `config.yml`, enhancing user setup ease.
+- **Changed**: Adjusted the path for `config.yml.default` in the `--add-data` command to correctly reference it.
+
+
+## [2026-10-02] - AI Generated
 - Added a new step to the workflow to compile and stage standalone applications for different operating systems using PyInstaller.
 - Changed the artifact naming to include the operating system and version.
 - Added a matrix variable `${{ matrix.sep }}` to ensure multi-platform compatibility.
