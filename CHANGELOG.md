@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- Changed the PyInstaller command to unpack the "config/" folder structure as a complete "config/" directory rather than dumping its contents flatly.
+
+
+## [2026-10-02] - AI Generated
 - **Build Binaries**: Added a `.github/workflows/build-binaries.yml` file to build native libraries and standalone applications. This workflow now uses `python -c` to compile native modules directly from the project root and `pyinstaller` to build standalone applications with the entire config folder structure included.
 
 
