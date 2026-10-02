@@ -15,22 +15,21 @@ jobs:
         with:
           path: main-repo
 
-      # Corrected URL construction without syntax-breaking backslashes
       - name: Checkout Wiki Repository
         run: |
-          git clone "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.wiki.git" wiki-repo
+          git clone "https://x-access-token:\({{ secrets.GITHUB_TOKEN }}@://github.com\){{ github.repository }}.wiki.git" wiki-repo
         continue-on-error: true
 
       - name: Generate File System Tree
         run: |
-          echo "GENERATED_TREE<<EOF" >> $GITHUB_ENV
+          echo "GENERATED_TREE<<EOF" >> \$GITHUB_ENV
           cd main-repo
           
           python -c '
           import os
 
           tree_lines = []
-          # Walk the directory tree natively
+          # Recursively traverse directory structures natively
           for root, dirs, files in os.walk(".", topdown=True):
               # Ignore core system tracking frameworks
               if ".git" in dirs:
@@ -57,8 +56,8 @@ jobs:
                   tree_lines.append(f"{indent}|-- {file}")
           
           print("\n".join(tree_lines))
-          ' >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          ' >> \$GITHUB_ENV
+          echo "EOF" >> \$GITHUB_ENV
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -71,52 +70,52 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "41898282+github-actions[bot]@://github.com"
           
-          # 1. Fetch remote tracking status and clear line-ending cache variations
+          # 1. Clear out remote race conditions and mixed line endings before writing changes
           git fetch origin main
           git reset --hard origin/main
           git clean -fd
           
-          # 2. Build direct filesystem markdown injection module
+          # 2. Write out a clean, external Python asset script to handle string patching safely
           cat << 'EOF' > update_tree.py
-          import os
-          file_path = "docs/Advanced‐Directory‐Mapping.md"
-          tree_content = os.environ.get("GENERATED_TREE", "")
-          formatted_tree = f"### Complete File System Tree\n\n```text\n{tree_content}\n```\n"
+import os
+file_path = "docs/Advanced‐Directory‐Mapping.md"
+tree_content = os.environ.get("GENERATED_TREE", "")
+formatted_tree = f"### Complete File System Tree\n\n```text\n{tree_content}\n```\n"
 
-          if os.path.exists(file_path):
-              with open(file_path, "r", encoding="utf-8") as f:
-                  content = f.read()
-              
-              target_header = "### Complete File System Tree"
-              if target_header in content:
-                  parts = content.split(target_header)
-                  before = parts[0]
-                  after = parts[1]
-                  
-                  if "```text" in after:
-                      after_parts = after.split("```", 2)
-                      if len(after_parts) >= 3:
-                          after = after_parts[2]
-                          
-                  new_content = before + formatted_tree + after
-                  with open(file_path, "w", encoding="utf-8") as f:
-                      f.write(new_content)
-                  print("Main documentation directory layout tree saved successfully.")
-          EOF
+if os.path.exists(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        content = f.read()
+    
+    target_header = "### Complete File System Tree"
+    if target_header in content:
+        parts = content.split(target_header)
+        before = parts[0]
+        after = parts[1]
+        
+        if "```text" in after:
+            after_parts = after.split("```", 2)
+            if len(after_parts) >= 3:
+                after = after_parts[2]
+                
+        new_content = before + formatted_tree + after
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(new_content)
+        print("Markdown file tracking layout tree updated successfully.")
+EOF
           
-          # 3. Execute text injection layout and clean execution traces
+          # 3. Execute the dedicated file patching automation block and clear temp file
           python update_tree.py
           rm update_tree.py
           
-          # 4. Stage and push file modifications
+          # 4. Stage your successfully modified file and push straight to main
           git add docs/Advanced‐Directory‐Mapping.md
           if git diff --staged --quiet; then
-            echo "No structural adjustments detected inside the codebase workspace."
+            echo "No changes found inside main codebase workspace."
           else
             git commit -m "chore: automated 6-hour directory map refresh [skip ci]"
             git push origin HEAD:main
           fi
-          
+
       - name: Commit and Push Wiki Changes
         run: |
           if [ -d "wiki-repo" ]; then
@@ -131,32 +130,33 @@ jobs:
             
             # 2. Build injection script mapping for the flat wiki target file
             cat << 'EOF' > update_wiki.py
-            import os
-            file_path = "Advanced‐Directory‐Mapping.md"
-            tree_content = os.environ.get("GENERATED_TREE", "")
-            formatted_tree = f"### Complete File System Tree\n\n```text\n{tree_content}\n```\n"
+import os
+file_path = "Advanced‐Directory‐Mapping.md"
+tree_content = os.environ.get("GENERATED_TREE", "")
+formatted_tree = f"### Complete File System Tree\n\n```text\n{tree_content}\n```\n"
 
-            if os.path.exists(file_path):
-                with open(file_path, "r", encoding="utf-8") as f:
-                    content = f.read()
+if os.path.exists(file_path):
+    with open(file_path, "r", encoding="utf-8") as f:
+        content = f.read()
+    
+    target_header = "### Complete File System Tree"
+    if target_header in content:
+        parts = content.split(target_header)
+        before = parts[0]
+        after = parts[1]
+        
+        if "```text" in after:
+            after_parts = after.split("```", 2)
+            if len(after_parts) >= 3:
+                after = after_parts[2]
                 
-                target_header = "### Complete File System Tree"
-                if target_header in content:
-                    parts = content.split(target_header)
-                    before = parts[0]
-                    after = parts[1]
-                    
-                    if "```text" in after:
-                        after_parts = after.split("```", 2)
-                        if len(after_parts) >= 3:
-                            after = after_parts[2]
-                            
-                    new_content = before + formatted_tree + after
-                    with open(file_path, "w", encoding="utf-8") as f:
-                        f.write(new_content)
-                    print("Wiki directory tree tracking layout saved successfully.")
-            EOF
+        new_content = before + formatted_tree + after
+        with open(file_path, "w", encoding="utf-8") as f:
+            f.write(new_content)
+        print("Wiki directory tree tracking layout saved successfully.")
+EOF
             
+            # 3. Execute the script and clean up
             python update_wiki.py
             rm update_wiki.py
             
