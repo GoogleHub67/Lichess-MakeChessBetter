@@ -62,21 +62,20 @@ jobs:
           )
           "
 
-      # --- 2. COMPILE STANDALONE APPS ---
-      # This forces PyInstaller to dump the config folder right into the root extraction path,
-      # perfectly matching where your Python path calculations are looking for them.
+      # --- 2. COMPILE STANDALONE APPS (Optimized for Non-Devs) ---
+      # Switched from --onefile to --onedir so assets compile into a visible desktop folder
       - name: Build Standalone Application
         run: |
-          pyinstaller --onefile \
+          pyinstaller --onedir \
             --name=${{ matrix.pyi_name }} \
             --paths=src \
             --paths=config \
-            --add-data="config/bot_config.py${{ matrix.sep }}." \
-            --add-data="config/config.yml.default${{ matrix.sep }}." \
-            --add-data="config/README.md${{ matrix.sep }}." \
-            --add-data="config/env/windows.env.example${{ matrix.sep }}env" \
-            --add-data="config/env/macos.env.example${{ matrix.sep }}env" \
-            --add-data="config/env/linux.env.example${{ matrix.sep }}env" \
+            --add-data="config/bot_config.py${{ matrix.sep }}config" \
+            --add-data="config/config.yml.default${{ matrix.sep }}config" \
+            --add-data="config/README.md${{ matrix.sep }}config" \
+            --add-data="config/env/windows.env.example${{ matrix.sep }}config/env" \
+            --add-data="config/env/macos.env.example${{ matrix.sep }}config/env" \
+            --add-data="config/env/linux.env.example${{ matrix.sep }}config/env" \
             src/bot.py
         shell: bash
 
@@ -86,27 +85,15 @@ jobs:
         run: |
           mkdir -p output
           
-          # Map the actual produced file from PyInstaller
-          PRODUCED_BIN="dist/${{ matrix.pyi_name }}${{ matrix.binary_ext }}"
-          
-          # Stage the PyInstaller Standalone Executable
-          if [ -f "$PRODUCED_BIN" ]; then
-            cp "$PRODUCED_BIN" "output/${{ matrix.pyi_name }}${{ matrix.binary_ext }}"
-          else
-            echo "Error: Executable asset ($PRODUCED_BIN) not found!" && exit 1
+          # Copy the entire compiled folder distribution layout directly to our output staging zone
+          if [ -d "dist/${{ matrix.pyi_name }}" ]; then
+            cp -r dist/${{ matrix.pyi_name }}/* output/
           fi
           
-          # Stage the full configuration directory recursively next to the executable
-          # This guarantees that even if PyInstaller extraction paths act up, 
-          # the executable can read the folders right next to it on your desktop!
-          if [ -d "config" ]; then
-            cp -r config output/
-          fi
-          
-          # Stage the Native Extension preserving the crucial python platform tags
+          # Stage the Native Extension alongside the application files
           find . -maxdepth 1 -name "makechessbetter*${{ matrix.lib_ext }}" -exec cp {} output/ \;
 
-      # --- 4. UPLOAD ZIP ARTIFACTS ---
+      # --- 4. UPLOAD finished app asset folder ---
       - name: Upload Finished Assets
         uses: actions/upload-artifact@v4
         with:
