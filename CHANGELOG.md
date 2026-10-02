@@ -1,6 +1,12 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- Added a `--add-data` argument to the `pyinstaller` command to include all files under `config/` recursively.
+- Updated the workflow to create a copy of `config.yml.default` as a template for users.
+- Added a step to copy the `config` directory to the output directory to ensure all necessary files are included.
+
+
+## [2026-10-02] - AI Generated
 - **Added**: Updated the `.github/workflows/build-binaries.yml` to include an additional `--add-data` argument to load `config.yml.default` instead of the default `config.yml`, enhancing user setup ease.
 - **Changed**: Adjusted the path for `config.yml.default` in the `--add-data` command to correctly reference it.
 
