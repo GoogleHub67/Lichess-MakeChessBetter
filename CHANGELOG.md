@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- **Added**: Added configuration files (`config/bot_config.py`, `config/config.yml.default`, `config/README.md`, `config/env/windows.env.example`, `config/env/macos.env.example`, `config/env/linux.env.example`) to ensure all required settings are included during the binary build process.
+
+
+## [2026-10-02] - AI Generated
 - Changed the PyInstaller command to unpack the "config/" folder structure as a complete "config/" directory rather than dumping its contents flatly.
 
 
