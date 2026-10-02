@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- **Fixed:** Optimized the build process by switching from PyInstaller's `--onefile` to `--onedir` for compiling standalone applications. This change aims to make the compiled files more accessible and predictable.
+- **Fixed:** Fixed the stage of copying the PyInstaller executable to the output directory, ensuring that the executable and its associated configuration files are properly placed in the `output` directory. This resolves issues related to the execution of the compiled application.
+
+
+## [2026-10-02] - AI Generated
 - Fixed: Corrected PyInstaller configurations to match Python path calculations.
 - Added: Staged the full configuration directory next to the executable for user convenience.
 
