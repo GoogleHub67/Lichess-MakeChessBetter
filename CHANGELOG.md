@@ -1,6 +1,13 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- **Added**: Added a new GitHub Actions workflow to build native binaries and assets for the project.
+- **Changed**: Reorganized the workflow to remove `--add-data` flags, allowing the app to look natively in the root directory it is launched from.
+- **Fixed**: Adjusted the `pyinstaller` command to ensure the executable and its system dependencies folder are included in the distribution.
+- **Critical**: Moved the config folder directly to the root desktop layout, outside the internal sandboxing zone, to provide a user-friendly experience.
+
+
+## [2026-10-02] - AI Generated
 - **Fixed:** Optimized the build process by switching from PyInstaller's `--onefile` to `--onedir` for compiling standalone applications. This change aims to make the compiled files more accessible and predictable.
 - **Fixed:** Fixed the stage of copying the PyInstaller executable to the output directory, ensuring that the executable and its associated configuration files are properly placed in the `output` directory. This resolves issues related to the execution of the compiled application.
 
