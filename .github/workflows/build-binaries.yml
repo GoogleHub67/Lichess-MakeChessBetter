@@ -16,21 +16,18 @@ jobs:
             pyi_name: makechessbetter
             binary_ext: .exe
             lib_ext: .pyd
-            sep: ';'
           - os: ubuntu-latest
             artifact_name: linux-assets
             target_os: linux
             pyi_name: makechessbetter-linux
             binary_ext: ''
             lib_ext: .so
-            sep: ':'
           - os: macos-latest
             artifact_name: macos-assets
             target_os: macos
             pyi_name: makechessbetter-mac
             binary_ext: ''
             lib_ext: .so
-            sep: ':'
 
     steps:
       - name: Checkout Code
@@ -48,7 +45,8 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         shell: bash
 
-      # --- 1. COMPILE NATIVE LIBRARIES (Outputs to project root) ---
+      # --- 1. COMPILE NATIVE LIBRARIES ---
+      # Compiles your core logic into native binaries
       - name: Compile Library Module
         run: |
           python -c "
@@ -62,38 +60,40 @@ jobs:
           )
           "
 
-      # --- 2. COMPILE STANDALONE APPS (Optimized for Non-Devs) ---
-      # Switched from --onefile to --onedir so assets compile into a visible desktop folder
+      # --- 2. COMPILE APPS (Clean System Build Mode) ---
+      # Removing --add-data flags prevents internal sandboxing.
+      # The app will look natively in the root directory it is launched from.
       - name: Build Standalone Application
         run: |
           pyinstaller --onedir \
             --name=${{ matrix.pyi_name }} \
             --paths=src \
-            --paths=config \
-            --add-data="config/bot_config.py${{ matrix.sep }}config" \
-            --add-data="config/config.yml.default${{ matrix.sep }}config" \
-            --add-data="config/README.md${{ matrix.sep }}config" \
-            --add-data="config/env/windows.env.example${{ matrix.sep }}config/env" \
-            --add-data="config/env/macos.env.example${{ matrix.sep }}config/env" \
-            --add-data="config/env/linux.env.example${{ matrix.sep }}config/env" \
             src/bot.py
         shell: bash
 
-      # --- 3. FORMAT AND STAGE ASSETS FOR UPLOAD ---
+      # --- 3. FORMAT AND STAGE ASSETS FOR UPLOAD (Non-Dev Layout Fix) ---
+      # This step repositions your folder tree so it is visible to users.
+      # It pulls files out of internal zones and structures them clearly on the desktop.
       - name: Stage Assets
         shell: bash
         run: |
           mkdir -p output
           
-          # Copy the entire compiled folder distribution layout directly to our output staging zone
+          # 1. Copy the executable and its system dependencies folder (_internal)
           if [ -d "dist/${{ matrix.pyi_name }}" ]; then
             cp -r dist/${{ matrix.pyi_name }}/* output/
           fi
           
-          # Stage the Native Extension alongside the application files
+          # 2. Force your native Cython module next to the app
           find . -maxdepth 1 -name "makechessbetter*${{ matrix.lib_ext }}" -exec cp {} output/ \;
+          
+          # 3. CRITICAL: Copy the config tree directly to the root desktop layout
+          # This places the config folder right next to your .exe file, outside _internal!
+          if [ -d "config" ]; then
+            cp -r config output/config
+          fi
 
-      # --- 4. UPLOAD finished app asset folder ---
+      # --- 4. UPLOAD USER-READY DISTRIBUTION FOLDER ---
       - name: Upload Finished Assets
         uses: actions/upload-artifact@v4
         with:
