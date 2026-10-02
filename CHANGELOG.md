@@ -1,6 +1,12 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- Added a new step to the workflow to compile and stage standalone applications for different operating systems using PyInstaller.
+- Changed the artifact naming to include the operating system and version.
+- Added a matrix variable `${{ matrix.sep }}` to ensure multi-platform compatibility.
+
+
+## [2026-10-02] - AI Generated
 - **Added**: Updated the workflow to use the project root as the destination directory for the generated artifacts.
 - **Changed**: Adjusted the file extensions in the PyInstaller configuration to match the project structure and preserve the crucial python platform tags.
 
