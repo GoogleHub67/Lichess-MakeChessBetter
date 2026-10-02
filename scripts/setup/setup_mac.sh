@@ -1,13 +1,7 @@
 #!/bin/bash
-
-# Ensure this script has execution permissions for future runs
 chmod +x "$0"
-
-# Exit immediately if a command exits with a non-zero status
 set -e
 
-# 📍 Dynamic Path Correction: Force script to run relative to the project root folder
-# Since this script lives in ./scripts/setup/, walking up two directories gets us to the repository root.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$PROJECT_ROOT"
@@ -18,7 +12,6 @@ echo "=============================================="
 echo "📍 Project Root: $PROJECT_ROOT"
 echo "=============================================="
 
-# 1. Create a Python Virtual Environment inside the project root
 if [ ! -d "venv" ]; then
     echo "📦 Creating Python Virtual Environment (venv)..."
     python3 -m venv venv
@@ -26,40 +19,39 @@ else
     echo "✅ Virtual environment already exists."
 fi
 
-# 2. Upgrade pip and install from requirements.txt inside the venv sandbox
 echo "🐍 Installing dependencies from requirements.txt..."
 source venv/bin/activate
 pip install --upgrade pip
-pip install -r requirements.txt
+if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-# 3. Install Stockfish Engine globally via Homebrew
 echo "🐟 Installing Stockfish Engine via Homebrew..."
 if command -v brew &> /dev/null; then
     brew install stockfish
-    echo "💡 NOTE: Stockfish was installed globally via Homebrew."
-    echo "   Ensure your engine configuration path points to 'stockfish' natively!"
 else
-    echo "⚠️ Homebrew is not installed. Skipping Stockfish installation."
-    echo "Please install Homebrew (https://brew.sh) or install Stockfish manually."
+    echo "⚠️ Homebrew is not installed. Please install it from https://brew.sh later."
 fi
 
-# 4. Create a template .env file if it doesn't exist
-if [ ! -f ".env" ]; then
-    echo "📄 Creating template .env file..."
-    cat << EOF > .env
-LICHESS_TOKEN=your_token_here
+# 🌟 NON-DEV FIX: Ensure the config directory structure exists cleanly
+mkdir -p config/env
+
+# Create the visible configuration template file if missing
+if [ ! -f "config/env/windows.env.example" ]; then
+    cat << EOF > config/env/windows.env.example
+LICHESS_TOKEN=lip_YOUR_TOKEN_HERE
 BOOK_PATH=path/to/opening/book.bin
 EOF
 fi
 
 echo ""
-echo "=============================================="
-echo "🎉 Setup complete!"
-echo "=============================================="
-echo "Next Steps:"
-echo "1. Open '.env' and replace 'your_token_here' with your real Lichess API token."
-echo "2. Download your opening book .bin file and update BOOK_PATH in config.py or .env."
-echo "3. Start your bot execution loop by running:"
-echo "   source venv/bin/activate && python bot.py"
-echo "4. Or, launch your Streamlit analytics dashboard using:"
-echo "   source venv/bin/activate && streamlit run dashboard.py"
+echo "============================================================"
+echo "🎉 SETUP SCRIPT COMPLETE: READY FOR CREDENTIALS"
+echo "============================================================"
+echo "👉 NEXT STEPS FOR NON-DEVELOPERS:"
+echo "1. Open the folder: config/env/"
+echo "2. Open 'windows.env.example' in TextEdit or Notepad."
+echo "3. Replace 'lip_YOUR_TOKEN_HERE' with your actual Lichess token."
+echo "4. Save the file."
+echo "5. Now run your launch-unix.sh script!"
+echo "============================================================"
+echo ""
+read -p "Press [ENTER] to close this setup installer safely..."
