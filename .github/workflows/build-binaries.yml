@@ -13,12 +13,21 @@ jobs:
           - os: windows-latest
             artifact_name: windows-assets
             target_os: windows
+            pyi_name: makechessbetter
+            binary_ext: .exe
+            lib_ext: .pyd
           - os: ubuntu-latest
             artifact_name: linux-assets
             target_os: linux
+            pyi_name: makechessbetter-linux
+            binary_ext: ''
+            lib_ext: .so
           - os: macos-latest
             artifact_name: macos-assets
             target_os: macos
+            pyi_name: makechessbetter-mac
+            binary_ext: ''
+            lib_ext: .so
 
     steps:
       - name: Checkout Code
@@ -36,7 +45,8 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         shell: bash
 
-      # --- 1. COMPILE NATIVE LIBRARIES (Cython Setup Fixed) ---
+      # --- 1. COMPILE NATIVE LIBRARIES (Outputs to project root) ---
+      # Native suffix extensions are handled correctly in step 3.
       - name: Compile Library Module
         run: |
           python -c "
@@ -50,51 +60,34 @@ jobs:
           )
           "
 
-      # --- 2. COMPILE APPS (PyInstaller - Windows Directory Flat-Fix) ---
-      - name: Build Standalone Application (Windows)
-        if: matrix.target_os == 'windows'
+      # --- 2. COMPILE STANDALONE APPS ---
+      # No extension passed to --name; PyInstaller adds .exe on Windows automatically
+      - name: Build Standalone Application
         run: |
-          cd src
-          pyinstaller --onefile --name=makechessbetter bot.py
-          mv dist/makechessbetter.exe ../dist/makechessbetter.exe
+          pyinstaller --onefile --name=${{ matrix.pyi_name }} src/bot.py
         shell: bash
 
-      - name: Build Standalone Application (Linux)
-        if: matrix.target_os == 'linux'
-        run: pyinstaller --onefile --name=makechessbetter-linux src/bot.py
-
-      - name: Build Standalone Application (Mac)
-        if: matrix.target_os == 'macos'
-        run: pyinstaller --onefile --name=makechessbetter-mac src/bot.py
-
       # --- 3. FORMAT AND STAGE ASSETS FOR UPLOAD ---
-      - name: Stage Assets (Windows)
-        if: matrix.target_os == 'windows'
-        shell: powershell
+      - name: Stage Assets
+        shell: bash
         run: |
-          mkdir output
-          if (Test-Path "dist/makechessbetter.exe") { Move-Item dist/makechessbetter.exe output/makechessbetter.exe }
-          Get-ChildItem -Path . -Filter *.pyd -Recurse | ForEach-Object {
-              if ($_.DirectoryName -ne (Get-Item output).FullName) {
-                  Move-Item $_.FullName output/makechessbetter.pyd -Force
-              }
-          }
-
-      - name: Stage Assets (Linux)
-        if: matrix.target_os == 'linux'
-        run: |
-          mkdir output
-          [ -f dist/makechessbetter-linux ] && mv dist/makechessbetter-linux output/makechessbetter-linux
-          find . -name "*.so" -exec cp {} output/makechessbetter.so \;
-
-      - name: Stage Assets (Mac)
-        if: matrix.target_os == 'macos'
-        run: |
-          mkdir output
-          [ -f dist/makechessbetter-mac ] && mv dist/makechessbetter-mac output/makechessbetter-mac
-          find . -name "*.so" -exec cp {} output/makechessbetter.so \;
+          mkdir -p output
+          
+          # Map the actual produced file from PyInstaller
+          PRODUCED_BIN="dist/${{ matrix.pyi_name }}${{ matrix.binary_ext }}"
+          
+          # Stage the PyInstaller Standalone Executable
+          if [ -f "$PRODUCED_BIN" ]; then
+            cp "$PRODUCED_BIN" "output/${{ matrix.pyi_name }}${{ matrix.binary_ext }}"
+          else
+            echo "Error: Executable asset ($PRODUCED_BIN) not found!" && exit 1
+          fi
+          
+          # Stage the Native Extension preserving the crucial python platform tags
+          find . -maxdepth 1 -name "makechessbetter*${{ matrix.lib_ext }}" -exec cp {} output/ \;
 
       # --- 4. UPLOAD ZIP ARTIFACTS ---
+      # Will upload exactly 2 files per OS (1 executable, 1 native extension module)
       - name: Upload Finished Assets
         uses: actions/upload-artifact@v4
         with:
