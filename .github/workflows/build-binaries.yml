@@ -49,7 +49,6 @@ jobs:
         shell: bash
 
       # --- 1. COMPILE NATIVE LIBRARIES (Outputs to project root) ---
-      # Native suffix extensions are handled correctly in step 3.
       - name: Compile Library Module
         run: |
           python -c "
@@ -64,8 +63,7 @@ jobs:
           "
 
       # --- 2. COMPILE STANDALONE APPS ---
-      # By passing the folder path directly "config" instead of wildcards "config/*",
-      # PyInstaller safely copies the entire folder structure, including hidden dotfiles.
+      # Explicitly maps the whole config folder structure into the build
       - name: Build Standalone Application
         run: |
           pyinstaller --onefile \
