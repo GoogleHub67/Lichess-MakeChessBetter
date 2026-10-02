@@ -63,14 +63,15 @@ jobs:
           "
 
       # --- 2. COMPILE STANDALONE APPS ---
-      # Explicitly maps the whole config folder structure into the build
+      # Changing the destination to "." ensures PyInstaller unpacks the folder
+      # as a complete "config/" structure rather than dumping its contents flatly.
       - name: Build Standalone Application
         run: |
           pyinstaller --onefile \
             --name=${{ matrix.pyi_name }} \
             --paths=src \
             --paths=config \
-            --add-data="config${{ matrix.sep }}config" \
+            --add-data="config${{ matrix.sep }}." \
             src/bot.py
         shell: bash
 
