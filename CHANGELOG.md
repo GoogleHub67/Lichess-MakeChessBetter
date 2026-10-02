@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- **Build Binaries**: Added a `.github/workflows/build-binaries.yml` file to build native libraries and standalone applications. This workflow now uses `python -c` to compile native modules directly from the project root and `pyinstaller` to build standalone applications with the entire config folder structure included.
+
+
+## [2026-10-02] - AI Generated
 - Fixed an issue where the OAuth2 token was not being correctly stored in the `config.yml.default` file.
 
 
