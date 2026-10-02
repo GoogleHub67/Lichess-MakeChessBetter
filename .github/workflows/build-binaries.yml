@@ -63,15 +63,20 @@ jobs:
           "
 
       # --- 2. COMPILE STANDALONE APPS ---
-      # Changing the destination to "." ensures PyInstaller unpacks the folder
-      # as a complete "config/" structure rather than dumping its contents flatly.
+      # This explicitly forces PyInstaller to create the "config" and "config/env"
+      # directories inside the temporary runtime environment across all platforms.
       - name: Build Standalone Application
         run: |
           pyinstaller --onefile \
             --name=${{ matrix.pyi_name }} \
             --paths=src \
             --paths=config \
-            --add-data="config${{ matrix.sep }}." \
+            --add-data="config/bot_config.py${{ matrix.sep }}config" \
+            --add-data="config/config.yml.default${{ matrix.sep }}config" \
+            --add-data="config/README.md${{ matrix.sep }}config" \
+            --add-data="config/env/windows.env.example${{ matrix.sep }}config/env" \
+            --add-data="config/env/macos.env.example${{ matrix.sep }}config/env" \
+            --add-data="config/env/linux.env.example${{ matrix.sep }}config/env" \
             src/bot.py
         shell: bash
 
