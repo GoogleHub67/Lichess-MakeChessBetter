@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- Fixed an issue where the OAuth2 token was not being correctly stored in the `config.yml.default` file.
+
+
+## [2026-10-02] - AI Generated
 - **Added**: Staging the full configuration directory recursively for out-of-box user convenience.
 - **Changed**: Updated `--add-data` to specify "config" directly instead of wildcards, ensuring PyInstaller safely copies the entire folder structure, including hidden dotfiles.
 
