@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- Added: Added instructions on opening the `windows.env.example` file, replacing the token, saving the file, and then double-clicking the `launch-windows.bat` file to play the game.
+- Updated: Corrected the sentence "Double-click your launch-windows.bat file to play!" to "Double-click your launch-windows.bat file to play!"
+
+
+## [2026-10-02] - AI Generated
 - **Added:**
   - Updated the title from "Lichess Adaptive Chess Partner" to "Lichess MakeChessBetter Launcher".
   - Added a new section to validate the presence of the Lichess API token in the `.env` file.
