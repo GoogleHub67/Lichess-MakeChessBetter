@@ -16,18 +16,21 @@ jobs:
             pyi_name: makechessbetter
             binary_ext: .exe
             lib_ext: .pyd
+            sep: ';'
           - os: ubuntu-latest
             artifact_name: linux-assets
             target_os: linux
             pyi_name: makechessbetter-linux
             binary_ext: ''
             lib_ext: .so
+            sep: ':'
           - os: macos-latest
             artifact_name: macos-assets
             target_os: macos
             pyi_name: makechessbetter-mac
             binary_ext: ''
             lib_ext: .so
+            sep: ':'
 
     steps:
       - name: Checkout Code
@@ -46,7 +49,6 @@ jobs:
         shell: bash
 
       # --- 1. COMPILE NATIVE LIBRARIES (Outputs to project root) ---
-      # Native suffix extensions are handled correctly in step 3.
       - name: Compile Library Module
         run: |
           python -c "
@@ -61,10 +63,15 @@ jobs:
           "
 
       # --- 2. COMPILE STANDALONE APPS ---
-      # No extension passed to --name; PyInstaller adds .exe on Windows automatically
+      # Uses the matrix variable ${{ matrix.sep }} to guarantee multi-platform compatibility
       - name: Build Standalone Application
         run: |
-          pyinstaller --onefile --name=${{ matrix.pyi_name }} src/bot.py
+          pyinstaller --onefile \
+            --name=${{ matrix.pyi_name }} \
+            --paths=src \
+            --paths=config \
+            --add-data="config/config.yml${{ matrix.sep }}config" \
+            src/bot.py
         shell: bash
 
       # --- 3. FORMAT AND STAGE ASSETS FOR UPLOAD ---
@@ -83,11 +90,15 @@ jobs:
             echo "Error: Executable asset ($PRODUCED_BIN) not found!" && exit 1
           fi
           
+          # Stage an external editable template copy of config.yml for user setup ease
+          if [ -f "config/config.yml" ]; then
+            cp "config/config.yml" "output/config.yml"
+          fi
+          
           # Stage the Native Extension preserving the crucial python platform tags
           find . -maxdepth 1 -name "makechessbetter*${{ matrix.lib_ext }}" -exec cp {} output/ \;
 
       # --- 4. UPLOAD ZIP ARTIFACTS ---
-      # Will upload exactly 2 files per OS (1 executable, 1 native extension module)
       - name: Upload Finished Assets
         uses: actions/upload-artifact@v4
         with:
