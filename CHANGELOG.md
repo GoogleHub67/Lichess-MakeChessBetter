@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- **Added**: Introduce support for multiple operating systems by adding an example `.env.example` file tailored to each system.
+- **Changed**: Modify the `launch_unix.sh` script to use a custom `.env.example` file for the specified operating system, ensuring compatibility across different environments.
+
+
+## [2026-10-02] - AI Generated
 - Added: Added instructions on opening the `windows.env.example` file, replacing the token, saving the file, and then double-clicking the `launch-windows.bat` file to play the game.
 - Updated: Corrected the sentence "Double-click your launch-windows.bat file to play!" to "Double-click your launch-windows.bat file to play!"
 
