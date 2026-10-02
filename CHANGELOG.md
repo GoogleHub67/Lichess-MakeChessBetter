@@ -1,6 +1,18 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- **Added:**
+  - Updated the title from "Lichess Adaptive Chess Partner" to "Lichess MakeChessBetter Launcher".
+  - Added a new section to validate the presence of the Lichess API token in the `.env` file.
+  - Provided instructions for non-developers on how to configure the token if missing.
+- **Changed:**
+  - Removed the `cd` command to directly navigate to the project root.
+- **Fixed:**
+  - Added conditional checks for the virtual environment activation and the execution of the bot scripts.
+  - Improved error handling to provide more informative feedback to non-developers.
+
+
+## [2026-10-02] - AI Generated
 - Added: Initial setup script created.
 - Added: Dynamic path correction included to set up the project root.
 - Added: Python Virtual Environment creation and upgrade.
