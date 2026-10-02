@@ -70,7 +70,7 @@ jobs:
             --name=${{ matrix.pyi_name }} \
             --paths=src \
             --paths=config \
-            --add-data="config/config.yml${{ matrix.sep }}config" \
+            --add-data="config/config.yml.default${{ matrix.sep }}config" \
             src/bot.py
         shell: bash
 
@@ -90,9 +90,9 @@ jobs:
             echo "Error: Executable asset ($PRODUCED_BIN) not found!" && exit 1
           fi
           
-          # Stage an external editable template copy of config.yml for user setup ease
-          if [ -f "config/config.yml" ]; then
-            cp "config/config.yml" "output/config.yml"
+          # Stage an external editable template copy of config.yml.default for user setup ease
+          if [ -f "config/config.yml.default" ]; then
+            cp "config/config.yml.default" "output/config.yml.default"
           fi
           
           # Stage the Native Extension preserving the crucial python platform tags
