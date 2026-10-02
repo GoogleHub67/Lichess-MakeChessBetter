@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-10-02] - AI Generated
+- **Fixed**: Improved the script for generating the file system tree by removing unnecessary hidden configuration directories and ensuring a clear, ordered listing of directories and files. The tree is now sorted by folder and file names, with folders starting with a dot first and sorted alphabetically. This improves the readability and organization of the tree in the generated Markdown files.
+- **Added**: Added a step to execute a Python script `update_tree.py` that generates the file system tree. This script handles string patching safely to ensure the tree is correctly formatted and included in the Markdown files. The script uses the `os` module to recursively traverse the directory structure, sorting folders and files based on the specified criteria.
+
+
 ## [2026-10-01] - AI Generated
 - **Added:** Updated the `.github/workflows/update-dir.yml` file to automate the refreshing of the directory map for the `Advanced-Directory-Mapping.md` file.
 - **Changed:** Modified the `Generate File System Tree` step to directly inject the generated tree into the `docs/Advanced-Directory-Mapping.md` file using Python, avoiding the need for a rebase step.
