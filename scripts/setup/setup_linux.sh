@@ -7,7 +7,6 @@ chmod +x "$0"
 set -e
 
 # 📍 Dynamic Path Correction: Force script to run relative to the project root folder
-# Walking up two directories from ./scripts/setup/ grounds us in the repository root.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 cd "$PROJECT_ROOT"
@@ -33,11 +32,11 @@ else
     echo "✅ Virtual environment already exists."
 fi
 
-# 2. Upgrade pip and install from requirements.txt inside the venv sandbox
+# 2. Upgrade pip and install dependencies inside the venv sandbox
 echo "🐍 Installing dependencies from requirements.txt..."
 source venv/bin/activate
 pip install --upgrade pip
-pip install -r requirements.txt
+if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
 # 3. Install Stockfish Engine globally via APT
 echo "🐟 Installing Stockfish Engine via APT..."
@@ -50,29 +49,34 @@ if command -v apt-get &> /dev/null; then
         echo "✅ Stockfish engine is already installed on this machine."
     fi
     echo "💡 NOTE: Stockfish was installed globally via APT."
-    echo "   Ensure your engine configuration path points to 'stockfish' natively!"
 else
     echo "⚠️ 'apt-get' package manager not found (non-Debian/Ubuntu system)."
     echo "Please install Stockfish manually using your system's package manager."
 fi
 
-# 4. Create a template .env file if it doesn't exist
-if [ ! -f ".env" ]; then
-    echo "📄 Creating template .env file..."
-    cat << EOF > .env
-LICHESS_TOKEN=your_token_here
+# 4. 🌟 NON-DEV FIX: Ensure the config directory structure exists cleanly
+mkdir -p config/env
+
+# Create the visible configuration template file if missing
+if [ ! -f "config/env/windows.env.example" ]; then
+    cat << EOF > config/env/windows.env.example
+LICHESS_TOKEN=lip_YOUR_TOKEN_HERE
 BOOK_PATH=path/to/opening/book.bin
 EOF
 fi
 
 echo ""
-echo "=============================================="
-echo "🎉 Setup complete!"
-echo "=============================================="
-echo "Next Steps:"
-echo "1. Open '.env' and replace 'your_token_here' with your real Lichess API token."
-echo "2. Download your opening book .bin file and update BOOK_PATH in config.py or .env."
-echo "3. Start your bot execution loop by running:"
-echo "   source venv/bin/activate && python bot.py"
-echo "4. Or, launch your Streamlit analytics dashboard using:"
-echo "   source venv/bin/activate && streamlit run dashboard.py"
+echo "============================================================"
+echo "🎉 SETUP SCRIPT COMPLETE: READY FOR CREDENTIALS"
+echo "============================================================"
+echo "👉 NEXT STEPS FOR NON-DEVELOPERS:"
+echo "1. Open the folder: config/env/"
+echo "2. Open the file '.env' with a Text Editor."
+echo "3. Replace 'lip_YOUR_TOKEN_HERE' with your actual Lichess token."
+echo "4. Save the file."
+echo "5. Now run your launch_unix.sh script!"
+echo "============================================================"
+echo ""
+
+# 🌟 CRITICAL FIX: Freeze the terminal screen so the non-dev can read the steps!
+read -p "Press [ENTER] to close this setup installer safely..."
