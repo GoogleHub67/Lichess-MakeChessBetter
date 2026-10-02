@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- Fixed: Corrected PyInstaller configurations to match Python path calculations.
+- Added: Staged the full configuration directory next to the executable for user convenience.
+
+
+## [2026-10-02] - AI Generated
 - Added `.github/release-drafter.yml` file with detailed category labels and version resolution instructions.
 
 
