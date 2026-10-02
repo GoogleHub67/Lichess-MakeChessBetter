@@ -63,20 +63,20 @@ jobs:
           "
 
       # --- 2. COMPILE STANDALONE APPS ---
-      # This explicitly forces PyInstaller to create the "config" and "config/env"
-      # directories inside the temporary runtime environment across all platforms.
+      # This forces PyInstaller to dump the config folder right into the root extraction path,
+      # perfectly matching where your Python path calculations are looking for them.
       - name: Build Standalone Application
         run: |
           pyinstaller --onefile \
             --name=${{ matrix.pyi_name }} \
             --paths=src \
             --paths=config \
-            --add-data="config/bot_config.py${{ matrix.sep }}config" \
-            --add-data="config/config.yml.default${{ matrix.sep }}config" \
-            --add-data="config/README.md${{ matrix.sep }}config" \
-            --add-data="config/env/windows.env.example${{ matrix.sep }}config/env" \
-            --add-data="config/env/macos.env.example${{ matrix.sep }}config/env" \
-            --add-data="config/env/linux.env.example${{ matrix.sep }}config/env" \
+            --add-data="config/bot_config.py${{ matrix.sep }}." \
+            --add-data="config/config.yml.default${{ matrix.sep }}." \
+            --add-data="config/README.md${{ matrix.sep }}." \
+            --add-data="config/env/windows.env.example${{ matrix.sep }}env" \
+            --add-data="config/env/macos.env.example${{ matrix.sep }}env" \
+            --add-data="config/env/linux.env.example${{ matrix.sep }}env" \
             src/bot.py
         shell: bash
 
@@ -96,9 +96,11 @@ jobs:
             echo "Error: Executable asset ($PRODUCED_BIN) not found!" && exit 1
           fi
           
-          # Stage the full configuration directory recursively for out-of-box user convenience
+          # Stage the full configuration directory recursively next to the executable
+          # This guarantees that even if PyInstaller extraction paths act up, 
+          # the executable can read the folders right next to it on your desktop!
           if [ -d "config" ]; then
-            cp -r config output/config
+            cp -r config output/
           fi
           
           # Stage the Native Extension preserving the crucial python platform tags
