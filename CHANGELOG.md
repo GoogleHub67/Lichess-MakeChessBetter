@@ -1,6 +1,15 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- Added: Initial setup script created.
+- Added: Dynamic path correction included to set up the project root.
+- Added: Python Virtual Environment creation and upgrade.
+- Added: Stockfish Engine installation via Homebrew.
+- Added: Creation of a template `.env` file for configuration.
+- Added: Instructions for non-developers to configure and run the bot.
+
+
+## [2026-10-02] - AI Generated
 - **Added**: Added a new GitHub Actions workflow to build native binaries and assets for the project.
 - **Changed**: Reorganized the workflow to remove `--add-data` flags, allowing the app to look natively in the root directory it is launched from.
 - **Fixed**: Adjusted the `pyinstaller` command to ensure the executable and its system dependencies folder are included in the distribution.
