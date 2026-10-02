@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-02] - AI Generated
+- **Added**: Staging the full configuration directory recursively for out-of-box user convenience.
+- **Changed**: Updated `--add-data` to specify "config" directly instead of wildcards, ensuring PyInstaller safely copies the entire folder structure, including hidden dotfiles.
+
+
+## [2026-10-02] - AI Generated
 - Added a `--add-data` argument to the `pyinstaller` command to include all files under `config/` recursively.
 - Updated the workflow to create a copy of `config.yml.default` as a template for users.
 - Added a step to copy the `config` directory to the output directory to ensure all necessary files are included.
