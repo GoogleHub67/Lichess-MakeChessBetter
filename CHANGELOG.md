@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- **Added:** `python-chess` dependency to the project for chess-related functionality.
+
+
+## [2026-10-03] - AI Generated
 - **Added**: `pyyaml`, `requests`, `streamlit` to the `requirements.txt`.
 
 
