@@ -1,6 +1,12 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- **Added: `main()` function for handling the bot startup**.
+- **Changed: Separated `lichess_bot.py` into `bot.py` and `lichess_bot.py`**.
+- **Fixed: Moved `engine` initialization out of class scope**.
+
+
+## [2026-10-03] - AI Generated
 - Updated the announcement template to include a `title` field.
 - Modified the `body` section to include the `title` field.
 
