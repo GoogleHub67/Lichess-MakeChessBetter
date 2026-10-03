@@ -1,4 +1,4 @@
-name: Bug Report
+name: 🐛 Bug Report
 description: Report an issue with game loop connection, CPL calculation, or engine moves
 title: '[BOT-BUG] '
 labels: ["bug"]
