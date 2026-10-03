@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Added a new `.github/agents/frontend-instructions.md` file to specify Python script layout controls and formatting requirements.
+
+
+## [2026-10-03] - AI Generated
 - Added a notice about the use of a custom, brand-neutral `.ai/` configuration to avoid crowded root directories and system-prompt platform bias.
 - Required action: Users must manually open the `.ai/AI.md` file, copy its contents, and paste it as the initial system prompt into their AI chat interface before asking it to write or modify code for this repository.
 
