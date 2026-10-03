@@ -5,7 +5,25 @@
 
 version: 2.0.1
 updates:
-  - package-ecosystem: "" # See documentation for possible values
+  # 1. Core Python Application Dependencies
+  - package-ecosystem: "pip" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    # Limit open PRs to prevent dependency noise
+    open-pull-requests-limit: 10
+    # Group all minor and patch updates together to save CI/CD build minutes
+    groups:
+      python-dependencies:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # 2. Automated GitHub Actions Workflow Tracking
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
