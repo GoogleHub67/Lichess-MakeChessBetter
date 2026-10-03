@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Added new issue template for bug reports.
+- Updated label for bug issues.
+
+
+## [2026-10-03] - AI Generated
 - **Fix**: Added @GoogleHub67 as the automatic reviewer for every file in the repository.
 
 
