@@ -81,6 +81,7 @@ Lichess-MakeChessBetter/
 │   │   ├── codeql-analysis.yml
 │   │   ├── lint-and-test.yml
 │   │   └── publish.yml
+│   ├── ACCESSIBILITY.md
 │   ├── CODE_OF_CONDUCT.md
 │   ├── CONTRIBUTING.md
 │   ├── CREDITS.md
