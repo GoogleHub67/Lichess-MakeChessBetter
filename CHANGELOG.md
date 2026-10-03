@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Added Accessibility guidelines and other helpful resources for contributing.
+
+
+## [2026-10-03] - AI Generated
 - Added the accessibility statement for Lichess-MakeChessBetter.
 - Changed the accessibility design by making the bot compatible with screen readers, keyboard-friendly gameplay, and developer-friendly terminal experiences.
 - Extended the conformance status section to include guidelines for text-based diagnostics, chat integration, and known limitations.
