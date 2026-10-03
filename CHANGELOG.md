@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Updated CODEOWNERS file to include @torvalds as the reviewer for every file in the repository.
+
+
+## [2026-10-03] - AI Generated
 - **Added**: Added new files and directories to the repository, including `announcements.yml`, `general.yml`, `ideas.yml`, `q-a.yml`, `bot-ci.yml`, `build-binaries.yml`, `changelog.yml`, `codeql-analysis.yml`, `lint-and-test.yml`, `publish.yml`, `DISCUSSION_TEMPLATE.yml`, `dependabot.yml`, `GOVERNANCE.md`, `MAINTAINERS.md`, `pull_request_template.md`, `release-drafter.yml`, `SECURITY.md`, `SUPPORT.md`, `.idea/`, `config/`, `env/`, `bot_config.py`, `config.yml.default`, `README.md`, `requirements.txt`, ` ROADMAP.md`, `Dockerfile`, `LICENSE`, `Makefile`, `Pipfile`, `pyproject.toml`, `pytest.ini`, `README.md`, `requirements.txt`, ` ROADMAP.md`.
 - **Changed**: Updated the `.idea/` directory by renaming `env/` directories to match the new directory names.
 - **Fixed**: No issues were fixed in this change.
