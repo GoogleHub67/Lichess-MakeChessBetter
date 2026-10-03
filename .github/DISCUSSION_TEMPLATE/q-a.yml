@@ -1,5 +1,3 @@
-name: Q&A / Support
-description: Ask a question about setting up, configuring, or playing the bot
 title: "[Question]: "
 body:
   - type: markdown
