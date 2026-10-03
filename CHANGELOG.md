@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- **Added**: Added the `.github/DISCUSSION_TEMPLATE/show-and-tell.yml` file to the repository, which provides a template for creating discussion prompts in the format `[Showcase]: [Description]`.
+- **Fixed**: Updated the `.github/DISCUSSION_TEMPLATE/show-and-tell.yml` file to ensure it is correctly formatted and includes the necessary fields for a discussion prompt.
+
+
+## [2026-10-03] - AI Generated
 - Removed `pytest.ini` file as it was causing issues with the project setup.
 
 
