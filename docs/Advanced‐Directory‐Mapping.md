@@ -13,6 +13,58 @@ Lichess-MakeChessBetter/
 │   ├── README.md
 │   └── settings.json
 ├── .github/
+│   ├── agents/
+│   │   ├── asset-guard.agent.md
+│   │   ├── async-network.agent.md
+│   │   ├── benchmarking.agent.md
+│   │   ├── cache-manager.agent.md
+│   │   ├── chat-commands.agent.md
+│   │   ├── chess-bot-dev.agent.md
+│   │   ├── chess-variants.agent.md
+│   │   ├── ci-pipeline.agent.md
+│   │   ├── cli-runner.agent.md
+│   │   ├── cloud-logger.agent.md
+│   │   ├── codebase-cleaner.agent.md
+│   │   ├── config-manager.agent.md
+│   │   ├── copilot-instructions.md
+│   │   ├── cpl-variance.agent.md
+│   │   ├── daemon-shutdown.agent.md
+│   │   ├── dependency-guard.agent.md
+│   │   ├── devops.agent.md
+│   │   ├── diagnostics.agent.md
+│   │   ├── docker-security.agent.md
+│   │   ├── docs-expert.agent.md
+│   │   ├── elo-testing.agent.md
+│   │   ├── env-validator.agent.md
+│   │   ├── fairy-config.agent.md
+│   │   ├── fairy-translator.agent.md
+│   │   ├── fixture-manager.agent.md
+│   │   ├── frontend-instructions.md
+│   │   ├── game-termination.agent.md
+│   │   ├── git-actions.agent.md
+│   │   ├── lichess-api.agent.md
+│   │   ├── lint-refractor.agent.md
+│   │   ├── local-runner.agent.md
+│   │   ├── loop-latency.agent.md
+│   │   ├── manifest-guard.agent.md
+│   │   ├── match-scaling.agent.md
+│   │   ├── mock-simulator.agent.md
+│   │   ├── move-serialization.agent.md
+│   │   ├── orchestrator.agent.md
+│   │   ├── performance.agent.md
+│   │   ├── process-cleanup.agent.md
+│   │   ├── qa-tester.agent.md
+│   │   ├── render-deploy.agent.md
+│   │   ├── security.agent.md
+│   │   ├── server-health.agent.md
+│   │   ├── stats-manager.agent.md
+│   │   ├── stockfish-eval.agent.md
+│   │   ├── stream-parser.agent.md
+│   │   ├── telemetry.agent.md
+│   │   ├── uci-protocol.agent.md
+│   │   ├── web-dashboard.agent.md
+│   │   ├── webhook-handler.agent.md
+│   │   └── wheel-builder.agent.md
 │   ├── DISCUSSION_TEMPLATE/
 │   │   ├── announcements.yml
 │   │   ├── general.yml
