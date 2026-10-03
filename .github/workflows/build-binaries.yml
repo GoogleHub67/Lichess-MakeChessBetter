@@ -96,7 +96,7 @@ jobs:
 
       # --- 4. UPLOAD USER-READY DISTRIBUTION FOLDER ---
       - name: Upload Finished Assets
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ${{ matrix.artifact_name }}
           path: output/
