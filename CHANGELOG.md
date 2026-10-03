@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Added new `.github/workflows/codeql-analysis.yml` workflow for advanced security analysis of Python-based MakeChessBetter.
+
+
+## [2026-10-03] - AI Generated
 - Added a dynamic path correction to force the execution environment to look at the project root.
 - Changed the installation process to use PowerShell scripts for setting up the virtual environment.
 - Fixed an issue where the configuration file was not being automatically generated if missing.
