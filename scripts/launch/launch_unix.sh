@@ -1,12 +1,14 @@
 #!/bin/bash
 chmod +x "$0"
 
+# 📍 Dynamic Path Correction: Resolve script directory and jump to the project root
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-cd "$SCRIPT_DIR"
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+cd "$PROJECT_ROOT"
 
 CONFIG_DIR="config/env"
 ENV_FILE="$CONFIG_DIR/.env"
-EXAMPLE_FILE="$CONFIG_DIR/your_operating_system.env.example"
+EXAMPLE_FILE="$CONFIG_DIR/.env.example"
 
 # Auto-generate .env from the template file if it is missing
 if [ ! -f "$ENV_FILE" ] && [ -f "$EXAMPLE_FILE" ]; then
