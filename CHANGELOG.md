@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Removed `pytest.ini` file as it was causing issues with the project setup.
+
+
+## [2026-10-03] - AI Generated
 - Removed `Pipfile` due to version removal.
 
 
