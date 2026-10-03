@@ -12,4 +12,3 @@ pyyaml
 requests
 sphinx-rtd-theme
 streamlit
-python-chess
