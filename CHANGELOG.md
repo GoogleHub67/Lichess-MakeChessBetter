@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Added `agents/` directory with several new agent-specific documentation files.
+- Improved documentation for each agent within the `agents/` directory.
+
+
+## [2026-10-03] - AI Generated
 - **Added:** A new phase ` QUALITY ASSURANCE & PACKAGING TERMINUS` has been added to the project's roadmap.
 - **Fixed:** A bug in the `QA-tester.agent.md` has been fixed to ensure proper testing pipelines are confirmed.
 - **Changed:** The `mock-simulator.agent.md` now runs offline bot-vs-bot dummy streams to track system reactions under load.
