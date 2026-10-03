@@ -1,5 +1,9 @@
 # Changelog
 
+## [2026-10-03] - AI Generated
+- **Added**: `pyyaml`, `requests`, `streamlit` to the `requirements.txt`.
+
+
 ## [2026-10-02] - AI Generated
 - **Added**: Introduce support for multiple operating systems by adding an example `.env.example` file tailored to each system.
 - **Changed**: Modify the `launch_unix.sh` script to use a custom `.env.example` file for the specified operating system, ensuring compatibility across different environments.
