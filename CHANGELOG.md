@@ -1,6 +1,13 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Added a dynamic path correction to force the execution environment to look at the project root.
+- Changed the installation process to use PowerShell scripts for setting up the virtual environment.
+- Fixed an issue where the configuration file was not being automatically generated if missing.
+- Improved the configuration error message to provide clearer instructions for non-developers.
+
+
+## [2026-10-03] - AI Generated
 - Fixed broken environment in build process.
 
 
