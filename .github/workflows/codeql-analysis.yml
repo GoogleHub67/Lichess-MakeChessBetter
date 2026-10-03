@@ -1,0 +1,44 @@
+name: "CodeQL Advanced Security Analysis"
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  schedule:
+    # Runs at 04:00 UTC every Sunday to catch newly discovered vulnerabilities
+    - cron: '0 4 * * 0'
+
+jobs:
+  analyze:
+    name: Analyze Codebase
+    runs-on: ubuntu-latest
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # Optimized specifically for the Python stack used in MakeChessBetter
+        language: [ 'python' ]
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    # Initializes the CodeQL tools and sets up the scanning environment
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+        # Options: 'default' or 'security-extended' (for deeper, non-standard rules)
+        queries: security-extended 
+
+    # Python is an interpreted language, so CodeQL auto-extracts it.
+    # No manual build/compilation steps are required for this repo.
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{ matrix.language }}"
