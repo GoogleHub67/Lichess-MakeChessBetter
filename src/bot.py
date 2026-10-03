@@ -82,11 +82,10 @@ patch_config_via_xml()
 
 class LichessBot:
     def __init__(self, engine=None):
-        # 🟢 Indentation cleanly matched with exactly 4 spaces under the class scope
         self.token = Config.LICHESS_TOKEN
         self.headers = {"Authorization": f"Bearer {self.token}"}
         self.active_games: dict[str, asyncio.Task] = {}
-        self.engine = engine  # Receives the shared global engine reference cleanly
+        self.engine = engine  
 
     async def start(self):
         async with httpx.AsyncClient(base_url=BASE_URL, headers=self.headers, timeout=30) as client:
@@ -180,3 +179,24 @@ class LichessBot:
             pass
         except Exception as e:
             log.error(f"Game {game_id} error: {e}", exc_info=True)
+
+
+# 🛑 FIXED: Moved completely out of class scope (Zero Indentation)
+async def main():
+    log.info("Initializing Chess Bot Wrapper...")
+    # Instantiate your bot handler cleanly
+    bot = LichessBot()
+    # Await the start function to enter the listening loop block
+    await bot.start()
+
+if __name__ == "__main__":
+    try:
+        # Simplest way to run an async entrypoint program safely in Python 3.7+
+        asyncio.run(main())
+    except (KeyboardInterrupt, SystemExit):
+        log.info("Shutting down bot process cleanly...")
+    except Exception as e:
+        log.critical(f"Unhandled loop crash: {e}", exc_info=True)
+    finally:
+        # Fallback terminal catcher for compiled executables
+        input("\nProcess finished. Press Enter to exit terminal...")
