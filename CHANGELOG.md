@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Fixed broken environment in build process.
+
+
+## [2026-10-03] - AI Generated
 - **Added: `main()` function for handling the bot startup**.
 - **Changed: Separated `lichess_bot.py` into `bot.py` and `lichess_bot.py`**.
 - **Fixed: Moved `engine` initialization out of class scope**.
