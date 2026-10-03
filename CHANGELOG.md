@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Updated `dependabot.yml` to version 2.0.1 to ensure compatibility and latest features.
+
+
+## [2026-10-03] - AI Generated
 - Added new issue template for bug reports.
 - Updated label for bug issues.
 
