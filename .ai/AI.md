@@ -27,6 +27,7 @@ When executing multi-file features, architectural updates, or troubleshooting re
 
 ### 📡 PHASE 1: THE INTAKE & PROTOCOL ENGINE
 *CONTEXT ANCHOR:* Agents must first read `docs/Lichess‐API‐Integration.md` to ground all live data pipe parameters.
+
 1. `@lichess-api.agent.md` ➡️ Establish the raw HTTP stream handshake with lichess.org.
 2. `@webhook-handler.agent.md` ➡️ Intercept, authenticate, and validate incoming challenge payload headers.
 3. `@stream-parser.agent.md` ➡️ Slice incoming line-delimited JSON chunks down into memory strings instantly.
@@ -34,6 +35,7 @@ When executing multi-file features, architectural updates, or troubleshooting re
 
 ### 🧠 PHASE 2: THE ROUTING & RUNTIME STATE LAYER
 *CONTEXT ANCHOR:* Agents must first read `docs/Data‐Flow‐And‐State‐Machine.md` and `docs/Advanced‐Framework.md` to map data routing.
+
 5. `@orchestrator.agent.md` ➡️ Triage the incoming match and delegate task loads to specialized workers.
 6. `@chess-bot-dev.agent.md` ➡️ Spin up the core module hooks inside `src/bot.py` on an isolated branch.
 7. `@game-handler.agent.md` ➡️ Route active streams into live board state instances.
@@ -41,6 +43,7 @@ When executing multi-file features, architectural updates, or troubleshooting re
 
 ### 📈 PHASE 3: THE MATHEMATICAL SCALING ENGINE
 *CONTEXT ANCHOR:* Agents must first read the `docs/` path files sequentially, including `docs/Opening‐Book‐Configurations.md`, `docs/Performance-Fine-Tuning`, and `docs/API-Programmatic-Reference` to pull systemic mathematical anchors before altering calculation verifications.
+
 9. `@elo-testing.agent.md` ➡️ Initialize evaluation metrics matching parameters mapped in `/.ai/AI.md`.
 10. `@cpl-variance.agent.md` ➡️ Track the statistical standard deviation curves of rolling user accuracies.
 11. `@move-serialization.agent.md` ➡️ Validate string mutations (SAN/UCI/PGN) across game steps.
@@ -57,6 +60,7 @@ When writing verification fixtures or reading data outputs in this phase, ensure
 
 ### ⚡ PHASE 4: THE BINARY & PROTOCOL INTERFACE
 *CONTEXT ANCHOR:* Agents must first read `docs/API-Programmatic-Reference` and `docs/Performance-Fine-Tuning` for sub-process hooks.
+
 13. `@uci-protocol.agent.md` ➡️ Secure the async standard I/O text pipes between Python and subprocess binaries.
 14. `@stockfish-eval.agent.md` ➡️ Tune configuration parameters (Search Threads, Hash memory) for baseline stockfish.
 15. `@chess-variants.agent.md` ➡️ Handle non-standard board geometries and rule adjustments for variants.
@@ -65,6 +69,7 @@ When writing verification fixtures or reading data outputs in this phase, ensure
 
 ### 🛑 PHASE 5: THE ENVIRONMENT & DEFENSIVE HARDENING
 *CONTEXT ANCHOR:* Agents must first read `docs/Security‐And‐Fair‐Play.md` and `docs/Advanced‐Directory‐Mapping.md` for safety boundaries.
+
 18. `@process-cleanup.agent.md` ➡️ Enforce mandatory `engine.quit()` lifecycle traps on all executing threads.
 19. `@daemon-shutdown.agent.md` ➡️ Capture `SIGINT` / `SIGTERM` indicators to cleanly drop sockets without zombie leaks.
 20. `@env-validator.agent.md` ➡️ Intercept runtime execution strings to guarantee zero leakage of credential keys.
@@ -72,6 +77,7 @@ When writing verification fixtures or reading data outputs in this phase, ensure
 
 ### 💻 PHASE 6: THE USER INTERFACE & INFRASTRUCTURE PLATFORM
 *CONTEXT ANCHOR:* Agents must first read `docs/Render‐Deployment‐Guide.md` for target run loops.
+
 22. `@web-dashboard.agent.md` ➡️ Re-evaluate layout parameters across `app.py` and `dashboard.py`.
 23. `@devops.agent.md` ➡️ Build low-overhead container patterns within the root `Dockerfile` context.
 24. `@render-deploy.agent.md` ➡️ Validate environmental scripts and runtime configurations targeted at the Render host.
@@ -79,6 +85,7 @@ When writing verification fixtures or reading data outputs in this phase, ensure
 
 ### 💡 PHASE 7: THE QUALITY ASSURANCE & PACKAGING TERMINUS
 *CONTEXT ANCHOR:* Agents must first read `docs/Advanced‐CI‐CD‐Automation.md` to confirm testing pipelines.
+
 26. `@qa-tester.agent.md` ➡️ Assemble verification code layers inside the `/tests` folder ecosystem.
 27. `@mock-simulator.agent.md` ➡️ Run offline bot-vs-bot dummy streams to track system reactions under load.
 28. `@fixture-manager.agent.md` ➡️ Provision reusable test payloads, confirm lint rules, and build compiled distribution wheels.
