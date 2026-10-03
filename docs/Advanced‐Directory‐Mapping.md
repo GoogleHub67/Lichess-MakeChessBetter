@@ -14,6 +14,7 @@ Lichess-MakeChessBetter/
 │   └── settings.json
 ├── .github/
 │   ├── DISCUSSION_TEMPLATE/
+│   │   ├── announcements.yml
 │   │   ├── general.yml
 │   │   ├── ideas.yml
 │   │   ├── q-a.yml
@@ -25,14 +26,17 @@ Lichess-MakeChessBetter/
 │   │   ├── bot-ci.yml
 │   │   ├── build-binaries.yml
 │   │   ├── changelog.yml
+│   │   ├── codeql-analysis.yml
 │   │   ├── lint-and-test.yml
 │   │   └── publish.yml
 │   ├── CODE_OF_CONDUCT.md
 │   ├── CONTRIBUTING.md
 │   ├── CREDITS.md
+│   ├── dependabot.yml
 │   ├── GOVERNANCE.md
 │   ├── MAINTAINERS.md
 │   ├── pull_request_template.md
+│   ├── release-drafter.yml
 │   ├── SECURITY.md
 │   └── SUPPORT.md
 ├── .idea/
@@ -48,9 +52,9 @@ Lichess-MakeChessBetter/
 │   └── live-gameplay-analysis.png
 ├── config/
 │   ├── env/
-│   │   ├── .linux.env.example
-│   │   ├── .macos.env.example
-│   │   └── .windows.env.example
+│   │   ├── linux.env.example
+│   │   ├── macos.env.example
+│   │   └── windows.env.example
 │   ├── bot_config.py
 │   ├── config.yml.default
 │   └── README.md
@@ -70,6 +74,7 @@ Lichess-MakeChessBetter/
 │   ├── Lichess‐API‐Integration.md
 │   ├── Opening‐Book‐Configurations.md
 │   ├── Performance-Fine-Tuning
+│   ├── Raspberry-Pi.md
 │   ├── Render‐Deployment‐Guide.md
 │   └── Security‐And‐Fair‐Play.md
 ├── scripts/
@@ -111,9 +116,7 @@ Lichess-MakeChessBetter/
 ├── Dockerfile
 ├── LICENSE
 ├── Makefile
-├── Pipfile
 ├── pyproject.toml
-├── pytest.ini
 ├── README.md
 ├── requirements.txt
 └── ROADMAP.md
