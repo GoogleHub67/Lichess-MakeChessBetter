@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Updated the announcement template to include a `title` field.
+- Modified the `body` section to include the `title` field.
+
+
+## [2026-10-03] - AI Generated
 - **Added**: Added the `.github/DISCUSSION_TEMPLATE/show-and-tell.yml` file to the repository, which provides a template for creating discussion prompts in the format `[Showcase]: [Description]`.
 - **Fixed**: Updated the `.github/DISCUSSION_TEMPLATE/show-and-tell.yml` file to ensure it is correctly formatted and includes the necessary fields for a discussion prompt.
 
