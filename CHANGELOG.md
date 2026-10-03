@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Added: Cloud Logger Agent documentation for GitHub Actions.
+
+
+## [2026-10-03] - AI Generated
 - Added: `.github/agents/fixture-manager.agent.md` to manage mock match data models and reusable test fixtures for test runs.
 - Added: Instructions provided to maintain precise JSON/dict payload collections that mimic standard Lichess API match updates.
 - Added: Directive to respect `/.ai/ai.md`—never change the core centipawn calculations inside testing setups.
