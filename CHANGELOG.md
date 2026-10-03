@@ -1,6 +1,25 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+### Changelog Entry
+
+#### Added
+- Updated the `.ai/AI.md` file to include detailed instructions on manual system prompt setup for AI tools.
+- Added a new section on the project core profile and AI instructions, including a detailed architecture map for the 28-stage sequential execution pipeline.
+- Introduced new agent blueprints in `.github/agents/` for each phase of the pipeline, with specific commands for each step.
+
+#### Changed
+- Modified the test runner execution command to include the `requirements.txt` file instead of the `Pipfile`.
+- Updated the `.github/workflows/` directory to ensure all agent configurations are accessible only when explicitly invoked in localized prompts.
+- Ensured that the build and runtime artifacts are skipped globally, except for the `.github/agents/` directory which must remain accessible for CI/CD pipeline tasks.
+
+#### Fixed
+- Fixed any issues related to redundant configs and active secrets, ensuring that sensitive information is handled securely.
+- Improved error resilience by ensuring that API-facing components handle sudden disconnects safely without crashing the bot daemon.
+- Enhanced code style and logic constraints by providing targeted code diffs or modular changes instead of rewriting entire files.
+
+
+## [2026-10-03] - AI Generated
 - Added: Cloud Logger Agent documentation for GitHub Actions.
 
 
