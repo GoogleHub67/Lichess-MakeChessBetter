@@ -1,5 +1,5 @@
 # ⚠️ DEVELOPER NOTICE: MANUAL WORKFLOW REQUIRED
-This repository utilizes a custom, brand-neutral .ai/ configuration to avoid crowded root directories and system-prompt platform bias.
+This repository utilizes a custom, brand-neutral **.ai/** configuration to avoid crowded root directories and system-prompt platform bias.
 
 No Automatic Terminal Execution: Your AI tools (Claude Code, Qwen CLI, etc.) will NOT read this file automatically out of the box.
 Required Action: You must manually open this file, copy its contents, and paste it as the initial system prompt into your AI chat interface (e.g., Qwen, Claude, Gemini) before asking it to write or modify code for this repository.
