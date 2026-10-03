@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Removed `Pipfile` due to version removal.
+
+
+## [2026-10-03] - AI Generated
 - **Added:** `python-chess` dependency to the project for chess-related functionality.
 
 
