@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- **Fixed**: Updated `requirements.txt` to remove the unused `python-chess` dependency.
+
+
+## [2026-10-03] - AI Generated
 - Added a new `.github/agents/frontend-instructions.md` file to specify Python script layout controls and formatting requirements.
 
 
