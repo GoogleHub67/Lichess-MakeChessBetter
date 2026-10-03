@@ -1,0 +1,42 @@
+name: 🎉 Project Announcement
+description: Share important news, product updates, or releases with the community.
+title: "[Announcement]: "
+labels: ["announcement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for preparing an announcement! Please fill out the sections below to keep the community informed.
+  
+  - type: input
+    id: headline
+    attributes:
+      label: 📢 Headline Summary
+      description: A one-sentence, catchy summary of this announcement.
+      placeholder: e.g., Version 2.0 is officially live!
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: 📝 Announcement Details
+      description: Provide the full depth of your update. You can use markdown syntax here.
+      placeholder: What is changing? Why does it matter? Who is affected?
+    validations:
+      required: true
+
+  - type: textarea
+    id: action-items
+    attributes:
+      label: 🚀 Next Steps / Call to Action
+      description: What should community members do next? (e.g., upgrade, read a blog post, register).
+      placeholder: e.g., Run `npm install package@latest` to upgrade today.
+
+  - type: checkboxes
+    id: notice
+    attributes:
+      label: 🔔 Communication Preferences
+      options:
+        - label: This announcement includes a breaking change.
+        - label: This update requires immediate user action.
