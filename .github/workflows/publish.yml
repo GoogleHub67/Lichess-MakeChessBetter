@@ -19,7 +19,7 @@ jobs:
 
     # 2. Spin up a clean sandbox environment targeting your spec requirement
     - name: Initialize Python Core
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v7
       with:
         python-version: "3.10" # Matches your Lichess bot's core environment framework
 
