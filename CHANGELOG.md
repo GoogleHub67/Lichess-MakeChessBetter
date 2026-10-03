@@ -1,6 +1,14 @@
 # Changelog
 
 ## [2026-10-03] - AI Generated
+- Added the accessibility statement for Lichess-MakeChessBetter.
+- Changed the accessibility design by making the bot compatible with screen readers, keyboard-friendly gameplay, and developer-friendly terminal experiences.
+- Extended the conformance status section to include guidelines for text-based diagnostics, chat integration, and known limitations.
+- Updated the troubleshooting methods for developers running the script.
+- Added links to feedback and support channels for users.
+
+
+## [2026-10-03] - AI Generated
 - Added `agents/` directory with several new agent-specific documentation files.
 - Improved documentation for each agent within the `agents/` directory.
 
