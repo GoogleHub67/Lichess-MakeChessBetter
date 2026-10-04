@@ -1,5 +1,9 @@
 # Changelog
 
+## [2026-10-04] - AI Generated
+- Updated `.vscode/settings.json` to include Python analysis paths, enabling `formatOnSave`, configuring Prettier, ESLint, and setting default formatters.
+
+
 ## [2026-10-03] - AI Generated
 - Added Accessibility guidelines and other helpful resources for contributing.
 
