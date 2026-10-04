@@ -1,0 +1,137 @@
+name: Fetch Data Before 09-14
+
+on:
+  workflow_dispatch: # Allows manual execution from the GitHub Actions tab
+
+# Grants explicit write permission to the workflow runner
+permissions:
+  contents: write
+
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches full repository history
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Ollama
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama serve &
+          
+          echo "Waiting for Ollama to start..."
+          for i in {1..30}; do
+            if curl -s http://localhost:11434/api/tags > /dev/null; then
+              echo "Ollama is ready!"
+              break
+            fi
+            sleep 1
+          done
+
+      - name: Pull Qwen Coder Model
+        run: ollama pull qwen2.5-coder:1.5b
+
+      - name: Backfill History via Python
+        run: |
+          python -c "
+          import os
+          import subprocess
+          import json
+          import urllib.request
+
+          # FIXED: Clean separator structure prevents newlines from prefixing the SHA strings
+          git_log_cmd = ['git', 'log', '--before=2026-09-14', '--format=%H|%ad|%B%n%x00', '--date=short']
+          try:
+              raw_log = subprocess.check_output(git_log_cmd).decode('utf-8', errors='ignore').strip()
+          except Exception as e:
+              print(f'Error fetching git history: {e}')
+              exit(1)
+
+          if not raw_log:
+              print('No commits found before 2026-09-14.')
+              exit(0)
+
+          blocks = raw_log.split('\x00')
+          commits = []
+          
+          for block in blocks:
+              block = block.strip()
+              if not block:
+                  continue
+              parts = block.split('|', 2)
+              if len(parts) == 3:
+                  # FIXED: Added explicit .strip() to every individual piece to drop corruptive line-breaks
+                  commits.append({
+                      'sha': parts[0].strip(), 
+                      'date': parts[1].strip(), 
+                      'message': parts[2].strip()
+                  })
+
+          print(f'Found {len(commits)} historical commits to process.')
+
+          historical_entries = []
+
+          # 2. Process each historical commit with Ollama
+          for i, commit in enumerate(commits):
+              print(f'[{i+1}/{len(commits)}] Processing {commit[\"sha\"][:7]} ({commit[\"date\"]})...')
+              
+              try:
+                  diff = subprocess.check_output(['git', 'show', commit['sha']]).decode('utf-8', errors='ignore')
+              except Exception as e:
+                  diff = commit['message']
+
+              prompt = f'''You are an expert developer. Analyze the following git commit message and code changes. 
+              Write a short, concise, human-friendly changelog entry in Markdown bullet points.
+              
+              CRITICAL INSTRUCTIONS:
+              - Do NOT include titles like \"Changelog Entry\", \"Date:\", or \"Generated Changelog\".
+              - Do NOT output the date header itself.
+              - Start directly with your bullet points or categories (Added, Changed, Fixed).
+              - Keep it punchy and simple.
+
+              Commit Message: {commit['message']}
+              Git Diff:
+              {diff[:3000]}'''
+
+              url = 'http://localhost:11434/api/generate'
+              data = json.dumps({
+                  'model': 'qwen2.5-coder:1.5b',
+                  'prompt': prompt,
+                  'stream': False
+              }).encode('utf-8')
+
+              req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'})
+              
+              try:
+                  with urllib.request.urlopen(req, timeout=30) as response:
+                      res_data = json.loads(response.read().decode('utf-8'))
+                      ai_entry = res_data.get('response', '').strip()
+              except Exception as e:
+                  ai_entry = f'- Technical updates in commit {commit[\"sha\"][:7]}'
+
+              entry_md = f'## [{commit[\"date\"]}] - Historical ({commit[\"sha\"][:7]})\n{ai_entry}\n\n'
+              historical_entries.append(entry_md)
+
+          # 3. Create the independent historical file
+          target_file = 'CHANGELOG-OLDER-THAN-09-14.md'
+          with open(target_file, 'w') as f:
+              f.write('# Historical Changelog (Older than 2026-09-14)\n\n')
+              f.write(''.join(historical_entries))
+
+          print(f'{target_file} generation complete.')
+          "
+
+      - name: Commit & Push Historical Changelog
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add CHANGELOG-OLDER-THAN-09-14.md
+          git commit -m "chore: isolate historical changelog data [skip ci]" || echo "No changes to commit"
+          git push origin main
