@@ -1,6 +1,12 @@
 # Changelog
 
 ## [2026-10-04] - AI Generated
+- **Fixed**: Cleaned up the separator structure in the Git log to prevent newlines from prefixing the SHA strings.
+- **Added**: Added explicit `strip()` to every individual piece of data in the Git log to drop corruptive line-breaks.
+- **Fixed**: Modified the command to fetch the commit message from `git show` and passed it to Ollama.
+
+
+## [2026-10-04] - AI Generated
 - **Changed**: Updated the Python version from "Python 3.10 (Lichess-MakeChessBetter)" to "Python (Lichess-MakeChessBetter)" in the `.idea/misc.xml` file.
 
 
