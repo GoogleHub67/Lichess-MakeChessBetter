@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-04] - AI Generated
+- **Changed**: Updated the Python version from "Python 3.10 (Lichess-MakeChessBetter)" to "Python (Lichess-MakeChessBetter)" in the `.idea/misc.xml` file.
+
+
+## [2026-10-04] - AI Generated
 - Updated `.vscode/settings.json` to include Python analysis paths, enabling `formatOnSave`, configuring Prettier, ESLint, and setting default formatters.
 
 
