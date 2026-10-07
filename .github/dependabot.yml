@@ -11,7 +11,7 @@ updates:
     schedule:
       interval: "weekly"
     # Limit open PRs to prevent dependency noise
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 20
     # Group all minor and patch updates together to save CI/CD build minutes
     groups:
       python-dependencies:
