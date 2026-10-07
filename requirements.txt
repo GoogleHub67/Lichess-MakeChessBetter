@@ -5,7 +5,6 @@ gevent
 gunicorn
 httpx>=0.27.0
 myst-parser
-numpy
 pandas
 python-dotenv
 pyyaml
