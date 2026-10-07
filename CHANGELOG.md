@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-07] - AI Generated
+- Fixed a critical error in the configuration file path.
+
+
+## [2026-10-07] - AI Generated
 - **Fixed: Added `--ignore=F824` to the `flake8` command in `.github/workflows/bot-ci.yml` to allow minor unused global flags to not break the build.**
 
 
