@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-07] - AI Generated
+- Updated the `Prepare Prompt` section to ensure Qwen's prompts are formatted correctly.
+- Added a step to commit and push the updated `CHANGELOG.md`.
+
+
+## [2026-10-07] - AI Generated
 - **Added**: General.yml configuration for site settings.
 
 
