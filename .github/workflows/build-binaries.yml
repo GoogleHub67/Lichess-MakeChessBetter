@@ -41,8 +41,7 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          # Add python-dotenv here so PyInstaller can trace and bundle it!
-          pip install pyinstaller python-dotenv
+          pip install pyinstaller cython setuptools
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         shell: bash
 
@@ -60,7 +59,6 @@ jobs:
               script_args=['build_ext', '--inplace']
           )
           "
-
       # --- 2. COMPILE APPS (Clean System Build Mode) ---
       # Removing --add-data flags prevents internal sandboxing.
       # The app will look natively in the root directory it is launched from.
@@ -93,7 +91,6 @@ jobs:
           if [ -d "config" ]; then
             cp -r config output/config
           fi
-
       # --- 4. UPLOAD USER-READY DISTRIBUTION FOLDER ---
       - name: Upload Finished Assets
         uses: actions/upload-artifact@v4
