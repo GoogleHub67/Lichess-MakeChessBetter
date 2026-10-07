@@ -1,0 +1,40 @@
+name: "🌲 Auto-Update Directory Mapping"
+
+on:
+  push:
+    branches: [ "main" ]
+    # Prevent infinite loops if the action updates documentation
+    paths-ignore:
+      - 'docs/Directory-Mapping.md'
+      - 'docs/Directory-Mapping.txt'
+  workflow_dispatch: # Allows you to manually trigger it with a click
+
+jobs:
+  build-tree:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Crucial permission to allow pushing changes back to repo
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Ensure docs folder exists
+      run: mkdir -p docs
+
+    - name: Generate Directory Tree using GitHubTree CLI
+      # Runs the official gh-tree tool via Node/NPX using your specific link configuration
+      run: |
+        echo "# 📂 Project Directory Mapping" > docs/Directory-Mapping.md
+        echo "Auto-generated via GitHub Actions and [GitHubTree](https://githubtree.mgks.dev/repo/GoogleHub67/Lichess-MakeChessBetter/main/?sort=folder-az&style=classic)" >> docs/Directory-Mapping.md
+        echo "Last updated: \$(date)" >> docs/Directory-Mapping.md
+        echo "" >> docs/Directory-Mapping.md
+        echo "\`\`\`text" >> docs/Directory-Mapping.md
+        npx gh-tree GoogleHub67/Lichess-MakeChessBetter --branch main --style classic --sort folder-az >> docs/Directory-Mapping.md
+        echo "\`\`\`" >> docs/Directory-Mapping.md
+
+    - name: Commit and Push Changes
+      uses: stefanzweifel/git-auto-commit-action@v5
+      with:
+        commit_message: "docs: auto-update directory structure mapping [skip ci]"
+        file_pattern: 'docs/Directory-Mapping.md'
