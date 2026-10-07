@@ -1,0 +1,11 @@
+# ruff.toml
+
+[lint]
+# Select the core rules you actually care about (Errors only)
+select = ["E9", "F"]
+
+# Ignore minor things that require manual fixing if you don't work locally
+ignore = [
+    "F541", # Don't complain about f-strings without variables
+    "I",    # Don't complain about import sorting order
+]
