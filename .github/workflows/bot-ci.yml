@@ -33,7 +33,7 @@ jobs:
 
     - name: Verify configuration profile templates
       run: |
-        if [ ! -f config.yml.default ]; then
+        if [ ! -f config/config.yml.default ]; then
           echo "Critical Error: config.yml.default profile template is missing!"
           exit 1
         fi
