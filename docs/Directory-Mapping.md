@@ -118,12 +118,13 @@ Last updated: $(date)
 │   │   └── index.rst
 │   ├── _Footer.md
 │   ├── _Sidebar.md
-│   ├── Advanced-Directory-Mapping.md
 │   ├── Advanced‐CI‐CD‐Automation.md
 │   ├── Advanced‐Framework.md
 │   ├── API-Programmatic-Reference.md
 │   ├── Data‐Flow‐And‐State‐Machine.md
 │   ├── Dependency-Explanations.md
+│   ├── Directory-Mapping.md
+│   ├── Directory-sMapping.md
 │   ├── FAQs.md
 │   ├── Home.md
 │   ├── Lichess‐API‐Integration.md
