@@ -3,16 +3,19 @@ name: Auto Changelog CI
 on:
   push:
     branches:
-      - main  # Change to master if your default branch is different
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 2 # Fetches current and previous commit for the diff
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -21,10 +24,15 @@ jobs:
 
       - name: Install Ollama
         run: |
+          # 1. Provide a flag to stop the installer script from firing up systemd services
+          export OLLAMA_NO_START=1
           curl -fsSL https://ollama.com/install.sh | sh
-          ollama serve &
           
-          # Wait up to 30 seconds for Ollama to become responsive
+          # 2. Start the server completely detached from the GitHub runner console pipeline
+          # This avoids hanging the action run indefinitely
+          nohup ollama serve > /dev/null 2>&1 &
+          
+          # 3. Wait up to 30 seconds for Ollama to become fully responsive
           echo "Waiting for Ollama to start..."
           for i in {1..30}; do
             if curl -s http://localhost:11434/api/tags > /dev/null; then
@@ -33,6 +41,7 @@ jobs:
             fi
             sleep 1
           done
+        shell: bash
 
       - name: Pull Qwen Coder Model
         run: ollama pull qwen2.5-coder:1.5b
@@ -97,7 +106,6 @@ jobs:
               with open(changelog_file, 'r') as f:
                   existing_content = f.read()
               
-              # Strip out old main titles if they exist to keep formatting beautiful
               if existing_content.startswith('# Changelog'):
                   existing_content = existing_content.replace('# Changelog\n', '', 1)
 
@@ -113,5 +121,11 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add CHANGELOG.md
-          git commit -m "chore: auto-update CHANGELOG.md [skip ci]" || echo "No changes to commit"
-          git push
+          
+          if git commit -m "chore: auto-update CHANGELOG.md [skip ci]"; then
+            git pull --rebase origin main
+            git push origin main
+          else
+            echo "No changes to commit."
+          fi
+        shell: bash
