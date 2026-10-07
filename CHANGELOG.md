@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-07] - AI Generated
+- **Added**: General.yml configuration for site settings.
+
+
+## [2026-10-07] - AI Generated
 - **Date:** 2023-05-15
   - **Added**
     - **Ecosystem Structural Branch**: Created the main `Lichess-MakeChessBetter` ecosystem subfolder containing an internal `.ai/` operational hub along with baseline `AI.md` and `README.md` documentation templates.
