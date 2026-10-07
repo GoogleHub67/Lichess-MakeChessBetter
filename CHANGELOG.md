@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-07] - AI Generated
+- **Added: Custom CodeQL Exclusions Configuration**
+  - Created `.github/codeql-config.yml` file with custom exclusions for folders and files to be ignored by the CodeQL analyzer.
+
+
+## [2026-10-07] - AI Generated
 This report provides a detailed breakdown of the background tools used in the Lichess-MakeChessBetter repository to ensure transparency and auditing. The tools mentioned, such as `streamlit`, `altair`, `pillow`, `requests`, and `httpx`, are essential for data crunching, graphics, networking, concurrency, and text processing. Each tool plays a crucial role in the operation of the application, contributing to its functionality and reliability.
 
 
