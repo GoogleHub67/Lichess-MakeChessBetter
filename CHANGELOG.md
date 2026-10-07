@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-07] - AI Generated
+- Added: Documenting advanced directory mapping in the user guide.
+
+
+## [2026-10-07] - AI Generated
 - **Added**: Limit the number of open pull requests to prevent dependency noise.
 - **Changed**: Increase the open pull requests limit to 20 to balance between maintaining dependency noise and speed in CI/CD builds.
 
