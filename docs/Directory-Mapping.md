@@ -1,6 +1,6 @@
 # 📂 Project Directory Mapping
 Auto-generated via GitHub Actions and [GitHubTree](https://githubtree.mgks.dev/repo/GoogleHub67/Lichess-MakeChessBetter/main/?sort=folder-az&style=classic)
-Last updated: Wed Oct  7 16:35:20 UTC 2026
+Last updated: Wed Oct  7 17:22:35 UTC 2026
 
 ```text
 
@@ -171,6 +171,7 @@ Last updated: Wed Oct  7 16:35:20 UTC 2026
 ├── Dockerfile
 ├── LICENSE
 ├── Makefile
+├── MANIFEST.in
 ├── pyproject.toml
 ├── README.md
 ├── requirements.txt
