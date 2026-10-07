@@ -27,7 +27,7 @@ jobs:
       run: |
         echo "# 📂 Project Directory Mapping" > docs/Directory-Mapping.md
         echo "Auto-generated via GitHub Actions and [GitHubTree](https://githubtree.mgks.dev/repo/GoogleHub67/Lichess-MakeChessBetter/main/?sort=folder-az&style=classic)" >> docs/Directory-Mapping.md
-        echo "Last updated: \$(date)" >> docs/Directory-Mapping.md
+        echo "Last updated: $(date)" >> docs/Directory-Mapping.md
         echo "" >> docs/Directory-Mapping.md
         echo "\`\`\`text" >> docs/Directory-Mapping.md
         npx gh-tree GoogleHub67/Lichess-MakeChessBetter --branch main --style classic --sort folder-az >> docs/Directory-Mapping.md
