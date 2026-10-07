@@ -1,4 +1,4 @@
-name: "🌲 Auto-Update Directory Mapping"
+name: "Auto-Update Directory Mapping"
 
 on:
   push:
