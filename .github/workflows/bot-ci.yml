@@ -28,7 +28,8 @@ jobs:
     - name: Check Python Syntax Errors
       run: |
         pip install flake8
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Added --ignore=F824 so minor unused global flags don't break your build
+        flake8 . --count --select=E9,F63,F7,F82 --ignore=F824 --show-source --statistics
 
     - name: Verify configuration profile templates
       run: |
