@@ -20,7 +20,7 @@ def verify_setup():
     if os.path.exists(DB_PATH):
         print(f"✅ Found SQL database file at: {DB_PATH}")
     else:
-        print(f"❌ Database file not found!")
+        print("❌ Database file not found!")
         return
 
     # Check if the tables actually exist inside the SQL file
