@@ -1,11 +1,14 @@
 # ruff.toml
 
+# Only check for critical syntax and runtime errors
 [lint]
-# Select the core rules you actually care about (Errors only)
-select = ["E9", "F"]
+select = ["E9", "F63", "F7", "F82"]
 
-# Ignore minor things that require manual fixing if you don't work locally
+# Ignore all minor style warnings, unused imports, and f-string issues
 ignore = [
-    "F541", # Don't complain about f-strings without variables
-    "I",    # Don't complain about import sorting order
+    "F401", # Ignore unused imports
+    "F541", # Ignore empty f-strings
+    "I",    # Ignore import sorting rules
+    "E",    # Ignore standard styling/spacing rules
+    "W",    # Ignore style warnings
 ]
