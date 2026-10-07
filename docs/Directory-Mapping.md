@@ -1,6 +1,6 @@
 # 📂 Project Directory Mapping
 Auto-generated via GitHub Actions and [GitHubTree](https://githubtree.mgks.dev/repo/GoogleHub67/Lichess-MakeChessBetter/main/?sort=folder-az&style=classic)
-Last updated: Wed Oct  7 16:33:51 UTC 2026
+Last updated: Wed Oct  7 16:35:20 UTC 2026
 
 ```text
 
@@ -77,7 +77,6 @@ Last updated: Wed Oct  7 16:33:51 UTC 2026
 │   │   ├── build-binaries.yml
 │   │   ├── changelog.yml
 │   │   ├── codeql-analysis.yml
-│   │   ├── fetch_data_before_09-14.yml
 │   │   ├── lint-and-test.yml
 │   │   ├── publish.yml
 │   │   └── update-directory.yml
