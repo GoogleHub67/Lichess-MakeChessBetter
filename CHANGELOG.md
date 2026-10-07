@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-07] - AI Generated
+- **Fixed**: Replaced `numpy` with `pandas` in the `requirements.txt` file.
+
+
+## [2026-10-07] - AI Generated
 ```markdown
 ## [2023-05-15] - AI Generated
 
