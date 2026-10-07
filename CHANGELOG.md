@@ -1,6 +1,12 @@
 # Changelog
 
 ## [2026-10-07] - AI Generated
+- Added critical syntax and runtime error checks.
+- Improved rules for style consistency and readability.
+- Ignored minor issues that might need manual adjustments.
+
+
+## [2026-10-07] - AI Generated
 - Added `ruff.toml` configuration file for linting in the project.
 - Added rules for errors (`E9`, `F`) and minor issues (`F541`, `I`).
 
