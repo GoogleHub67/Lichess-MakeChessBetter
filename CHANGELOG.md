@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-07] - AI Generated
+- Added `ruff.toml` configuration file for linting in the project.
+- Added rules for errors (`E9`, `F`) and minor issues (`F541`, `I`).
+
+
+## [2026-10-07] - AI Generated
 - **Fixed**: Ensure the database file exists before proceeding with tests.
 
 
