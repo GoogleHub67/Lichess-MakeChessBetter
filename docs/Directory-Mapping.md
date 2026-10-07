@@ -124,7 +124,6 @@ Last updated: $(date)
 │   ├── Data‐Flow‐And‐State‐Machine.md
 │   ├── Dependency-Explanations.md
 │   ├── Directory-Mapping.md
-│   ├── Directory-sMapping.md
 │   ├── FAQs.md
 │   ├── Home.md
 │   ├── Lichess‐API‐Integration.md
