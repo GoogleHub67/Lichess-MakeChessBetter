@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-07] - AI Generated
+- **Fixed**: Ensure the database file exists before proceeding with tests.
+
+
+## [2026-10-07] - AI Generated
 - **Fixed**: Replaced `numpy` with `pandas` in the `requirements.txt` file.
 
 
