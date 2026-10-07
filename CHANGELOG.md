@@ -1,5 +1,22 @@
 # Changelog
 
+## [2026-10-07] - AI Generated
+- **Date:** 2023-05-15
+  - **Added**
+    - **Ecosystem Structural Branch**: Created the main `Lichess-MakeChessBetter` ecosystem subfolder containing an internal `.ai/` operational hub along with baseline `AI.md` and `README.md` documentation templates.
+    - **Environment Trackers**: Added a root-level `.gn` ecosystem configuration script within the `assets` directory tree.
+    - **Media Ingestion**: Uploaded raw graphic screenshots (`Screenshot 2026-09-13 112757.png` and `Screenshot 2026-09-13 103540.png`) to the project repository.
+  - **Changed**
+    - **Asset Directory Refactoring**: Consolidated graphic asset paths by shifting raw camera images and renaming them down into clear, structured file targets:
+      - `Screenshot 2026-09-13 103540.png` became `bot_stats.png` (migrated across `assets/images/` paths to a standardized root at `assets/bot-profile.png`).
+      - `Screenshot 2026-09-13 112757.png` became `live-gameplay-analysis.png`.
+      - `Screenshot 2026-09-13 112757.bmp` became `live-gameplay-analysis.bmp`.
+    - **Changelog Automation Pipelines**: Upgraded the `update_changelog.py` script and `changelog.yml` workflow parameters to generate clean, human-scannable logs directly from git diff streams while protecting historical dates from accidental layout shifts.
+    - **Environment Tracking Attributes**: Adjusted `.editorconfig` rules and updated `.gitattributes` parameters twice to enforce absolute project layout limits and streamline runtime file processing.
+  - **Fixed**
+    - **Path Resolution Errors**: Fixed broken file reference redirections caused by shifting files across the `assets/`, `images/`, and sub-folder tracks.
+
+
 ## [2026-10-04] - AI Generated
 - **Added:** Automated process to backfill historical commit data from `git log` before September 14th, ensuring accurate historical changelogs.
 - **Changed:** Improved error handling and logging for cleaner output.
