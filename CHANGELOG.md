@@ -1,6 +1,11 @@
 # Changelog
 
 ## [2026-10-07] - AI Generated
+- **Performance Tuning**: 
+  - Renamed `Performance-Fine-Tuning` to `Performance-Fine-Tuning.md` to better align with the new markdown format.
+
+
+## [2026-10-07] - AI Generated
 - Fixed a critical error in the configuration file path.
 
 
