@@ -1,6 +1,10 @@
 # Changelog
 
 ## [2026-10-07] - AI Generated
+This report provides a detailed breakdown of the background tools used in the Lichess-MakeChessBetter repository to ensure transparency and auditing. The tools mentioned, such as `streamlit`, `altair`, `pillow`, `requests`, and `httpx`, are essential for data crunching, graphics, networking, concurrency, and text processing. Each tool plays a crucial role in the operation of the application, contributing to its functionality and reliability.
+
+
+## [2026-10-07] - AI Generated
 - **Performance Tuning**: 
   - Renamed `Performance-Fine-Tuning` to `Performance-Fine-Tuning.md` to better align with the new markdown format.
 
