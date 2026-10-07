@@ -1,0 +1,6 @@
+name: "Custom CodeQL Exclusions"
+
+# Tell the automated default scanner to ignore these folders
+paths-ignore:
+  - 'docs/**'
+  - '*.md'
