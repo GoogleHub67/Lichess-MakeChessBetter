@@ -16,7 +16,6 @@ dependencies = [
     "gunicorn",
     "httpx>=0.27.0",
     "myst-parser",
-    "numpy",              # Merged from requirements.txt
     "pandas",
     "python-dotenv",
     "pyyaml",
