@@ -3,19 +3,16 @@ name: Auto Changelog CI
 on:
   push:
     branches:
-      - main
+      - main  # Change to master if your default branch is different
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 2 # Fetches current and previous commit for the diff
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -24,15 +21,10 @@ jobs:
 
       - name: Install Ollama
         run: |
-          # 1. Provide a flag to stop the installer script from firing up systemd services
-          export OLLAMA_NO_START=1
           curl -fsSL https://ollama.com/install.sh | sh
+          ollama serve &
           
-          # 2. Start the server completely detached from the GitHub runner console pipeline
-          # This avoids hanging the action run indefinitely
-          nohup ollama serve > /dev/null 2>&1 &
-          
-          # 3. Wait up to 30 seconds for Ollama to become fully responsive
+          # Wait up to 30 seconds for Ollama to become responsive
           echo "Waiting for Ollama to start..."
           for i in {1..30}; do
             if curl -s http://localhost:11434/api/tags > /dev/null; then
@@ -41,8 +33,6 @@ jobs:
             fi
             sleep 1
           done
-        shell: bash
-
       - name: Pull Qwen Coder Model
         run: ollama pull qwen2.5-coder:1.5b
 
@@ -54,18 +44,15 @@ jobs:
           import json
           import urllib.request
           from datetime import datetime
-
           # 1. Get code diff
           try:
               diff = subprocess.check_output(['git', 'diff', 'HEAD~1', 'HEAD']).decode('utf-8')
           except Exception as e:
               print(f'Error getting git diff: {e}')
               exit(0)
-
           if not diff.strip():
               print('No code changes detected.')
               exit(0)
-
           # 2. Refined Prompt for a cleaner timeline
           prompt = f'''You are an expert developer. Analyze the following raw git diff of code changes. 
           Write a concise, human-friendly changelog entry in Markdown format.
@@ -75,10 +62,8 @@ jobs:
           - Do NOT output the date header itself.
           - Start directly with your bullet points or categories (Added, Changed, Fixed).
           - Keep it punchy and simple.
-
           Git Diff:
           {diff}'''
-
           # 3. Call Ollama API using Python's native utilities
           url = 'http://localhost:11434/api/generate'
           data = json.dumps({
@@ -86,7 +71,6 @@ jobs:
               'prompt': prompt,
               'stream': False
           }).encode('utf-8')
-
           req = urllib.request.Request(url, data=data, headers={'Content-Type': 'application/json'})
           
           try:
@@ -95,10 +79,8 @@ jobs:
                   ai_entry = res_data.get('response', '').strip()
           except Exception as e:
               ai_entry = f'Error generating entry from Qwen: {str(e)}'
-
           if not ai_entry:
               ai_entry = 'No changes could be parsed by the model.'
-
           # 4. Update CHANGELOG.md (Keeps all historical dates intact)
           changelog_file = 'CHANGELOG.md'
           existing_content = ''
@@ -106,27 +88,18 @@ jobs:
               with open(changelog_file, 'r') as f:
                   existing_content = f.read()
               
+              # Strip out old main titles if they exist to keep formatting beautiful
               if existing_content.startswith('# Changelog'):
                   existing_content = existing_content.replace('# Changelog\n', '', 1)
-
           today = datetime.now().strftime('%Y-%m-%d')
           new_entry = f'## [{today}] - AI Generated\n{ai_entry}\n\n'
-
           with open(changelog_file, 'w') as f:
               f.write('# Changelog\n\n' + new_entry + existing_content)
           "
-
       - name: Commit & Push Changelog
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add CHANGELOG.md
-          
-          if git commit -m "chore: auto-update CHANGELOG.md [skip ci]"; then
-            # CRITICAL FIX: Automatically stash untracked files before doing a rebase, then restore them
-            git pull --rebase --autostash origin main
-            git push origin main
-          else
-            echo "No changes to commit."
-          fi
-        shell: bash
+          git commit -m "chore: auto-update CHANGELOG.md [skip ci]" || echo "No changes to commit"
+          git push
