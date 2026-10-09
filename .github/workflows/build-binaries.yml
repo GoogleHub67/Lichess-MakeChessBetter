@@ -67,10 +67,12 @@ jobs:
           "
 
       # --- 2. COMPILE APPS (Clean System Build Mode) ---
+      # Adding --paths=. explicitly preserves the top-level folder layout context for internal submodules
       - name: Build Standalone Application
         run: |
           pyinstaller --onedir \
             --name=${{ matrix.pyi_name }} \
+            --paths=. \
             --paths=src \
             --hidden-import=dotenv \
             src/bot.py
