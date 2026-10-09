@@ -1,5 +1,10 @@
 # Changelog
 
+## [2026-10-09] - AI Generated
+- **Changed**: Modified the concurrency settings in the `changelog.yml` workflow to ensure that the Ollama server runs concurrently without being blocked by system service execution limits.
+- **Fixed**: Added `/install.sh` to the `curl` command in the `Install Ollama` job to capture the real bash script installer for the Ollama server, ensuring it is installed correctly.
+
+
 ## [2026-10-07] - AI Generated
 - Added: Documenting advanced directory mapping in the user guide.
 
