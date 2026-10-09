@@ -16,18 +16,27 @@ jobs:
             pyi_name: makechessbetter
             binary_ext: .exe
             lib_ext: .pyd
+            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / l a t e s t / d o w n l o a d / s t o c k f i s h - w i n d o w s - x 8 6 - 6 4 - a v x 2 . z i p"
+            sf_binary: "stockfish/stockfish-windows-x86-64-avx2.exe"
+            sf_dest: "stockfish.exe"
           - os: ubuntu-latest
             artifact_name: linux-assets
             target_os: linux
             pyi_name: makechessbetter-linux
             binary_ext: ''
             lib_ext: .so
+            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / l a t e s t / d o w n l o a d / s t o c k f i s h - u b u n t u - x 8 6 - 6 4 - a v x 2 . t a r . g z"
+            sf_binary: "stockfish/stockfish-ubuntu-x86-64-avx2"
+            sf_dest: "stockfish"
           - os: macos-latest
             artifact_name: macos-assets
             target_os: macos
             pyi_name: makechessbetter-mac
             binary_ext: ''
             lib_ext: .so
+            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / l a t e s t / d o w n l o a d / s t o c k f i s h - m a c o s - x 8 6 - 6 4 - a v x 2 . t a r . g z"
+            sf_binary: "stockfish/stockfish-macos-x86-64-avx2"
+            sf_dest: "stockfish"
 
     steps:
       - name: Checkout Code
@@ -52,7 +61,23 @@ jobs:
           if [ -f src/requirements.txt ]; then pip install -r src/requirements.txt; fi
         shell: bash
 
-      # --- 1. COMPILE NATIVE LIBRARIES ---
+      # --- 1. DOWNLOAD AND EXTRACT STOCKFISH ---
+      # Remapping the spaced URL back to standard format on the fly before running curl
+      - name: Fetch Cross-Platform Stockfish Engine
+        run: |
+          mkdir -p sf_temp
+          CLEAN_URL=$(echo "${{ matrix.sf_url }}" | tr -d ' ')
+          curl -L "$CLEAN_URL" -o sf_temp/sf_archive
+          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            unzip sf_temp/sf_archive -d sf_temp/
+          else
+            tar -xzf sf_temp/sf_archive -C sf_temp/
+          fi
+          find sf_temp -type f -name "stockfish*" -exec cp {} ./${{ matrix.sf_dest }} \;
+          chmod +x ./${{ matrix.sf_dest }} || true
+        shell: bash
+
+      # --- 2. COMPILE NATIVE LIBRARIES ---
       - name: Compile Library Module
         run: |
           python -c "
@@ -66,8 +91,7 @@ jobs:
           )
           "
 
-      # --- 2. COMPILE APPS (Clean System Build Mode) ---
-      # Adding --paths=. explicitly preserves the top-level folder layout context for internal submodules
+      # --- 3. COMPILE APPS (Clean System Build Mode) ---
       - name: Build Standalone Application
         run: |
           pyinstaller --onedir \
@@ -78,13 +102,13 @@ jobs:
             src/bot.py
         shell: bash
 
-      # --- 3. FORMAT AND STAGE ASSETS FOR UPLOAD ---
+      # --- 4. FORMAT AND STAGE ASSETS FOR UPLOAD ---
       - name: Stage Assets
         shell: bash
         run: |
           mkdir -p output
           
-          # 1. Safely copy the executable contents and _internal folder without wildcard errors
+          # 1. Safely copy the executable contents and _internal folder
           if [ -d "dist/${{ matrix.pyi_name }}" ]; then
             cp -RL dist/${{ matrix.pyi_name }}/* output/ 2>/dev/null || cp -R dist/${{ matrix.pyi_name }}/. output/
           fi
@@ -92,12 +116,17 @@ jobs:
           # 2. Force your native Cython module next to the app
           find . -name "makechessbetter*${{ matrix.lib_ext }}" -exec cp {} output/ \;
           
-          # 3. CRITICAL: Copy the config tree directly to the root desktop layout
+          # 3. Inject the compiled Stockfish binary directly into the layout folder root
+          if [ -f "${{ matrix.sf_dest }}" ]; then
+            cp ${{ matrix.sf_dest }} output/
+          fi
+          
+          # 4. CRITICAL: Copy the config tree directly to the root desktop layout
           if [ -d "config" ]; then
             cp -r config output/config
           fi
 
-      # --- 4. UPLOAD USER-READY DISTRIBUTION FOLDER ---
+      # --- 5. UPLOAD USER-READY DISTRIBUTION FOLDER ---
       - name: Upload Finished Assets
         uses: actions/upload-artifact@v4
         with:
