@@ -5,9 +5,17 @@ on:
     branches:
       - main  # Change to master if your default branch is different
 
+# --- THIS IS THE FIX ---
+concurrency:
+  group: git-push-protection
+  cancel-in-progress: false
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,8 +29,14 @@ jobs:
 
       - name: Install Ollama
         run: |
+          # Safe initialization setup to bypass system service execution limits
+          export OLLAMA_NO_START=1
+          
+          # FIXED RUN LINE: Added /install.sh to capture the real bash script installer
           curl -fsSL https://ollama.com/install.sh | sh
-          ollama serve &
+          
+          # Detach the server logs cleanly so the workflow step never hangs
+          nohup ollama serve > /dev/null 2>&1 &
           
           # Wait up to 30 seconds for Ollama to become responsive
           echo "Waiting for Ollama to start..."
@@ -33,6 +47,8 @@ jobs:
             fi
             sleep 1
           done
+        shell: bash
+
       - name: Pull Qwen Coder Model
         run: ollama pull qwen2.5-coder:1.5b
 
@@ -96,6 +112,7 @@ jobs:
           with open(changelog_file, 'w') as f:
               f.write('# Changelog\n\n' + new_entry + existing_content)
           "
+
       - name: Commit & Push Changelog
         run: |
           git config --local user.email "action@github.com"
