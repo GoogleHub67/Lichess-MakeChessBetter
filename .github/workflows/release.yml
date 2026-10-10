@@ -1,0 +1,37 @@
+name: Publish to PyPI on Release
+
+on:
+  release:
+    types: [published] # Triggers only after a release is successfully created and published
+
+permissions:
+  id-token: write # CRUCIAL: Allows PyPI to verify your GitHub identity without passwords!
+  contents: read  # Allows the action to securely read repository files
+
+jobs:
+  pypi-publish:
+    runs-on: ubuntu-latest
+    steps:
+    # 1. Pull the codebase
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 2. Setup Python environment
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: "3.10"
+
+    # 3. Install build tools
+    - name: Install Build Tools
+      run: |
+        python -m pip install --upgrade pip
+        pip install build
+
+    # 4. Generate the exact same package wheels (.whl and .tar.gz)
+    - name: Compile Package Archives
+      run: python -m build
+
+    # 5. Securely upload to PyPI using the Trusted Publisher configuration
+    - name: Publish Package to PyPI
+      uses: pypa/gh-action-pypi-publish@release/v1
