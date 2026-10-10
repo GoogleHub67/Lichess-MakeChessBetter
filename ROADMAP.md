@@ -15,7 +15,7 @@ This roadmap tracks planned features, performance optimizations, and upgrades fo
 
 ## 📅 Mid Term (Next Up)
 - [ ] Build out a web-based dashboard visualizer for live evaluation metrics.
-- [ ] Create a Docker setup for easier one-click bot hosting.
+- [X] Create a Docker setup for easier one-click bot hosting.
 - [ ] Implement automated integration tests using simulated chess games.
 
 ## 🔮 Long Term (Future Ideas)
