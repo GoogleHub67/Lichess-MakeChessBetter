@@ -2,7 +2,8 @@ name: Publish to PyPI on Release
 
 on:
   release:
-    types: [published] # Triggers only after a release is successfully created and published
+    types: [published] # Triggers automatically on new releases
+  workflow_dispatch:   # CRUCIAL: This forces the manual "Run workflow" button to appear!
 
 permissions:
   id-token: write # CRUCIAL: Allows PyPI to verify your GitHub identity without passwords!
