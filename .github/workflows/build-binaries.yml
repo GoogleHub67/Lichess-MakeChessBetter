@@ -1,4 +1,4 @@
-name: Build All 6 Cross-Platform Chess Assets
+name: Build All Cross-Platform Chess Assets
 on: [push, workflow_dispatch]
 
 jobs:
@@ -16,7 +16,7 @@ jobs:
             pyi_name: makechessbetter
             binary_ext: .exe
             lib_ext: .pyd
-            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / d o w n l o a d / s f _ 1 9 / s t o c k f i s h - w i n d o w s - x 8 6 - 6 4 - u n i v e r s a l . z i p"
+            sf_url: "https://github.com/official-stockfish/Stockfish/releases/download/sf_19/stockfish-windows-x86-64-universal.zip"
             sf_dest: "stockfish.exe"
           - os: ubuntu-latest
             artifact_name: linux-assets
@@ -24,7 +24,7 @@ jobs:
             pyi_name: makechessbetter-linux
             binary_ext: ''
             lib_ext: .so
-            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / d o w n l o a d / s f _ 1 9 / s t o c k f i s h - l i n u x - x 8 6 - 6 4 - u n i v e r s a l . t a r . g z"
+            sf_url: "https://github.com/official-stockfish/Stockfish/releases/download/sf_19/stockfish-linux-x86-64-universal.tar.gz"
             sf_dest: "stockfish"
           - os: macos-latest
             artifact_name: macos-assets
@@ -32,7 +32,7 @@ jobs:
             pyi_name: makechessbetter-mac
             binary_ext: ''
             lib_ext: .so
-            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / d o w n l o a d / s f _ 1 9 / s t o c k f i s h - m a c o s - u n i v e r s a l . t a r . g z"
+            sf_url: "https://github.com/official-stockfish/Stockfish/releases/download/sf_19/stockfish-macos-universal.tar.gz"
             sf_dest: "stockfish"
 
     steps:
@@ -134,6 +134,7 @@ jobs:
           fi
 
       # --- 5. UPLOAD USER-READY DISTRIBUTION FOLDER ---
+      # Corrected deprecated upload-artifact syntax parameters
       - name: Upload Finished Assets
         uses: actions/upload-artifact@v4
         with:
