@@ -4,7 +4,6 @@ import asyncio
 import json
 import logging
 import httpx
-import xml.etree.ElementTree as ET
 
 # Track down folder environments safely
 src_dir = os.path.dirname(os.path.abspath(__file__))
@@ -23,61 +22,6 @@ logging.basicConfig(
 log = logging.getLogger(__name__)
 
 BASE_URL = "https://lichess.org"
-
-
-def patch_config_via_xml():
-    """Parses config.xml and patches Config attributes dynamically in-memory."""
-    xml_path = os.path.join(project_root, "tests", "config.xml")
-    if not os.path.exists(xml_path):
-        log.warning(f"config.xml not found at {xml_path}. Relying on hardcoded defaults.")
-        return
-
-    try:
-        tree = ET.parse(xml_path)
-        root = tree.getroot()
-        game_settings = root.find("game_settings")
-        if game_settings is not None:
-            def_elo_node = game_settings.find("default_elo")
-            if def_elo_node is not None and def_elo_node.text:
-                Config.DEFAULT_ELO = int(def_elo_node.text)
-
-            decline_node = game_settings.find("decline_rated")
-            if decline_node is not None and decline_node.text:
-                Config.DECLINE_RATED = decline_node.text.lower() == "true"
-
-            variants_node = game_settings.find("accept_variants")
-            if variants_node is not None:
-                Config.ACCEPT_VARIANTS = [v.text for v in variants_node.findall("variant") if v.text]
-
-            tc_node = game_settings.find("accept_time_controls")
-            if tc_node is not None:
-                Config.ACCEPT_TIME_CONTROLS = [t.text for t in tc_node.findall("time_control") if t.text]
-
-        bot_chat = root.find("bot_chat")
-        if bot_chat is not None:
-            greet_node = bot_chat.find("greet")
-            if greet_node is not None and greet_node.text:
-                Config.CHAT_GREET = greet_node.text
-
-            off_book_node = bot_chat.find("off_book")
-            if off_book_node is not None and off_book_node.text:
-                Config.CHAT_OFF_BOOK = off_book_node.text
-
-            gg_node = bot_chat.find("gg")
-            if gg_node is not None and gg_node.text:
-                Config.CHAT_GG = gg_node.text
-
-            blunder_node = bot_chat.find("blunder_detected")
-            if blunder_node is not None and blunder_node.text:
-                Config.CHAT_BLUNDER_DETECTED = blunder_node.text
-        
-        log.info("In-memory patching completed successfully from config.xml!")
-    except Exception as e:
-        log.error(f"Failed to inject XML rules onto Config module attributes: {e}")
-
-
-# Run the configuration sync immediately before initialization
-patch_config_via_xml()
 
 
 class LichessBot:
@@ -181,22 +125,17 @@ class LichessBot:
             log.error(f"Game {game_id} error: {e}", exc_info=True)
 
 
-# 🛑 FIXED: Moved completely out of class scope (Zero Indentation)
 async def main():
     log.info("Initializing Chess Bot Wrapper...")
-    # Instantiate your bot handler cleanly
     bot = LichessBot()
-    # Await the start function to enter the listening loop block
     await bot.start()
 
 if __name__ == "__main__":
     try:
-        # Simplest way to run an async entrypoint program safely in Python 3.7+
         asyncio.run(main())
     except (KeyboardInterrupt, SystemExit):
         log.info("Shutting down bot process cleanly...")
     except Exception as e:
         log.critical(f"Unhandled loop crash: {e}", exc_info=True)
     finally:
-        # Fallback terminal catcher for compiled executables
         input("\nProcess finished. Press Enter to exit terminal...")
