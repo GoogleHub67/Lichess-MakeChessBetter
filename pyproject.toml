@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "MakeChessBetter"
+name = "Lichess-MakeChessBetter"
 version = "3.0.0"
 description = "My adaptive Lichess bot packaged as a library"
 readme = "README.md"
