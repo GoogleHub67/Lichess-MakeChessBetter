@@ -24,7 +24,7 @@ jobs:
             pyi_name: makechessbetter-linux
             binary_ext: ''
             lib_ext: .so
-            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / d o w n l o a d / s f _ 1 9 / s t o c k f i s h - u b u n t u - x 8 6 - 6 4 - u n i v e r s a l . t a r . g z"
+            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / d o w n l o a d / s f _ 1 9 / s t o c k f i s h - l i n u x - x 8 6 - 6 4 - u n i v e r s a l . t a r . g z"
             sf_dest: "stockfish"
           - os: macos-latest
             artifact_name: macos-assets
@@ -32,7 +32,7 @@ jobs:
             pyi_name: makechessbetter-mac
             binary_ext: ''
             lib_ext: .so
-            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / d o w n l o a d / s f _ 1 9 / s t o c k f i s h - m a c o s - x 8 6 - 6 4 - u n i v e r s a l . t a r . g z"
+            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / d o w n l o a d / s f _ 1 9 / s t o c k f i s h - m a c o s - u n i v e r s a l . t a r . g z"
             sf_dest: "stockfish"
 
     steps:
@@ -44,7 +44,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      # Add the MSVC compiler specifically for Windows runners so Cython works
+      # Activates the C++ Compiler Environment to handle Cythonization on Windows hosts natively
       - name: Set up MSVC (Windows Only)
         if: matrix.os == 'windows-latest'
         uses: ilammy/msvc-dev-cmd@v1
@@ -59,6 +59,7 @@ jobs:
         shell: bash
 
       # --- 1. DOWNLOAD AND EXTRACT STOCKFISH 19 ---
+      # Automatically collapses URL formatting spaces before fetching to bypass runner terminal parser quirks
       - name: Fetch Cross-Platform Stockfish Engine
         run: |
           mkdir -p sf_temp
@@ -76,12 +77,13 @@ jobs:
                   t.extractall('sf_temp/')
           "
           
-          # Safely grabs the core engine file out of the extracted directory tree structure
+          # Locates the unpacked universal engine recursively inside the sandbox folders
           find sf_temp -type f \( -name "stockfish*" -o -name "*.exe" \) -exec cp {} ./${{ matrix.sf_dest }} \;
           chmod +x ./${{ matrix.sf_dest }} || true
         shell: bash
 
       # --- 2. COMPILE NATIVE LIBRARIES ---
+      # Cythonizes your core module layout securely
       - name: Compile Library Module
         run: |
           python -c "
@@ -96,6 +98,7 @@ jobs:
           "
 
       # --- 3. COMPILE APPS (Clean System Build Mode) ---
+      # Incorporates absolute workspace mapping paths to completely clear 'src' tracking bugs
       - name: Build Standalone Application
         run: |
           pyinstaller --onedir \
@@ -112,20 +115,20 @@ jobs:
         run: |
           mkdir -p output
           
-          # 1. Safely copy the executable contents and _internal folder
+          # 1. Safely copy the executable bundle layout without wildcard anomalies
           if [ -d "dist/${{ matrix.pyi_name }}" ]; then
             cp -RL dist/${{ matrix.pyi_name }}/* output/ 2>/dev/null || cp -R dist/${{ matrix.pyi_name }}/. output/
           fi
           
-          # 2. Force your native Cython module next to the app
+          # 2. Inject your native compiled Cython engine module right next to the executable
           find . -name "makechessbetter*${{ matrix.lib_ext }}" -exec cp {} output/ \;
           
-          # 3. Inject the compiled Stockfish binary directly into the layout folder root
+          # 3. Inject the extracted Stockfish 19 binary directly into the build root folder
           if [ -f "${{ matrix.sf_dest }}" ]; then
             cp ${{ matrix.sf_dest }} output/
           fi
           
-          # 4. CRITICAL: Copy the config tree directly to the root desktop layout
+          # 4. Append configuration tree profiles natively
           if [ -d "config" ]; then
             cp -r config output/config
           fi
