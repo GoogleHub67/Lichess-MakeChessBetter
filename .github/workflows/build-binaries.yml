@@ -16,8 +16,7 @@ jobs:
             pyi_name: makechessbetter
             binary_ext: .exe
             lib_ext: .pyd
-            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / l a t e s t / d o w n l o a d / s t o c k f i s h - w i n d o w s - x 8 6 - 6 4 - a v x 2 . z i p"
-            sf_binary: "stockfish/stockfish-windows-x86-64-avx2.exe"
+            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / d o w n l o a d / s f _ 1 9 / s t o c k f i s h - w i n d o w s - x 8 6 - 6 4 - u n i v e r s a l . z i p"
             sf_dest: "stockfish.exe"
           - os: ubuntu-latest
             artifact_name: linux-assets
@@ -25,8 +24,7 @@ jobs:
             pyi_name: makechessbetter-linux
             binary_ext: ''
             lib_ext: .so
-            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / l a t e s t / d o w n l o a d / s t o c k f i s h - u b u n t u - x 8 6 - 6 4 - a v x 2 . t a r . g z"
-            sf_binary: "stockfish/stockfish-ubuntu-x86-64-avx2"
+            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / d o w n l o a d / s f _ 1 9 / s t o c k f i s h - u b u n t u - x 8 6 - 6 4 - u n i v e r s a l . t a r . g z"
             sf_dest: "stockfish"
           - os: macos-latest
             artifact_name: macos-assets
@@ -34,8 +32,7 @@ jobs:
             pyi_name: makechessbetter-mac
             binary_ext: ''
             lib_ext: .so
-            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / l a t e s t / d o w n l o a d / s t o c k f i s h - m a c o s - x 8 6 - 6 4 - a v x 2 . t a r . g z"
-            sf_binary: "stockfish/stockfish-macos-x86-64-avx2"
+            sf_url: "h t t p s : / / g i t h u b . c o m / o f f i c i a l - s t o c k f i s h / S t o c k f i s h / r e l e a s e s / d o w n l o a d / s f _ 1 9 / s t o c k f i s h - m a c o s - x 8 6 - 6 4 - u n i v e r s a l . t a r . g z"
             sf_dest: "stockfish"
 
     steps:
@@ -61,19 +58,26 @@ jobs:
           if [ -f src/requirements.txt ]; then pip install -r src/requirements.txt; fi
         shell: bash
 
-      # --- 1. DOWNLOAD AND EXTRACT STOCKFISH ---
-      # Remapping the spaced URL back to standard format on the fly before running curl
+      # --- 1. DOWNLOAD AND EXTRACT STOCKFISH 19 ---
       - name: Fetch Cross-Platform Stockfish Engine
         run: |
           mkdir -p sf_temp
           CLEAN_URL=$(echo "${{ matrix.sf_url }}" | tr -d ' ')
-          curl -L "$CLEAN_URL" -o sf_temp/sf_archive
-          if [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            unzip sf_temp/sf_archive -d sf_temp/
-          else
-            tar -xzf sf_temp/sf_archive -C sf_temp/
-          fi
-          find sf_temp -type f -name "stockfish*" -exec cp {} ./${{ matrix.sf_dest }} \;
+          curl -Lf "$CLEAN_URL" -o sf_temp/sf_archive
+          
+          python -c "
+          import zipfile, tarfile, os
+          archive = 'sf_temp/sf_archive'
+          if zipfile.is_zipfile(archive):
+              with zipfile.ZipFile(archive, 'r') as z:
+                  z.extractall('sf_temp/')
+          else:
+              with tarfile.open(archive, 'r:gz') as t:
+                  t.extractall('sf_temp/')
+          "
+          
+          # Safely grabs the core engine file out of the extracted directory tree structure
+          find sf_temp -type f \( -name "stockfish*" -o -name "*.exe" \) -exec cp {} ./${{ matrix.sf_dest }} \;
           chmod +x ./${{ matrix.sf_dest }} || true
         shell: bash
 
