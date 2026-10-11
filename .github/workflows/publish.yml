@@ -37,7 +37,7 @@ jobs:
     # 5. Automatically create a release and attach the wheels safely
     # The 'dist/' folder lives inside this temporary workflow instance and is discarded right after
     - name: Attach Binaries to GitHub Release Assets
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v3
       with:
         files: |
           dist/*.whl
