@@ -92,7 +92,7 @@ jobs:
           import sys
           
           setup(
-              ext_modules=cythonize(Extension('makechessbetter', ['src/bot.py'])),
+              ext_modules=cythonize(Extension('makechessbetter', ['src/Lichess_MakeChessBetter/bot.py'])),
               script_args=['build_ext', '--inplace']
           )
           "
@@ -104,9 +104,9 @@ jobs:
           pyinstaller --onedir \
             --name=${{ matrix.pyi_name }} \
             --paths=. \
-            --paths=src \
+            --paths=src/Lichess_MakeChessBetter \
             --hidden-import=dotenv \
-            src/bot.py
+            src/Lichess_MakeChessBetter/bot.py
         shell: bash
 
       # --- 4. FORMAT AND STAGE ASSETS FOR UPLOAD ---
