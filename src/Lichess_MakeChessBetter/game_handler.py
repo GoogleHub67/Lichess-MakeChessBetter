@@ -21,8 +21,8 @@ from skill_estimator import SkillEstimator
 from RateLimit429Stopper import RateLimitStopper  # 🟢 Import the rate throttling manager
 
 # 🟢 NEW PIPELINE IMPORTS: Connect your SQL modules
-from src.scout import scout_opponent_with_sql
-from src.history_manager import HistoryManager
+from scout import scout_opponent_with_sql
+from history_manager import HistoryManager
 
 log = logging.getLogger(__name__)
 BASE_URL = "https://lichess.org"
