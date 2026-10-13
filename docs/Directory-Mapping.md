@@ -1,6 +1,6 @@
 # 📂 Project Directory Mapping
 Auto-generated via GitHub Actions and [GitHubTree](https://githubtree.mgks.dev/repo/GoogleHub67/Lichess-MakeChessBetter/main/?sort=folder-az&style=classic)
-Last updated: Tue Oct 13 17:39:05 UTC 2026
+Last updated: Tue Oct 13 17:39:33 UTC 2026
 
 ```text
 
@@ -145,6 +145,7 @@ Last updated: Tue Oct 13 17:39:05 UTC 2026
 ├── src/
 │   ├── Lichess_MakeChessBetter/
 │   │   ├── __init__.py
+│   │   ├── app.py
 │   │   ├── bot.py
 │   │   ├── cron-job.py
 │   │   ├── game_handler.py
@@ -155,8 +156,7 @@ Last updated: Tue Oct 13 17:39:05 UTC 2026
 │   │   ├── scout.py
 │   │   ├── skill_estimator.py
 │   │   └── stockfish_check.py
-│   ├── .gitkeep
-│   └── app.py
+│   └── .gitkeep
 ├── tests/
 │   └── test_pipeline.py
 ├── .dockerignore
