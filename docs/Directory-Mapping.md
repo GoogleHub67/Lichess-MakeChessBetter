@@ -1,6 +1,6 @@
 # 📂 Project Directory Mapping
 Auto-generated via GitHub Actions and [GitHubTree](https://githubtree.mgks.dev/repo/GoogleHub67/Lichess-MakeChessBetter/main/?sort=folder-az&style=classic)
-Last updated: Fri Oct 16 17:38:04 UTC 2026
+Last updated: Fri Oct 16 17:38:33 UTC 2026
 
 ```text
 
@@ -118,7 +118,6 @@ Last updated: Fri Oct 16 17:38:04 UTC 2026
 │   ├── source/
 │   │   ├── conf.py
 │   │   └── index.rst
-│   ├── _Sidebar.md
 │   ├── Advanced‐CI‐CD‐Automation.md
 │   ├── Advanced‐Framework.md
 │   ├── API-Programmatic-Reference.md
