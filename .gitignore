@@ -221,3 +221,7 @@ bot.log
 !.vscode/settings.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+# Explicitly force Git to track the .ai directory and its contents
+!.ai/
+!.ai/**
