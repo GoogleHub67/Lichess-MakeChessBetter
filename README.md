@@ -13,11 +13,10 @@
 4. [Core Features](#4-core-features)
 5. [Prerequisites & System Requirements](#5-prerequisites--system-requirements)
 6. [Installation Blueprint](#6-installation-blueprint)
-8. [Environement Configuration](#8-environment-configuration)
-9. [Deployed Bot](#9-deployed-bot)
-10. [Advanced Usage Framework](#10-advanced-usage-framework)
-11. [Troubleshooting & Diagnostics](#12-troubleshooting--diagnostics)
-12. [Performance Fine-Tuning](#13-performance-fine-tuning)
+7. [Environement Configuration](#8-environment-configuration)
+8. [Deployed Bot](#9-deployed-bot)
+9. [Advanced Usage Framework](#10-advanced-usage-framework)
+10. [Troubleshooting & Diagnostics](#12-troubleshooting--diagnostics)
 
 ---
 
@@ -119,10 +118,5 @@ python -m src.bot
 * **Flashing Window/Instant Exit:** Avoid clicking raw module paths directly from the explorer window. Launch the module commands manually from an already open terminal window to capture active error flags.
 * **401 Authentication Validation Errors:** Confirm your token features the authorized `bot:play` permission configuration.
 * **Engine Connection Timeout:** Ensure path variables in `config.py` point directly to legitimate engine instances.
-
-## 11. Performance Fine-Tuning
-Optimize your engine properties for low-latency calculations:
-* **Core Distribution:** Align the calculation process properties explicitly with actual machine CPU core limitations.
-* **Hash Optimization:** Raise local allocation ceilings (e.g., to 2048MB) within your script configuration values to accelerate high-depth searches.
 
 # pipeline refresh
