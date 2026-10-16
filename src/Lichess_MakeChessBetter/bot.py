@@ -48,7 +48,7 @@ class LichessBot:
                 log.info("Upgrading to BOT account...")
                 await client.post("/api/bot/account/upgrade")
 
-        log.info({profile['username']}, " is ONLINE")
+        log.info(f"{profile['username']} is ONLINE")
         await self._stream_events()
 
     async def _stream_events(self):
