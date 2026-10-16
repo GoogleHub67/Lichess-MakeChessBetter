@@ -13,14 +13,11 @@
 4. [Core Features](#4-core-features)
 5. [Prerequisites & System Requirements](#5-prerequisites--system-requirements)
 6. [Installation Blueprint](#6-installation-blueprint)
-7. [Setup Guide](#7-setup-guide)
 8. [Environement Configuration](#8-environment-configuration)
 9. [Deployed Bot](#9-deployed-bot)
 10. [Advanced Usage Framework](#10-advanced-usage-framework)
-11. [API & Programmatic Reference](#11-api--programmatic-reference)
-12. [Troubleshooting & Diagnostics](#12-troubleshooting--diagnostics)
-13. [Performance Fine-Tuning](#13-performance-fine-tuning)
-14. [Future Roadmap](#14-future-roadmap)
+11. [Troubleshooting & Diagnostics](#12-troubleshooting--diagnostics)
+12. [Performance Fine-Tuning](#13-performance-fine-tuning)
 
 ---
 
@@ -71,32 +68,32 @@ The system reads gameplay states continuously via streaming long-lived TCP conne
 ## 6. Installation Blueprint
 To deploy using the pre-compiled Python distribution packaging wheels, run the installation sequence directly through your tool terminal:
 ```bash
-pip install MakeChessBetter-2.0.1-py3-none-any.whl
+pip install MakeChessBetter-3.0.1.post1-py3-none-any.whl
 ```
 To run directly from the raw source code compression archive, unpack the package components manually:
 ```bash
-tar -xvf MakeChessBetter-2.0.1.tar.gz
-cd MakeChessBetter-2.0.1
+tar -xvf MakeChessBetter-3.0.0.post1.tar.gz
+cd MakeChessBetter-3.0.1.post1
 pip install -r requirements.txt
 ```
 
-## 7. Setup Guide
-To set up your environment and bot, go directly to [./scripts/README.md](./scripts/README.md) for setup guide.
+> [!TIP]
+> To set up your environment and bot, go directly to [./scripts/README.md](./scripts/README.md) for setup guide, or you can download our binaries mentioned in our Releases tab.
 
-## 8. Environment Configuration
+## 7. Environment Configuration
 The application consumes standard credentials through an active `.env` configuration template or a localized configuration layout. Create a `config.yml` block in your workspace path:
 ```yaml
 token: "lip_YOUR_SECURE_LICHESS_API_TOKEN"
 engine:
-  path: "./stockfish-windows-x86-64-avx2.exe"
-  variants: "./fairy-stockfish-largeboard_x86-64.exe"
+  path: "./stockfish"
+  variants: "./fairy-stockfish"
 ```
 Alternatively, apply configuration rules directly using a root `.env` template parameter configuration:
 ```env
 LICHESS_TOKEN=lip_yourtoken
 ```
 
-## 9. Deployed Bot
+## 8. Deployed Bot
 The backend server is live on Render: [Live Server Status](https://lichess-inappropriate-bot.onrender.com/)
 
 **How to Play / Interact:**
@@ -106,7 +103,7 @@ Since this is a backend Lichess bot, you don't interact with the Render link dir
 3. Challenge the bot to a game or send it a message to see it in action!
 
 
-## 10. Advanced Usage Framework
+## 9. Advanced Usage Framework
 Launch the tool package command interface execution entry point natively via the active console window:
 ```bash
 MakeChessBetter
@@ -118,18 +115,12 @@ python -m src.bot
 * **Silent Mode Execution (Windows):** Suppress the command console pop-up layer by utilizing `pythonw bot.py`.
 * **Detached Runtime (Linux/Mac):** Maintain long-term execution after dropping SSH sessions via `nohup python bot.py &`.
 
-## 11. API & Programmatic Reference
-The internal handlers parse data properties streaming from Lichess's public development entry channels:
-* `GET /api/stream/event`: Establishes the real-time event pipeline to intercept Incoming game challenges.
-* `POST /api/bot/game/{gameId}/move/{move}`: Ships calculated chess engine calculations back to the board matrix.
-* `POST /api/bot/game/{gameId}/chat`: Emits automated status alerts directly to the in-game log panel.
-
-## 12. Troubleshooting & Diagnostics
+## 10. Troubleshooting & Diagnostics
 * **Flashing Window/Instant Exit:** Avoid clicking raw module paths directly from the explorer window. Launch the module commands manually from an already open terminal window to capture active error flags.
 * **401 Authentication Validation Errors:** Confirm your token features the authorized `bot:play` permission configuration.
 * **Engine Connection Timeout:** Ensure path variables in `config.py` point directly to legitimate engine instances.
 
-## 13. Performance Fine-Tuning
+## 11. Performance Fine-Tuning
 Optimize your engine properties for low-latency calculations:
 * **Core Distribution:** Align the calculation process properties explicitly with actual machine CPU core limitations.
 * **Hash Optimization:** Raise local allocation ceilings (e.g., to 2048MB) within your script configuration values to accelerate high-depth searches.
