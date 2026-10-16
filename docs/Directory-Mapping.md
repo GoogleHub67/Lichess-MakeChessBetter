@@ -1,6 +1,6 @@
 # 📂 Project Directory Mapping
 Auto-generated via GitHub Actions and [GitHubTree](https://githubtree.mgks.dev/repo/GoogleHub67/Lichess-MakeChessBetter/main/?sort=folder-az&style=classic)
-Last updated: Fri Oct 16 17:37:35 UTC 2026
+Last updated: Fri Oct 16 17:37:50 UTC 2026
 
 ```text
 
@@ -134,7 +134,8 @@ Last updated: Fri Oct 16 17:37:35 UTC 2026
 │   ├── Project-and-Module-Explanations.md
 │   ├── Raspberry-Pi.md
 │   ├── Render‐Deployment‐Guide.md
-│   └── Security‐And‐Fair‐Play.md
+│   ├── Security‐And‐Fair‐Play.md
+│   └── Troubleshooting-and-Diagnostics.md
 ├── scripts/
 │   ├── launch/
 │   │   ├── launch_unix.sh
