@@ -13,10 +13,9 @@
 4. [Core Features](#4-core-features)
 5. [Prerequisites & System Requirements](#5-prerequisites--system-requirements)
 6. [Installation Blueprint](#6-installation-blueprint)
-7. [Environement Configuration](#8-environment-configuration)
-8. [Deployed Bot](#9-deployed-bot)
-9. [Advanced Usage Framework](#10-advanced-usage-framework)
-10. [Troubleshooting & Diagnostics](#12-troubleshooting--diagnostics)
+7. [Environement Configuration](#7-environment-configuration)
+8. [Deployed Bot](#8-deployed-bot)
+9. [Advanced Usage Framework](#9-advanced-usage-framework)
 
 ---
 
@@ -113,10 +112,5 @@ python -m src.bot
 ```
 * **Silent Mode Execution (Windows):** Suppress the command console pop-up layer by utilizing `pythonw bot.py`.
 * **Detached Runtime (Linux/Mac):** Maintain long-term execution after dropping SSH sessions via `nohup python bot.py &`.
-
-## 10. Troubleshooting & Diagnostics
-* **Flashing Window/Instant Exit:** Avoid clicking raw module paths directly from the explorer window. Launch the module commands manually from an already open terminal window to capture active error flags.
-* **401 Authentication Validation Errors:** Confirm your token features the authorized `bot:play` permission configuration.
-* **Engine Connection Timeout:** Ensure path variables in `config.py` point directly to legitimate engine instances.
 
 # pipeline refresh
