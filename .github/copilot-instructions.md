@@ -1,7 +1,10 @@
-# Repository Agent Guidelines
-This repository contains a modular army of 51 specialized agents located in `.github/agents/`.
+# Repository Architecture & Assistant Rules
 
-## Operational Requirements
-1. Before writing any Python code or interacting with the Lichess API, scan `.github/agents/` to locate the persona markdown file matching your specific task.
-2. Adopt the localized rule sets, parameters, and structural constraints defined in that respective `*.agent.md` file.
-3. Validate all code changes using the environment dependencies compiled by `.github/workflows/copilot-setup-steps.yml`.
+## The Agent Matrix
+This repository contains a modular army of 51 specialized assistants located inside `.github/agents/`. Each file ends with `*.agent.md`.
+
+## Mandatory AI Execution Path
+1. Before writing, modifying, or auditing any code in this repository, scan the `.github/agents/` directory.
+2. Select the specific assistant file that matches the task requested (e.g., use `chess-logic.agent.md` for algorithm edits or `lichess-api.agent.md` for endpoint adjustments).
+3. Strictly adopt the localized rules, constraints, and system prompts declared inside that agent's file.
+4. Verify that any code you write passes the dependencies and environment validations built by `.github/workflows/copilot-setup-steps.yml`.
