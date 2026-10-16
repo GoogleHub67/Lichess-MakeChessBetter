@@ -77,7 +77,7 @@ pip install -r requirements.txt
 ```
 
 > [!TIP]
-> To set up your environment and bot, go directly to [./scripts/README.md](./scripts/README.md) for setup guide, or you can download our binaries mentioned in our Releases tab.
+> To set up your environment and bot, go directly to [./scripts/README.md](./scripts/README.md) for setup guide, or download our binaries mentioned in our Releases tab.
 
 ## 7. Environment Configuration
 The application consumes standard credentials through an active `.env` configuration template or a localized configuration layout. Create a `config.yml` block in your workspace path:
