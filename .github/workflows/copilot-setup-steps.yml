@@ -1,43 +1,37 @@
-name: Copilot Setup Steps
+name: "Copilot Setup Steps"
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 jobs:
-  # The job name must be exactly 'copilot-setup-steps' for the agent to recognize it
   copilot-setup-steps:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository Code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set Up Python Environment
+      # Installs Python so Copilot assistants can test scripts natively
+      - name: Configure Python Runner
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip' # Speeds up subsequent pipeline runs
+          cache: 'pip'
 
-      - name: Install Linting & Core Tools
+      # Installs your linter so your agents don't generate messy code
+      - name: Sync Quality Tools
         run: |
           python -m pip install --upgrade pip
           pip install ruff
 
-      - name: Verify Environment Configuration
-        run: |
-          python --version
-          ruff --version
-
-      - name: Install Application Dependencies
+      # Installs your project requirements so Copilot can safely run imports
+      - name: Build Application Context
         run: |
           if [ -f requirements.txt ]; then
             pip install -r requirements.txt
           elif [ -f pyproject.toml ]; then
             pip install .
           else
-            echo "No dependency manifest file discovered. Skipping package installation."
+            echo "No package manifest detected. Processing workspace as-is."
           fi
