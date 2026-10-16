@@ -1,7 +1,7 @@
 import os
 import sqlite3
-from src.scout import scout_opponent_with_sql
-from src.history_manager import HistoryManager
+from src.Lichess_MakeChessBetter.scout import scout_opponent_with_sql
+from src.Lichess_MakeChessBetter.history_manager import HistoryManager
 
 # Locate the database file path by stepping up out of the tests folder
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
