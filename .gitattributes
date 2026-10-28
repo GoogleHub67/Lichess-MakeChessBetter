@@ -22,3 +22,27 @@ requirements.txt text eol=lf
 *.pyo binary
 .pytest_cache/ binary
 __pycache__/ binary
+
+# 5. Recognition of languages by Github Linguist (Good for keeping the language stats bar)
+
+# --- Force Data Formats into Stats ---
+*.toml linguist-detectable=true linguist-language=TOML
+*.json linguist-detectable=true linguist-language=JSON
+*.yml linguist-detectable=true linguist-language=YAML
+*.yaml linguist-detectable=true linguist-language=YAML
+
+# --- Force Prose & Text into Stats ---
+*.md linguist-detectable=true linguist-language=Markdown
+*.rst linguist-detectable=true linguist-language=ReStructuredText
+*.txt linguist-detectable=true linguist-language=Text
+
+# --- Force Config, Meta, & Extensionless Files into Stats ---
+*.in linguist-detectable=true linguist-language=INI
+*.default linguist-detectable=true linguist-language=Text
+*.example linguist-detectable=true linguist-language=Text
+.gitkeep linguist-detectable=true linguist-language=Text
+.gitattributes linguist-detectable=true linguist-language=Git-Attributes
+.gitignore linguist-detectable=true linguist-language=Ignore-List
+.editorconfig linguist-detectable=true linguist-language=INI
+CODEOWNERS linguist-detectable=true linguist-language=Text
+.dockerignore linguist-detectable=true linguist-language=Ignore-List
